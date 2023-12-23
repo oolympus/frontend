@@ -24,7 +24,7 @@ import type { Loan, LoanStatus } from 'src/types/loan';
 import { getCustomers } from 'src/api/customers/data';
 
 const statusMap: Record<LoanStatus, string> = {
-	canceled: 'warning',
+	cancelled: 'warning',
 	complete: 'success',
 	pending: 'info',
 	rejected: 'error',
@@ -37,16 +37,16 @@ interface LoanDetailsProps {
 	loan: Loan;
 }
 
-export const LoanDetails: FC<LoanDetailsProps> = (props) => {
+export const LoanDetails: FC<LoanDetailsProps> = ( props ) => {
 	const { onApprove, onEdit, onReject, loan } = props;
-	const lgUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
+	const lgUp = useMediaQuery( ( theme: Theme ) => theme.breakpoints.up( 'lg' ) );
 
 	const align = lgUp ? 'horizontal' : 'vertical';
-	const createdAt = format(new Date(loan.application_time), 'dd/MM/yyyy HH:mm');
+	const createdAt = format( new Date( loan.application_time ), 'dd/MM/yyyy HH:mm' );
 	const statusColor = statusMap[loan.loan_status] as SeverityPillColor;
-	const totalAmount = numeral(loan.amount_payable).format(`$0,0.00`);
+	const totalAmount = numeral( loan.amount_payable ).format( `$0,0.00` );
 
-	const customer = getCustomers(1)[0];
+	const customer = getCustomers( 1 )[0];
 
 	return (
 		<Stack spacing={6}>
@@ -171,7 +171,7 @@ export const LoanDetails: FC<LoanDetailsProps> = (props) => {
 				</Stack>
 			</Stack>
 			<Stack spacing={3}>
-				<Typography variant="h6">Line items</Typography>
+				<Typography variant="h6">Loan items</Typography>
 				<Scrollbar>
 					<Table sx={{ minWidth: 400 }}>
 						<TableHead>

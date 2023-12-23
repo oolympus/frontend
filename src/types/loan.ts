@@ -7,7 +7,7 @@ export interface LoanItem {
 	unitAmount: number;
 }
 
-export type LoanStatus = 'canceled' | 'complete' | 'pending' | 'rejected';
+export type LoanStatus = 'cancelled' | 'complete' | 'pending' | 'rejected';
 
 export interface Loan {
 	id: string;

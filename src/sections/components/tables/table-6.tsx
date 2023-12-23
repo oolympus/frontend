@@ -28,7 +28,7 @@ import { SeverityPill } from 'src/components/severity-pill';
 
 const now = new Date();
 
-type InvoiceStatus = 'canceled' | 'paid' | 'pending';
+type InvoiceStatus = 'cancelled' | 'paid' | 'pending';
 
 interface Invoice {
 	id: string;
@@ -50,7 +50,7 @@ const invoices: Invoice[] = [
 			email: 'contact@anahenisky.io',
 			name: 'Ana Henisky',
 		},
-		issueDate: subHours(now, 1).getTime(),
+		issueDate: subHours( now, 1 ).getTime(),
 		status: 'paid',
 		totalAmount: 55.5,
 	},
@@ -61,7 +61,7 @@ const invoices: Invoice[] = [
 			email: 'sales@matt-jason.com',
 			name: 'Matt Jason',
 		},
-		issueDate: subDays(subHours(now, 5), 2).getTime(),
+		issueDate: subDays( subHours( now, 5 ), 2 ).getTime(),
 		status: 'pending',
 		totalAmount: 19.76,
 	},
@@ -72,8 +72,8 @@ const invoices: Invoice[] = [
 			email: 'support@terrythomas.io',
 			name: 'Terry Thomas',
 		},
-		issueDate: subDays(subHours(now, 4), 6).getTime(),
-		status: 'canceled',
+		issueDate: subDays( subHours( now, 4 ), 6 ).getTime(),
+		status: 'cancelled',
 		totalAmount: 781.5,
 	},
 	{
@@ -83,7 +83,7 @@ const invoices: Invoice[] = [
 			email: 'contact@triv-shopper.co.uk',
 			name: 'Triv Shopper',
 		},
-		issueDate: subDays(subHours(now, 2), 15).getTime(),
+		issueDate: subDays( subHours( now, 2 ), 15 ).getTime(),
 		status: 'paid',
 		totalAmount: 96.64,
 	},
@@ -109,7 +109,7 @@ const statusOptions: Option[] = [
 	},
 	{
 		label: 'Canceled',
-		value: 'canceled',
+		value: 'cancelled',
 	},
 ];
 
@@ -124,9 +124,9 @@ const sortOptions: Option[] = [
 	},
 ];
 
-const getStatusPill = (invoiceStatus: InvoiceStatus): JSX.Element => {
+const getStatusPill = ( invoiceStatus: InvoiceStatus ): JSX.Element => {
 	const map: Record<InvoiceStatus, { color: SeverityPillColor; text: string }> = {
-		canceled: {
+		cancelled: {
 			color: 'error',
 			text: 'Canceled',
 		},
@@ -148,7 +148,7 @@ const getStatusPill = (invoiceStatus: InvoiceStatus): JSX.Element => {
 export const Table6: FC = () => (
 	<Box
 		sx={{
-			backgroundColor: (theme) => (theme.palette.mode === 'dark' ? 'neutral.800' : 'neutral.100'),
+			backgroundColor: ( theme ) => ( theme.palette.mode === 'dark' ? 'neutral.800' : 'neutral.100' ),
 			p: 3,
 		}}
 	>
@@ -186,14 +186,14 @@ export const Table6: FC = () => (
 						width: 240,
 					}}
 				>
-					{sortOptions.map((option) => (
+					{sortOptions.map( ( option ) => (
 						<option
 							key={option.value}
 							value={option.value}
 						>
 							{option.label}
 						</option>
-					))}
+					) )}
 				</TextField>
 				<TextField
 					fullWidth
@@ -206,14 +206,14 @@ export const Table6: FC = () => (
 						width: 240,
 					}}
 				>
-					{statusOptions.map((option) => (
+					{statusOptions.map( ( option ) => (
 						<option
 							key={option.value}
 							value={option.value}
 						>
 							{option.label}
 						</option>
-					))}
+					) )}
 				</TextField>
 			</Stack>
 			<Scrollbar>
@@ -232,10 +232,10 @@ export const Table6: FC = () => (
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{invoices.map((invoice) => {
-							const totalAmount = numeral(invoice.totalAmount).format(`${invoice.currency}0,0.00`);
-							const issueDate = format(invoice.issueDate, 'dd/MM/yyyy');
-							const statusPill = getStatusPill(invoice.status);
+						{invoices.map( ( invoice ) => {
+							const totalAmount = numeral( invoice.totalAmount ).format( `${invoice.currency}0,0.00` );
+							const issueDate = format( invoice.issueDate, 'dd/MM/yyyy' );
+							const statusPill = getStatusPill( invoice.status );
 
 							return (
 								<TableRow
@@ -278,15 +278,15 @@ export const Table6: FC = () => (
 									</TableCell>
 								</TableRow>
 							);
-						})}
+						} )}
 					</TableBody>
 				</Table>
 			</Scrollbar>
 			<TablePagination
 				component="div"
 				count={invoices.length}
-				onPageChange={() => {}}
-				onRowsPerPageChange={() => {}}
+				onPageChange={() => { }}
+				onRowsPerPageChange={() => { }}
 				page={0}
 				rowsPerPage={5}
 				rowsPerPageOptions={[5, 10, 25]}

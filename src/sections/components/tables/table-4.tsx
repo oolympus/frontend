@@ -25,7 +25,7 @@ import { SeverityPill } from 'src/components/severity-pill';
 
 const now = new Date();
 
-type LoanStatus = 'canceled' | 'complete' | 'pending' | 'rejected';
+type LoanStatus = 'cancelled' | 'complete' | 'pending' | 'rejected';
 
 interface Loan {
 	id: string;
@@ -44,7 +44,7 @@ interface Loan {
 const loans: Loan[] = [
 	{
 		id: '5ecb8a6d9f53bfae09e16115',
-		createdAt: subMinutes(subSeconds(now, 23), 32).getTime(),
+		createdAt: subMinutes( subSeconds( now, 23 ), 32 ).getTime(),
 		currency: '$',
 		customer: {
 			email: 'carson.darrin@olympus.com',
@@ -57,7 +57,7 @@ const loans: Loan[] = [
 	},
 	{
 		id: '5ecb8a738aa6f3e577c2b3ec',
-		createdAt: subMinutes(subSeconds(now, 51), 36).getTime(),
+		createdAt: subMinutes( subSeconds( now, 51 ), 36 ).getTime(),
 		currency: '$',
 		customer: {
 			email: 'fran.perez@olympus.com',
@@ -70,7 +70,7 @@ const loans: Loan[] = [
 	},
 	{
 		id: '5ecb8a795e53f134013eba3b',
-		createdAt: subMinutes(subSeconds(now, 55), 38).getTime(),
+		createdAt: subMinutes( subSeconds( now, 55 ), 38 ).getTime(),
 		currency: '$',
 		customer: {
 			email: 'jie.yan.song@olympus.com',
@@ -83,7 +83,7 @@ const loans: Loan[] = [
 	},
 	{
 		id: '5ecb8a7f738cc572a9ce0277',
-		createdAt: subMinutes(subSeconds(now, 3), 40).getTime(),
+		createdAt: subMinutes( subSeconds( now, 3 ), 40 ).getTime(),
 		currency: '$',
 		customer: {
 			email: 'clarke.gillebert@olympus.com',
@@ -96,7 +96,7 @@ const loans: Loan[] = [
 	},
 	{
 		id: '5e86805e2bafd54f66cc95c3',
-		createdAt: subMinutes(subSeconds(now, 32), 45).getTime(),
+		createdAt: subMinutes( subSeconds( now, 32 ), 45 ).getTime(),
 		currency: '$',
 		customer: {
 			email: 'miron.vitold@olympus.com',
@@ -109,9 +109,9 @@ const loans: Loan[] = [
 	},
 ];
 
-const getStatusPill = (loanStatus: LoanStatus): JSX.Element => {
+const getStatusPill = ( loanStatus: LoanStatus ): JSX.Element => {
 	const map: Record<LoanStatus, { color: SeverityPillColor; text: string }> = {
-		canceled: {
+		cancelled: {
 			color: 'error',
 			text: 'Canceled',
 		},
@@ -137,7 +137,7 @@ const getStatusPill = (loanStatus: LoanStatus): JSX.Element => {
 export const Table4: FC = () => (
 	<Box
 		sx={{
-			backgroundColor: (theme) => (theme.palette.mode === 'dark' ? 'neutral.800' : 'neutral.100'),
+			backgroundColor: ( theme ) => ( theme.palette.mode === 'dark' ? 'neutral.800' : 'neutral.100' ),
 			p: 3,
 		}}
 	>
@@ -169,10 +169,10 @@ export const Table4: FC = () => (
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{loans.map((loan) => {
-							const createdAt = format(loan.createdAt, 'dd MMM yyyy | HH:mm');
-							const totalAmount = numeral(loan.totalAmount).format(`${loan.currency}0,0.00`);
-							const statusPill = getStatusPill(loan.status);
+						{loans.map( ( loan ) => {
+							const createdAt = format( loan.createdAt, 'dd MMM yyyy | HH:mm' );
+							const totalAmount = numeral( loan.totalAmount ).format( `${loan.currency}0,0.00` );
+							const statusPill = getStatusPill( loan.status );
 
 							return (
 								<TableRow
@@ -217,15 +217,15 @@ export const Table4: FC = () => (
 									</TableCell>
 								</TableRow>
 							);
-						})}
+						} )}
 					</TableBody>
 				</Table>
 			</Scrollbar>
 			<TablePagination
 				component="div"
 				count={loans.length}
-				onPageChange={() => {}}
-				onRowsPerPageChange={() => {}}
+				onPageChange={() => { }}
+				onRowsPerPageChange={() => { }}
 				page={0}
 				rowsPerPage={5}
 				rowsPerPageOptions={[5, 10, 25]}

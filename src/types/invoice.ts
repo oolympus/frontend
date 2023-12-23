@@ -15,7 +15,7 @@ interface InvoiceItem {
 	unitAmount: number;
 }
 
-export type InvoiceStatus = 'canceled' | 'paid' | 'pending';
+export type InvoiceStatus = 'cancelled' | 'paid' | 'pending';
 
 export interface Invoice {
 	id: string;

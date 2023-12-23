@@ -17,25 +17,25 @@ import type { Loan, LoanStatus } from 'src/types/loan';
 const statusMap: Record<LoanStatus, SeverityPillColor> = {
 	complete: 'success',
 	pending: 'info',
-	canceled: 'warning',
+	cancelled: 'warning',
 	rejected: 'error',
 };
 
 interface LoanListTableProps {
 	count?: number;
 	items?: Loan[];
-	onPageChange?: (event: MouseEvent<HTMLButtonElement> | null, newPage: number) => void;
-	onRowsPerPageChange?: (event: ChangeEvent<HTMLInputElement>) => void;
-	onSelect?: (loanId: string) => void;
+	onPageChange?: ( event: MouseEvent<HTMLButtonElement> | null, newPage: number ) => void;
+	onRowsPerPageChange?: ( event: ChangeEvent<HTMLInputElement> ) => void;
+	onSelect?: ( loanId: string ) => void;
 	page?: number;
 	rowsPerPage?: number;
 }
 
-export const LoanListTable: FC<LoanListTableProps> = (props) => {
+export const LoanListTable: FC<LoanListTableProps> = ( props ) => {
 	const {
 		count = 0,
 		items = [],
-		onPageChange = () => {},
+		onPageChange = () => { },
 		onRowsPerPageChange,
 		onSelect,
 		page = 0,
@@ -46,17 +46,17 @@ export const LoanListTable: FC<LoanListTableProps> = (props) => {
 		<div>
 			<Table>
 				<TableBody>
-					{items.map((loan) => {
-						const createdAtMonth = format(new Date(loan.application_time), 'MMMM').slice(0, 3);
-						const createdAtDay = format(new Date(loan.application_time), 'dd');
-						const totalAmount = numeral(loan.amount_payable).format(`$0,0.00`);
+					{items.map( ( loan ) => {
+						const createdAtMonth = format( new Date( loan.application_time ), 'MMMM' ).slice( 0, 3 );
+						const createdAtDay = format( new Date( loan.application_time ), 'dd' );
+						const totalAmount = numeral( loan.amount_payable ).format( `$0,0.00` );
 						const statusColor = statusMap[loan.loan_status] || 'warning';
 
 						return (
 							<TableRow
 								hover
 								key={loan.id}
-								onClick={() => onSelect?.(loan.id)}
+								onClick={() => onSelect?.( loan.id )}
 								sx={{ cursor: 'pointer' }}
 							>
 								<TableCell
@@ -67,7 +67,7 @@ export const LoanListTable: FC<LoanListTableProps> = (props) => {
 								>
 									<Box
 										sx={{
-											backgroundColor: (theme) =>
+											backgroundColor: ( theme ) =>
 												theme.palette.mode === 'dark' ? 'neutral.800' : 'neutral.200',
 											borderRadius: 2,
 											maxWidth: 'fit-content',
@@ -103,7 +103,7 @@ export const LoanListTable: FC<LoanListTableProps> = (props) => {
 								</TableCell>
 							</TableRow>
 						);
-					})}
+					} )}
 				</TableBody>
 			</Table>
 			<TablePagination

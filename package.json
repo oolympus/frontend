@@ -1,8 +1,7 @@
 {
-	"name": "@olympus-kit-pro/vite",
-	"version": "6.4.2",
-	"author": "Devias",
-	"homepage": "https://olympus.com",
+	"name": "olympus",
+	"author": "ianbalijawa",
+	"homepage": "https://olympus-delta.vercel.app",
 	"private": true,
 	"scripts": {
 		"dev": "vite",
