@@ -41,21 +41,21 @@ const products: Product[] = [
 ];
 
 export const Form14: FC = () => {
-	const subtotalAmount = numeral( 20 ).format( '$00.00' );
-	const shippingAmount = numeral( 10 ).format( '$00.00' );
-	const totalAmount = numeral( 12 ).format( '$00.00' );
+	const subtotalAmount = numeral(20).format('$00.00');
+	const shippingAmount = numeral(10).format('$00.00');
+	const totalAmount = numeral(12).format('$00.00');
 
 	return (
 		<Box sx={{ p: 3 }}>
-			<form onSubmit={( event ) => event.preventDefault()}>
+			<form onSubmit={(event) => event.preventDefault()}>
 				<Card
 					sx={{ p: 3 }}
 					variant="outlined"
 				>
 					<Typography variant="h6">Loan Summary</Typography>
 					<List sx={{ mt: 2 }}>
-						{products.map( ( product ) => {
-							const price = numeral( product.price ).format( '$00.00' );
+						{products.map((product) => {
+							const price = numeral(product.price).format('$00.00');
 
 							return (
 								<ListItem
@@ -120,7 +120,7 @@ export const Form14: FC = () => {
 									</ListItemSecondaryAction>
 								</ListItem>
 							);
-						} )}
+						})}
 					</List>
 					<TextField
 						fullWidth

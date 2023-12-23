@@ -26,10 +26,10 @@ import { Loan } from 'src/types/loan';
 interface AccountDetailsSettingsProps {
 	plan?: string;
 	loans?: Loan[];
-	user: Customer
+	user: Customer;
 }
 
-export const AccountDetailsSettings: FC<AccountDetailsSettingsProps> = ( props ) => {
+export const AccountDetailsSettings: FC<AccountDetailsSettingsProps> = (props) => {
 	const { user, loans = [] } = props;
 
 	return (
@@ -44,7 +44,7 @@ export const AccountDetailsSettings: FC<AccountDetailsSettingsProps> = ( props )
 							alignItems: 'center',
 							display: 'flex',
 							justifyContent: 'space-between',
-							marginTop: 2
+							marginTop: 2,
 						}}
 					>
 						<Typography variant="h6">Details</Typography>
@@ -151,9 +151,9 @@ export const AccountDetailsSettings: FC<AccountDetailsSettingsProps> = ( props )
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{loans.map( ( loan ) => {
-							const createdAt = new Date( loan.application_time ).toLocaleDateString();
-							const amount = numeral( loan.amount_payable ).format( '$0,0.00' );
+						{loans.map((loan) => {
+							const createdAt = new Date(loan.application_time).toLocaleDateString();
+							const amount = numeral(loan.amount_payable).format('$0,0.00');
 
 							return (
 								<TableRow key={loan.id}>
@@ -173,7 +173,7 @@ export const AccountDetailsSettings: FC<AccountDetailsSettingsProps> = ( props )
 									</TableCell>
 								</TableRow>
 							);
-						} )}
+						})}
 					</TableBody>
 				</Table>
 			</Card>

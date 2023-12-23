@@ -27,12 +27,12 @@ interface Email {
 const emails: Email[] = [
 	{
 		id: '5ece2ce3613486d95ffaea58',
-		createdAt: subDays( subHours( subMinutes( now, 34 ), 5 ), 3 ).getTime(),
+		createdAt: subDays(subHours(subMinutes(now, 34), 5), 3).getTime(),
 		description: 'Loan confirmation',
 	},
 	{
 		id: '5ece2ce8cebf7ad1d100c0cd',
-		createdAt: subDays( subHours( subMinutes( now, 49 ), 11 ), 4 ).getTime(),
+		createdAt: subDays(subHours(subMinutes(now, 49), 11), 4).getTime(),
 		description: 'Loan confirmation',
 	},
 ];
@@ -40,12 +40,12 @@ const emails: Email[] = [
 const emailOptions = ['Resend last invoice', 'Send password reset', 'Send verification'];
 
 export const DetailList4: FC = () => {
-	const [emailOption, setEmailOption] = useState<string>( emailOptions[0] );
+	const [emailOption, setEmailOption] = useState<string>(emailOptions[0]);
 
 	return (
 		<Box
 			sx={{
-				backgroundColor: ( theme ) => ( theme.palette.mode === 'dark' ? 'neutral.800' : 'neutral.100' ),
+				backgroundColor: (theme) => (theme.palette.mode === 'dark' ? 'neutral.800' : 'neutral.100'),
 				p: 3,
 			}}
 		>
@@ -56,20 +56,20 @@ export const DetailList4: FC = () => {
 					<TextField
 						fullWidth
 						name="option"
-						onChange={( event ): void => setEmailOption( event.target.value )}
+						onChange={(event): void => setEmailOption(event.target.value)}
 						select
 						SelectProps={{ native: true }}
 						value={emailOption}
 						variant="outlined"
 					>
-						{emailOptions.map( ( option ) => (
+						{emailOptions.map((option) => (
 							<option
 								key={option}
 								value={option}
 							>
 								{option}
 							</option>
-						) )}
+						))}
 					</TextField>
 					<Box sx={{ mt: 2 }}>
 						<Button
@@ -86,8 +86,8 @@ export const DetailList4: FC = () => {
 					<Box sx={{ mt: 2 }}>
 						<Table>
 							<TableBody>
-								{emails.map( ( email ) => {
-									const createdAt = format( email.createdAt, 'dd/MM/yyyy | HH:mm' );
+								{emails.map((email) => {
+									const createdAt = format(email.createdAt, 'dd/MM/yyyy | HH:mm');
 
 									return (
 										<TableRow key={email.id}>
@@ -97,7 +97,7 @@ export const DetailList4: FC = () => {
 											<TableCell>{createdAt}</TableCell>
 										</TableRow>
 									);
-								} )}
+								})}
 							</TableBody>
 						</Table>
 					</Box>

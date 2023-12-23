@@ -25,55 +25,53 @@ type GetLoanRequest = object;
 type GetLoanResponse = Promise<Loan>;
 
 class LoansApi {
-	getLoans( request: GetLoansRequest = {} ): GetLoansResponse {
+	getLoans(request: GetLoansRequest = {}): GetLoansResponse {
 		const { filters, page, rowsPerPage, sortBy, sortDir } = request;
 
-		let data = deepCopy( loans ) as Loan[];
+		let data = deepCopy(loans) as Loan[];
 		let count = data.length;
 
-		if ( typeof filters !== 'undefined' ) {
-			data = data.filter( ( loan ) => {
-				if ( typeof filters.query !== 'undefined' && filters.query !== '' ) {
+		if (typeof filters !== 'undefined') {
+			data = data.filter((loan) => {
+				if (typeof filters.query !== 'undefined' && filters.query !== '') {
 					// Checks only the loan number, but can be extended to support other fields, such as customer
 					// name, email, etc.
-					const containsQuery = ( loan.id || '' )
-						.toLowerCase()
-						.includes( filters.query.toLowerCase() );
+					const containsQuery = (loan.id || '').toLowerCase().includes(filters.query.toLowerCase());
 
-					if ( !containsQuery ) {
+					if (!containsQuery) {
 						return false;
 					}
 				}
 
-				if ( typeof filters.status !== 'undefined' ) {
+				if (typeof filters.status !== 'undefined') {
 					const statusMatched = loan.loan_status === filters.status;
 
-					if ( !statusMatched ) {
+					if (!statusMatched) {
 						return false;
 					}
 				}
 
 				return true;
-			} );
+			});
 			count = data.length;
 		}
 
-		if ( typeof sortBy !== 'undefined' && typeof sortDir !== 'undefined' ) {
-			data = applySort( data, sortBy, sortDir );
+		if (typeof sortBy !== 'undefined' && typeof sortDir !== 'undefined') {
+			data = applySort(data, sortBy, sortDir);
 		}
 
-		if ( typeof page !== 'undefined' && typeof rowsPerPage !== 'undefined' ) {
-			data = applyPagination( data, page, rowsPerPage );
+		if (typeof page !== 'undefined' && typeof rowsPerPage !== 'undefined') {
+			data = applyPagination(data, page, rowsPerPage);
 		}
 
-		return Promise.resolve( {
+		return Promise.resolve({
 			data,
 			count,
-		} );
+		});
 	}
 
-	getLoan( request?: GetLoanRequest ): GetLoanResponse {
-		return Promise.resolve( deepCopy( loans[0] ) );
+	getLoan(request?: GetLoanRequest): GetLoanResponse {
+		return Promise.resolve(deepCopy(loans[0]));
 	}
 }
 

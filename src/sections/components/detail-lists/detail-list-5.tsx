@@ -84,19 +84,19 @@ const loan: Loan = {
 const statusOptions: string[] = ['Canceled', 'Completed', 'Rejected'];
 
 export const DetailList5: FC = () => {
-	const [status, setStatus] = useState<string>( statusOptions[0] );
+	const [status, setStatus] = useState<string>(statusOptions[0]);
 
-	const handleChange = useCallback( ( event: ChangeEvent<HTMLInputElement> ): void => {
-		setStatus( event.target.value );
-	}, [] );
+	const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
+		setStatus(event.target.value);
+	}, []);
 
-	const createdAt = format( loan.createdAt, 'dd/MM/yyyy HH:mm' );
-	const totalAmount = numeral( loan.totalAmount ).format( `${loan.currency}0,0.00` );
+	const createdAt = format(loan.createdAt, 'dd/MM/yyyy HH:mm');
+	const totalAmount = numeral(loan.totalAmount).format(`${loan.currency}0,0.00`);
 
 	return (
 		<Box
 			sx={{
-				backgroundColor: ( theme ) => ( theme.palette.mode === 'dark' ? 'neutral.800' : 'neutral.100' ),
+				backgroundColor: (theme) => (theme.palette.mode === 'dark' ? 'neutral.800' : 'neutral.100'),
 				p: 3,
 			}}
 		>
@@ -162,14 +162,14 @@ export const DetailList5: FC = () => {
 									value={status}
 									variant="outlined"
 								>
-									{statusOptions.map( ( option ) => (
+									{statusOptions.map((option) => (
 										<option
 											key={option}
 											value={option}
 										>
 											{option}
 										</option>
-									) )}
+									))}
 								</TextField>
 							</TableCell>
 						</TableRow>

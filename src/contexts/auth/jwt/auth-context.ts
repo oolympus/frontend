@@ -16,14 +16,14 @@ export const initialState: State = {
 };
 
 export interface AuthContextType extends State {
-	signIn: ( request: SignInRequest ) => Promise<void>;
-	signUp: ( request: SignUpRequest ) => Promise<void>;
+	signIn: (request: SignInRequest) => Promise<void>;
+	signUp: (request: SignUpRequest) => Promise<void>;
 	signOut: () => Promise<void>;
 }
 
-export const AuthContext = createContext<AuthContextType>( {
+export const AuthContext = createContext<AuthContextType>({
 	...initialState,
 	signIn: () => Promise.resolve(),
 	signUp: () => Promise.resolve(),
 	signOut: () => Promise.resolve(),
-} );
+});

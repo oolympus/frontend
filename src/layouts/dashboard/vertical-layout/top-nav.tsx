@@ -20,16 +20,16 @@ interface TopNavProps {
 	onMobileNavOpen?: () => void;
 }
 
-export const TopNav: FC<TopNavProps> = ( props ) => {
+export const TopNav: FC<TopNavProps> = (props) => {
 	const { onMobileNavOpen, ...other } = props;
-	const lgUp = useMediaQuery( ( theme: Theme ) => theme.breakpoints.up( 'lg' ) );
+	const lgUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
 
 	return (
 		<Box
 			component="header"
 			sx={{
 				backdropFilter: 'blur(6px)',
-				backgroundColor: ( theme ) => alpha( theme.palette.background.default, 0.8 ),
+				backgroundColor: (theme) => alpha(theme.palette.background.default, 0.8),
 				position: 'sticky',
 				left: {
 					lg: `${SIDE_NAV_WIDTH}px`,
@@ -38,7 +38,7 @@ export const TopNav: FC<TopNavProps> = ( props ) => {
 				width: {
 					lg: `calc(100% - ${SIDE_NAV_WIDTH}px)`,
 				},
-				zIndex: ( theme ) => theme.zIndex.appBar,
+				zIndex: (theme) => theme.zIndex.appBar,
 			}}
 			{...other}
 		>

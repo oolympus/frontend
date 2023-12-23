@@ -7,9 +7,9 @@ import { PropertyList } from 'src/components/property-list';
 import { PropertyListItem } from 'src/components/property-list-item';
 import { Customer } from 'src/types/customer';
 
-type CustomerBasicDetailsProps = Customer
+type CustomerBasicDetailsProps = Customer;
 
-export const CustomerBasicDetails: FC<CustomerBasicDetailsProps> = ( props ) => {
+export const CustomerBasicDetails: FC<CustomerBasicDetailsProps> = (props) => {
 	const { address, first_name, surname, email, telephone, added_by, is_active, ...other } = props;
 
 	return (
@@ -83,4 +83,4 @@ CustomerBasicDetails.propTypes = {
 	telephone: PropTypes.string.isRequired,
 	first_name: PropTypes.string.isRequired,
 	surname: PropTypes.string.isRequired,
-}
+};

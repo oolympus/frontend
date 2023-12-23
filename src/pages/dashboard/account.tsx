@@ -24,14 +24,14 @@ const tabs = [
 ];
 
 const Page = () => {
-	const user = getCustomers( 1 )[0];
-	const [currentTab, setCurrentTab] = useState<string>( 'general' );
+	const user = getCustomers(1)[0];
+	const [currentTab, setCurrentTab] = useState<string>('general');
 
 	usePageView();
 
-	const handleTabsChange = useCallback( ( event: ChangeEvent<any>, value: string ): void => {
-		setCurrentTab( value );
-	}, [] );
+	const handleTabsChange = useCallback((event: ChangeEvent<any>, value: string): void => {
+		setCurrentTab(value);
+	}, []);
 
 	return (
 		<>
@@ -58,13 +58,13 @@ const Page = () => {
 								value={currentTab}
 								variant="scrollable"
 							>
-								{tabs.map( ( tab ) => (
+								{tabs.map((tab) => (
 									<Tab
 										key={tab.value}
 										label={tab.label}
 										value={tab.value}
 									/>
-								) )}
+								))}
 							</Tabs>
 							<Divider />
 						</div>
@@ -75,7 +75,6 @@ const Page = () => {
 								user={user}
 								loans={loans}
 							/>
-
 						</>
 					)}
 					{currentTab === 'security' && (
@@ -83,14 +82,14 @@ const Page = () => {
 							loginEvents={[
 								{
 									id: '1bd6d44321cb78fd915462fa',
-									createdAt: subDays( subHours( subMinutes( now, 5 ), 7 ), 1 ).getTime(),
+									createdAt: subDays(subHours(subMinutes(now, 5), 7), 1).getTime(),
 									ip: '95.130.17.84',
 									type: 'Credential login',
 									userAgent: 'Chrome, Mac OS 10.15.7',
 								},
 								{
 									id: 'bde169c2fe9adea5d4598ea9',
-									createdAt: subDays( subHours( subMinutes( now, 25 ), 9 ), 1 ).getTime(),
+									createdAt: subDays(subHours(subMinutes(now, 25), 9), 1).getTime(),
 									ip: '95.130.17.84',
 									type: 'Credential login',
 									userAgent: 'Chrome, Mac OS 10.15.7',

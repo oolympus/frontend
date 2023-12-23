@@ -28,12 +28,12 @@ export interface Section {
 export const useSections = () => {
 	const { t } = useTranslation();
 
-	return useMemo( () => {
+	return useMemo(() => {
 		return [
 			{
 				items: [
 					{
-						title: t( tokens.nav.overview ),
+						title: t(tokens.nav.overview),
 						path: paths.dashboard.index,
 						icon: (
 							<SvgIcon fontSize="small">
@@ -42,7 +42,7 @@ export const useSections = () => {
 						),
 					},
 					{
-						title: t( tokens.nav.account ),
+						title: t(tokens.nav.account),
 						path: paths.dashboard.account,
 						icon: (
 							<SvgIcon fontSize="small">
@@ -53,10 +53,10 @@ export const useSections = () => {
 				],
 			},
 			{
-				subheader: t( tokens.nav.concepts ),
+				subheader: t(tokens.nav.concepts),
 				items: [
 					{
-						title: t( tokens.nav.customers ),
+						title: t(tokens.nav.customers),
 						path: paths.dashboard.customers.index,
 						icon: (
 							<SvgIcon fontSize="small">
@@ -65,21 +65,21 @@ export const useSections = () => {
 						),
 						items: [
 							{
-								title: t( tokens.nav.list ),
+								title: t(tokens.nav.list),
 								path: paths.dashboard.customers.index,
 							},
 							{
-								title: t( tokens.nav.details ),
+								title: t(tokens.nav.details),
 								path: paths.dashboard.customers.details,
 							},
 							{
-								title: t( tokens.nav.edit ),
+								title: t(tokens.nav.edit),
 								path: paths.dashboard.customers.edit,
 							},
 						],
 					},
 					{
-						title: t( tokens.nav.productList ),
+						title: t(tokens.nav.productList),
 						path: paths.dashboard.products.index,
 						icon: (
 							<SvgIcon fontSize="small">
@@ -88,17 +88,17 @@ export const useSections = () => {
 						),
 						items: [
 							{
-								title: t( tokens.nav.list ),
+								title: t(tokens.nav.list),
 								path: paths.dashboard.products.index,
 							},
 							{
-								title: t( tokens.nav.create ),
+								title: t(tokens.nav.create),
 								path: paths.dashboard.products.create,
 							},
 						],
 					},
 					{
-						title: t( tokens.nav.orderList ),
+						title: t(tokens.nav.orderList),
 						icon: (
 							<SvgIcon fontSize="small">
 								<ShoppingCart01Icon />
@@ -107,11 +107,11 @@ export const useSections = () => {
 						path: paths.dashboard.loans.index,
 						items: [
 							{
-								title: t( tokens.nav.list ),
+								title: t(tokens.nav.list),
 								path: paths.dashboard.loans.index,
 							},
 							{
-								title: t( tokens.nav.details ),
+								title: t(tokens.nav.details),
 								path: paths.dashboard.loans.details,
 							},
 						],
@@ -119,5 +119,5 @@ export const useSections = () => {
 				],
 			},
 		];
-	}, [t] );
+	}, [t]);
 };

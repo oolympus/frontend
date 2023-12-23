@@ -116,7 +116,7 @@ const Page = () => {
 									{
 										id: 'b91cbe81ee3efefba6b915a7',
 										content: 'Hello, we spoke earlier on the phone',
-										createdAt: subMinutes( now, 2 ),
+										createdAt: subMinutes(now, 2),
 										senderAvatar: '/assets/avatars/avatar-alcides-antonio.png',
 										senderName: 'Alcides Antonio',
 										senderOnline: true,
@@ -124,7 +124,7 @@ const Page = () => {
 									{
 										id: 'de0eb1ac517aae1aa57c0b7e',
 										content: 'Is the job still available?',
-										createdAt: subMinutes( now, 56 ),
+										createdAt: subMinutes(now, 56),
 										senderAvatar: '/assets/avatars/avatar-marcus-finn.png',
 										senderName: 'Marcus Finn',
 										senderOnline: false,
@@ -132,7 +132,7 @@ const Page = () => {
 									{
 										id: '38e2b0942c90d0ad724e6f40',
 										content: 'What is a screening task? I’d like to',
-										createdAt: subHours( subMinutes( now, 23 ), 3 ),
+										createdAt: subHours(subMinutes(now, 23), 3),
 										senderAvatar: '/assets/avatars/avatar-carson-darrin.png',
 										senderName: 'Carson Darrin',
 										senderOnline: true,
@@ -140,7 +140,7 @@ const Page = () => {
 									{
 										id: '467505f3356f25a69f4c4890',
 										content: 'Still waiting for feedback',
-										createdAt: subHours( subMinutes( now, 6 ), 8 ),
+										createdAt: subHours(subMinutes(now, 6), 8),
 										senderAvatar: '/assets/avatars/avatar-fran-perez.png',
 										senderName: 'Fran Perez',
 										senderOnline: true,
@@ -148,7 +148,7 @@ const Page = () => {
 									{
 										id: '7e6af808e801a8361ce4cf8b',
 										content: 'Need more information about campaigns',
-										createdAt: subHours( subMinutes( now, 18 ), 10 ),
+										createdAt: subHours(subMinutes(now, 18), 10),
 										senderAvatar: '/assets/avatars/avatar-jie-yan-song.png',
 										senderName: 'Jie Yan Song',
 										senderOnline: false,
@@ -174,7 +174,7 @@ const Page = () => {
 									{
 										id: 'b4b19b21656e44b487441c50',
 										amount: 6843,
-										createdAt: subDays( now, 1 ).getTime(),
+										createdAt: subDays(now, 1).getTime(),
 										currency: 'usd',
 										sender: 'Zimbru',
 										status: 'confirmed',
@@ -183,7 +183,7 @@ const Page = () => {
 									{
 										id: '56c09ad91f6d44cb313397db',
 										amount: 91823,
-										createdAt: subDays( now, 1 ).getTime(),
+										createdAt: subDays(now, 1).getTime(),
 										currency: 'usd',
 										sender: 'Vertical Jelly',
 										status: 'failed',
@@ -192,7 +192,7 @@ const Page = () => {
 									{
 										id: 'aaeb96c5a131a55d9623f44d',
 										amount: 49550,
-										createdAt: subDays( now, 3 ).getTime(),
+										createdAt: subDays(now, 3).getTime(),
 										currency: 'usd',
 										sender: 'Devias',
 										status: 'confirmed',

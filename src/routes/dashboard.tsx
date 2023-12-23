@@ -4,58 +4,58 @@ import { Outlet } from 'react-router-dom';
 
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
 
-const OverviewPage = lazy( () => import( 'src/pages/dashboard/index' ) );
+const OverviewPage = lazy(() => import('src/pages/dashboard/index'));
 
 // Academy
-const AcademyDashboardPage = lazy( () => import( 'src/pages/dashboard/academy/dashboard' ) );
-const AcademyCoursePage = lazy( () => import( 'src/pages/dashboard/academy/course' ) );
+const AcademyDashboardPage = lazy(() => import('src/pages/dashboard/academy/dashboard'));
+const AcademyCoursePage = lazy(() => import('src/pages/dashboard/academy/course'));
 
 // Blog
-const BlogPostListPage = lazy( () => import( 'src/pages/dashboard/blog/list' ) );
-const BlogPostDetailPage = lazy( () => import( 'src/pages/dashboard/blog/detail' ) );
-const BlogPostCreatePage = lazy( () => import( 'src/pages/dashboard/blog/create' ) );
+const BlogPostListPage = lazy(() => import('src/pages/dashboard/blog/list'));
+const BlogPostDetailPage = lazy(() => import('src/pages/dashboard/blog/detail'));
+const BlogPostCreatePage = lazy(() => import('src/pages/dashboard/blog/create'));
 
 // Customer
-const CustomerListPage = lazy( () => import( 'src/pages/dashboard/customers/list' ) );
-const CustomerDetailPage = lazy( () => import( 'src/pages/dashboard/customers/detail' ) );
-const CustomerEditPage = lazy( () => import( 'src/pages/dashboard/customers/edit' ) );
+const CustomerListPage = lazy(() => import('src/pages/dashboard/customers/list'));
+const CustomerDetailPage = lazy(() => import('src/pages/dashboard/customers/detail'));
+const CustomerEditPage = lazy(() => import('src/pages/dashboard/customers/edit'));
 
 // Invoice
-const InvoiceListPage = lazy( () => import( 'src/pages/dashboard/invoices/list' ) );
-const InvoiceDetailPage = lazy( () => import( 'src/pages/dashboard/invoices/detail' ) );
+const InvoiceListPage = lazy(() => import('src/pages/dashboard/invoices/list'));
+const InvoiceDetailPage = lazy(() => import('src/pages/dashboard/invoices/detail'));
 
 // Job
-const JobBrowsePage = lazy( () => import( 'src/pages/dashboard/jobs/browse' ) );
-const JobCreatePage = lazy( () => import( 'src/pages/dashboard/jobs/create' ) );
-const CompanyDetailPage = lazy( () => import( 'src/pages/dashboard/jobs/companies/detail' ) );
+const JobBrowsePage = lazy(() => import('src/pages/dashboard/jobs/browse'));
+const JobCreatePage = lazy(() => import('src/pages/dashboard/jobs/create'));
+const CompanyDetailPage = lazy(() => import('src/pages/dashboard/jobs/companies/detail'));
 
 // Logistics
-const LogisticsDashboardPage = lazy( () => import( 'src/pages/dashboard/logistics/dashboard' ) );
-const LogisticsFleetPage = lazy( () => import( 'src/pages/dashboard/logistics/fleet' ) );
+const LogisticsDashboardPage = lazy(() => import('src/pages/dashboard/logistics/dashboard'));
+const LogisticsFleetPage = lazy(() => import('src/pages/dashboard/logistics/fleet'));
 
 // Loan
-const LoanListPage = lazy( () => import( 'src/pages/dashboard/loans/list' ) );
-const LoanDetailPage = lazy( () => import( 'src/pages/dashboard/loans/detail' ) );
+const LoanListPage = lazy(() => import('src/pages/dashboard/loans/list'));
+const LoanDetailPage = lazy(() => import('src/pages/dashboard/loans/detail'));
 
 // Product
-const ProductListPage = lazy( () => import( 'src/pages/dashboard/products/list' ) );
-const ProductCreatePage = lazy( () => import( 'src/pages/dashboard/products/create' ) );
+const ProductListPage = lazy(() => import('src/pages/dashboard/products/list'));
+const ProductCreatePage = lazy(() => import('src/pages/dashboard/products/create'));
 
 // Social
-const SocialFeedPage = lazy( () => import( 'src/pages/dashboard/social/feed' ) );
-const SocialProfilePage = lazy( () => import( 'src/pages/dashboard/social/profile' ) );
+const SocialFeedPage = lazy(() => import('src/pages/dashboard/social/feed'));
+const SocialProfilePage = lazy(() => import('src/pages/dashboard/social/profile'));
 
 // Other
-const AccountPage = lazy( () => import( 'src/pages/dashboard/account' ) );
-const AnalyticsPage = lazy( () => import( 'src/pages/dashboard/analytics' ) );
-const BlankPage = lazy( () => import( 'src/pages/dashboard/blank' ) );
-const CalendarPage = lazy( () => import( 'src/pages/dashboard/calendar' ) );
-const ChatPage = lazy( () => import( 'src/pages/dashboard/chat' ) );
-const CryptoPage = lazy( () => import( 'src/pages/dashboard/crypto' ) );
-const EcommercePage = lazy( () => import( 'src/pages/dashboard/ecommerce' ) );
-const FileManagerPage = lazy( () => import( 'src/pages/dashboard/file-manager' ) );
-const KanbanPage = lazy( () => import( 'src/pages/dashboard/kanban' ) );
-const MailPage = lazy( () => import( 'src/pages/dashboard/mail' ) );
+const AccountPage = lazy(() => import('src/pages/dashboard/account'));
+const AnalyticsPage = lazy(() => import('src/pages/dashboard/analytics'));
+const BlankPage = lazy(() => import('src/pages/dashboard/blank'));
+const CalendarPage = lazy(() => import('src/pages/dashboard/calendar'));
+const ChatPage = lazy(() => import('src/pages/dashboard/chat'));
+const CryptoPage = lazy(() => import('src/pages/dashboard/crypto'));
+const EcommercePage = lazy(() => import('src/pages/dashboard/ecommerce'));
+const FileManagerPage = lazy(() => import('src/pages/dashboard/file-manager'));
+const KanbanPage = lazy(() => import('src/pages/dashboard/kanban'));
+const MailPage = lazy(() => import('src/pages/dashboard/mail'));
 
 export const dashboardRoutes: RouteObject[] = [
 	{

@@ -16,8 +16,8 @@ import type { Theme } from '@mui/material/styles/createTheme';
 import { useMockedUser } from 'src/hooks/use-mocked-user';
 import { getInitials } from 'src/utils/get-initials';
 
-export const PostCommentAdd: FC = ( props ) => {
-	const smUp = useMediaQuery( ( theme: Theme ) => theme.breakpoints.up( 'sm' ) );
+export const PostCommentAdd: FC = (props) => {
+	const smUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
 	const user = useMockedUser();
 
 	return (
@@ -34,7 +34,7 @@ export const PostCommentAdd: FC = ( props ) => {
 						width: 40,
 					}}
 				>
-					{getInitials( user.username )}
+					{getInitials(user.username)}
 				</Avatar>
 				<Box sx={{ flexGrow: 1 }}>
 					<OutlinedInput

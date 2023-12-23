@@ -26,19 +26,19 @@ import { CustomerInvoice, CustomerLog } from 'src/types/customer';
 
 const useCustomer = (): Customer | null => {
 	const isMounted = useMounted();
-	const [customer, setCustomer] = useState<Customer | null>( null );
+	const [customer, setCustomer] = useState<Customer | null>(null);
 
-	const handleCustomerGet = useCallback( async () => {
+	const handleCustomerGet = useCallback(async () => {
 		try {
 			const response = await customersApi.getCustomer();
 
-			if ( isMounted() ) {
-				setCustomer( response );
+			if (isMounted()) {
+				setCustomer(response);
 			}
-		} catch ( err ) {
-			console.error( err );
+		} catch (err) {
+			console.error(err);
 		}
-	}, [isMounted] );
+	}, [isMounted]);
 
 	useEffect(
 		() => {
@@ -53,19 +53,19 @@ const useCustomer = (): Customer | null => {
 
 const useInvoices = (): CustomerInvoice[] => {
 	const isMounted = useMounted();
-	const [invoices, setInvoices] = useState<CustomerInvoice[]>( [] );
+	const [invoices, setInvoices] = useState<CustomerInvoice[]>([]);
 
-	const handleInvoicesGet = useCallback( async () => {
+	const handleInvoicesGet = useCallback(async () => {
 		try {
 			const response = await customersApi.getInvoices();
 
-			if ( isMounted() ) {
-				setInvoices( response );
+			if (isMounted()) {
+				setInvoices(response);
 			}
-		} catch ( err ) {
-			console.error( err );
+		} catch (err) {
+			console.error(err);
 		}
-	}, [isMounted] );
+	}, [isMounted]);
 
 	useEffect(
 		() => {
@@ -80,19 +80,19 @@ const useInvoices = (): CustomerInvoice[] => {
 
 const useLogs = (): CustomerLog[] => {
 	const isMounted = useMounted();
-	const [logs, setLogs] = useState<CustomerLog[]>( [] );
+	const [logs, setLogs] = useState<CustomerLog[]>([]);
 
-	const handleLogsGet = useCallback( async () => {
+	const handleLogsGet = useCallback(async () => {
 		try {
 			const response = await customersApi.getLogs();
 
-			if ( isMounted() ) {
-				setLogs( response );
+			if (isMounted()) {
+				setLogs(response);
 			}
-		} catch ( err ) {
-			console.error( err );
+		} catch (err) {
+			console.error(err);
 		}
-	}, [isMounted] );
+	}, [isMounted]);
 
 	useEffect(
 		() => {
@@ -106,14 +106,14 @@ const useLogs = (): CustomerLog[] => {
 };
 
 const Page = () => {
-	const [currentTab, setCurrentTab] = useState<string>( 'details' );
+	const [currentTab, setCurrentTab] = useState<string>('details');
 	const customer = useCustomer();
 	const invoices = useInvoices();
 	const logs = useLogs();
 
 	usePageView();
 
-	if ( !customer ) {
+	if (!customer) {
 		return null;
 	}
 
@@ -207,9 +207,7 @@ const Page = () => {
 										xs={12}
 										lg={4}
 									>
-										<CustomerBasicDetails
-											{...customer}
-										/>
+										<CustomerBasicDetails {...customer} />
 									</Grid>
 									<Grid
 										xs={12}

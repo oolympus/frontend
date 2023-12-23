@@ -10,34 +10,31 @@ interface AuthGuardProps {
 	children: ReactNode;
 }
 
-export const AuthGuard: FC<AuthGuardProps> = ( props ) => {
+export const AuthGuard: FC<AuthGuardProps> = (props) => {
 	const { children } = props;
 	const router = useRouter();
 	const { isAuthenticated } = useAuth();
-	const [checked, setChecked] = useState<boolean>( false );
+	const [checked, setChecked] = useState<boolean>(false);
 
-	const check = useCallback( () => {
-		if ( !isAuthenticated ) {
-			const searchParams = new URLSearchParams( {
+	const check = useCallback(() => {
+		if (!isAuthenticated) {
+			const searchParams = new URLSearchParams({
 				returnTo: window.location.pathname,
-			} ).toString();
+			}).toString();
 			const href = paths.auth + `?${searchParams}`;
-			router.replace( href );
-			router.replace( paths.auth.login );
+			router.replace(href);
+			router.replace(paths.auth.login);
 		} else {
-			setChecked( true );
+			setChecked(true);
 		}
-	}, [isAuthenticated, router] );
+	}, [isAuthenticated, router]);
 
 	// Only check on mount, this allows us to redirect the user manually when auth state changes
-	useEffect(
-		() => {
-			check();
-		},
-		[check]
-	);
+	useEffect(() => {
+		check();
+	}, [check]);
 
-	if ( !checked ) {
+	if (!checked) {
 		return null;
 	}
 

@@ -53,26 +53,26 @@ interface TopNavProps {
 	onMobileNavOpen?: () => void;
 }
 
-export const TopNav: FC<TopNavProps> = ( props ) => {
+export const TopNav: FC<TopNavProps> = (props) => {
 	const { onMobileNavOpen } = props;
 	const pathname = usePathname();
-	const mdUp = useMediaQuery( ( theme: Theme ) => theme.breakpoints.up( 'md' ) );
-	const [elevate, setElevate] = useState<boolean>( false );
+	const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
+	const [elevate, setElevate] = useState<boolean>(false);
 	const offset = 64;
 	const delay = 100;
 
-	const handleWindowScroll = useCallback( (): void => {
-		if ( window.scrollY > offset ) {
-			setElevate( true );
+	const handleWindowScroll = useCallback((): void => {
+		if (window.scrollY > offset) {
+			setElevate(true);
 		} else {
-			setElevate( false );
+			setElevate(false);
 		}
-	}, [] );
+	}, []);
 
-	useWindowScroll( {
+	useWindowScroll({
 		handler: handleWindowScroll,
 		delay,
-	} );
+	});
 
 	return (
 		<Box
@@ -83,7 +83,7 @@ export const TopNav: FC<TopNavProps> = ( props ) => {
 				right: 0,
 				top: 0,
 				pt: 2,
-				zIndex: ( theme ) => theme.zIndex.appBar,
+				zIndex: (theme) => theme.zIndex.appBar,
 			}}
 		>
 			<Container
@@ -93,15 +93,15 @@ export const TopNav: FC<TopNavProps> = ( props ) => {
 					backgroundColor: 'transparent',
 					borderRadius: 2.5,
 					boxShadow: 'none',
-					transition: ( theme ) =>
-						theme.transitions.create( 'box-shadow, background-color', {
+					transition: (theme) =>
+						theme.transitions.create('box-shadow, background-color', {
 							easing: theme.transitions.easing.easeInOut,
 							duration: 200,
-						} ),
-					...( elevate && {
-						backgroundColor: ( theme ) => alpha( theme.palette.background.paper, 0.9 ),
+						}),
+					...(elevate && {
+						backgroundColor: (theme) => alpha(theme.palette.background.paper, 0.9),
 						boxShadow: 8,
-					} ),
+					}),
 				}}
 			>
 				<Stack
@@ -180,9 +180,9 @@ export const TopNav: FC<TopNavProps> = ( props ) => {
 									}}
 								>
 									<>
-										{items.map( ( item ) => {
-											const checkPath = !!( item.path && pathname );
-											const partialMatch = checkPath ? pathname.includes( item.path! ) : false;
+										{items.map((item) => {
+											const checkPath = !!(item.path && pathname);
+											const partialMatch = checkPath ? pathname.includes(item.path!) : false;
 											const exactMatch = checkPath ? pathname === item.path : false;
 											const active = item.popover ? partialMatch : exactMatch;
 
@@ -196,7 +196,7 @@ export const TopNav: FC<TopNavProps> = ( props ) => {
 													title={item.title}
 												/>
 											);
-										} )}
+										})}
 									</>
 								</Stack>
 							</Box>

@@ -14,7 +14,7 @@ import Typography from '@mui/material/Typography';
 export const Modal6: FC = () => (
 	<Box
 		sx={{
-			backgroundColor: ( theme ) => ( theme.palette.mode === 'dark' ? 'neutral.800' : 'neutral.100' ),
+			backgroundColor: (theme) => (theme.palette.mode === 'dark' ? 'neutral.800' : 'neutral.100'),
 			p: 3,
 		}}
 	>

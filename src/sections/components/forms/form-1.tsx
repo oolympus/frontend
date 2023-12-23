@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 
 export const Form1: FC = () => (
 	<Box sx={{ p: 3 }}>
-		<form onSubmit={( event ) => event.preventDefault()}>
+		<form onSubmit={(event) => event.preventDefault()}>
 			<Grid
 				container
 				spacing={3}

@@ -19,7 +19,7 @@ import { SeverityPill } from 'src/components/severity-pill';
 export const DetailList2: FC = () => (
 	<Box
 		sx={{
-			backgroundColor: ( theme ) => ( theme.palette.mode === 'dark' ? 'neutral.800' : 'neutral.100' ),
+			backgroundColor: (theme) => (theme.palette.mode === 'dark' ? 'neutral.800' : 'neutral.100'),
 			p: 3,
 		}}
 	>

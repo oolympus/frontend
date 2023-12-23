@@ -23,20 +23,20 @@ interface LoanSummaryProps {
 	loan: Loan;
 }
 
-export const LoanSummary: FC<LoanSummaryProps> = ( props ) => {
+export const LoanSummary: FC<LoanSummaryProps> = (props) => {
 	const { loan, ...other } = props;
-	const mdUp = useMediaQuery( ( theme: Theme ) => theme.breakpoints.up( 'md' ) );
-	const [status, setStatus] = useState<string>( statusOptions[0] );
+	const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
+	const [status, setStatus] = useState<string>(statusOptions[0]);
 
-	const handleChange = useCallback( ( event: ChangeEvent<HTMLInputElement> ): void => {
-		setStatus( event.target.value );
-	}, [] );
+	const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
+		setStatus(event.target.value);
+	}, []);
 
-	const customer = getCustomers( 1 )[0]
+	const customer = getCustomers(1)[0];
 
 	const align = mdUp ? 'horizontal' : 'vertical';
-	const createdAt = format( new Date( loan.application_time ), 'dd/MM/yyyy HH:mm' );
-	const fullname = `${customer.first_name} ${customer.surname}`
+	const createdAt = format(new Date(loan.application_time), 'dd/MM/yyyy HH:mm');
+	const fullname = `${customer.first_name} ${customer.surname}`;
 	return (
 		<Card {...other}>
 			<CardHeader title="Basic info" />
@@ -47,12 +47,14 @@ export const LoanSummary: FC<LoanSummaryProps> = ( props ) => {
 					label="Customer"
 				>
 					<Typography variant="subtitle2">{fullname}</Typography>
-					<Typography variant="body1"
+					<Typography
+						variant="body1"
 						color="text.secondary"
 					>
 						{customer.email}
 					</Typography>
-					<Typography variant="body1"
+					<Typography
+						variant="body1"
 						color="text.secondary"
 					>
 						{customer.telephone}
@@ -117,14 +119,14 @@ export const LoanSummary: FC<LoanSummaryProps> = ( props ) => {
 							}}
 							value={status}
 						>
-							{statusOptions.map( ( option ) => (
+							{statusOptions.map((option) => (
 								<option
 									key={option}
 									value={option}
 								>
 									{option}
 								</option>
-							) )}
+							))}
 						</TextField>
 						<Button variant="contained">Save</Button>
 					</Stack>

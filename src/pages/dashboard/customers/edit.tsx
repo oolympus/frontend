@@ -21,19 +21,19 @@ import { getInitials } from 'src/utils/get-initials';
 
 const useCustomer = (): Customer | null => {
 	const isMounted = useMounted();
-	const [customer, setCustomer] = useState<Customer | null>( null );
+	const [customer, setCustomer] = useState<Customer | null>(null);
 
-	const handleCustomerGet = useCallback( async () => {
+	const handleCustomerGet = useCallback(async () => {
 		try {
 			const response = await customersApi.getCustomer();
 
-			if ( isMounted() ) {
-				setCustomer( response );
+			if (isMounted()) {
+				setCustomer(response);
 			}
-		} catch ( err ) {
-			console.error( err );
+		} catch (err) {
+			console.error(err);
 		}
-	}, [isMounted] );
+	}, [isMounted]);
 
 	useEffect(
 		() => {
@@ -51,7 +51,7 @@ const Page = () => {
 
 	usePageView();
 
-	if ( !customer ) {
+	if (!customer) {
 		return null;
 	}
 
@@ -100,13 +100,13 @@ const Page = () => {
 									spacing={2}
 								>
 									<Avatar
-										src={""}
+										src={''}
 										sx={{
 											height: 64,
 											width: 64,
 										}}
 									>
-										{getInitials( `${customer.first_name} ${customer.surname}` )}
+										{getInitials(`${customer.first_name} ${customer.surname}`)}
 									</Avatar>
 									<Stack spacing={1}>
 										<Typography variant="h4">{customer.email}</Typography>

@@ -17,9 +17,9 @@ import type { Theme } from '@mui/material/styles/createTheme';
 import { useMockedUser } from 'src/hooks/use-mocked-user';
 import { getInitials } from 'src/utils/get-initials';
 
-export const SocialPostAdd: FC = ( props ) => {
+export const SocialPostAdd: FC = (props) => {
 	const user = useMockedUser();
-	const smUp = useMediaQuery( ( theme: Theme ) => theme.breakpoints.up( 'sm' ) );
+	const smUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
 
 	return (
 		<Card {...props}>
@@ -36,7 +36,7 @@ export const SocialPostAdd: FC = ( props ) => {
 							width: 40,
 						}}
 					>
-						{getInitials( user.username )}
+						{getInitials(user.username)}
 					</Avatar>
 					<Stack
 						spacing={3}

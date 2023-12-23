@@ -74,23 +74,23 @@ const initialProducts: Product[] = [
 ];
 
 const Page = () => {
-	const [billing, setBilling] = useState( initialBilling );
-	const [products, setProducts] = useState<Product[]>( initialProducts );
+	const [billing, setBilling] = useState(initialBilling);
+	const [products, setProducts] = useState<Product[]>(initialProducts);
 
 	usePageView();
 
-	const handleBillingChange = useCallback( ( event: ChangeEvent<HTMLInputElement> ): void => {
-		setBilling( ( prevState ) => ( {
+	const handleBillingChange = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
+		setBilling((prevState) => ({
 			...prevState,
 			[event.target.name]: event.target.value,
-		} ) );
-	}, [] );
+		}));
+	}, []);
 
 	const handleQuantityChange = useCallback(
-		( event: SelectChangeEvent<number>, productId: string ): void => {
-			setProducts( ( prevState ) => {
-				return prevState.map( ( product ) => {
-					if ( product.id !== productId ) {
+		(event: SelectChangeEvent<number>, productId: string): void => {
+			setProducts((prevState) => {
+				return prevState.map((product) => {
+					if (product.id !== productId) {
 						return product;
 					}
 
@@ -98,15 +98,15 @@ const Page = () => {
 						...product,
 						quantity: event.target.value as number,
 					};
-				} );
-			} );
+				});
+			});
 		},
 		[]
 	);
 
-	const handleSubmit = useCallback( ( event: FormEvent<HTMLFormElement> ): void => {
+	const handleSubmit = useCallback((event: FormEvent<HTMLFormElement>): void => {
 		event.preventDefault();
-	}, [] );
+	}, []);
 
 	return (
 		<>

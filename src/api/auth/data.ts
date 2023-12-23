@@ -8,6 +8,5 @@ export const users: User[] = [
 		username: 'Anika Visser',
 		password: 'Password123!',
 		plan: 'Premium',
-
 	},
 ];

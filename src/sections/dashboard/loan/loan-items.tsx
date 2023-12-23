@@ -19,7 +19,7 @@ interface LoanItemsProps {
 	items: LoanItem[];
 }
 
-export const LoanItems: FC<LoanItemsProps> = ( props ) => {
+export const LoanItems: FC<LoanItemsProps> = (props) => {
 	const { items, ...other } = props;
 
 	return (
@@ -36,9 +36,9 @@ export const LoanItems: FC<LoanItemsProps> = ( props ) => {
 							</TableRow>
 						</TableHead>
 						<TableBody>
-							{items.map( ( item ) => {
+							{items.map((item) => {
 								const title = `${item.name} x ${item.quantity}`;
-								const unitAmount = numeral( item.unitAmount ).format( `${item.currency}0,0.00` );
+								const unitAmount = numeral(item.unitAmount).format(`${item.currency}0,0.00`);
 
 								return (
 									<TableRow key={item.id}>
@@ -49,7 +49,7 @@ export const LoanItems: FC<LoanItemsProps> = ( props ) => {
 										<TableCell>{unitAmount}</TableCell>
 									</TableRow>
 								);
-							} )}
+							})}
 						</TableBody>
 					</Table>
 				</Box>
@@ -57,8 +57,8 @@ export const LoanItems: FC<LoanItemsProps> = ( props ) => {
 			<TablePagination
 				component="div"
 				count={items.length}
-				onPageChange={(): void => { }}
-				onRowsPerPageChange={(): void => { }}
+				onPageChange={(): void => {}}
+				onRowsPerPageChange={(): void => {}}
 				page={0}
 				rowsPerPage={5}
 				rowsPerPageOptions={[5, 10, 25]}

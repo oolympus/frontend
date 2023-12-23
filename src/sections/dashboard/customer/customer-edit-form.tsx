@@ -20,9 +20,9 @@ interface CustomerEditFormProps {
 	customer: Customer;
 }
 
-export const CustomerEditForm: FC<CustomerEditFormProps> = ( props ) => {
+export const CustomerEditForm: FC<CustomerEditFormProps> = (props) => {
 	const { customer, ...other } = props;
-	const formik = useFormik( {
+	const formik = useFormik({
 		initialValues: {
 			address: customer.address || '',
 			email: customer.email || '',
@@ -32,29 +32,29 @@ export const CustomerEditForm: FC<CustomerEditFormProps> = ( props ) => {
 			telephone: customer.telephone || '',
 			submit: null,
 		},
-		validationSchema: Yup.object( {
-			address: Yup.string().max( 255 ),
-			email: Yup.string().email( 'Must be a valid email' ).max( 255 ).required( 'Email is required' ),
-			firstName: Yup.string().max( 255 ).required( 'firstName is required' ),
-			surname: Yup.string().max( 255 ).required( 'surname is required' ),
-			telephone: Yup.string().max( 15 ),
-		} ),
-		onSubmit: async ( values, helpers ): Promise<void> => {
+		validationSchema: Yup.object({
+			address: Yup.string().max(255),
+			email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+			firstName: Yup.string().max(255).required('firstName is required'),
+			surname: Yup.string().max(255).required('surname is required'),
+			telephone: Yup.string().max(15),
+		}),
+		onSubmit: async (values, helpers): Promise<void> => {
 			try {
 				// NOTE: Make API request
-				await wait( 500 );
-				helpers.setStatus( { success: true } );
-				helpers.setSubmitting( false );
-				toast.success( 'Customer updated' );
-			} catch ( err ) {
-				console.error( err );
-				toast.error( 'Something went wrong!' );
-				helpers.setStatus( { success: false } );
-				helpers.setErrors( { submit: err.message } );
-				helpers.setSubmitting( false );
+				await wait(500);
+				helpers.setStatus({ success: true });
+				helpers.setSubmitting(false);
+				toast.success('Customer updated');
+			} catch (err) {
+				console.error(err);
+				toast.error('Something went wrong!');
+				helpers.setStatus({ success: false });
+				helpers.setErrors({ submit: err.message });
+				helpers.setSubmitting(false);
 			}
 		},
-	} );
+	});
 
 	return (
 		<form
@@ -73,7 +73,7 @@ export const CustomerEditForm: FC<CustomerEditFormProps> = ( props ) => {
 							md={6}
 						>
 							<TextField
-								error={!!( formik.touched.firstName && formik.errors.firstName )}
+								error={!!(formik.touched.firstName && formik.errors.firstName)}
 								fullWidth
 								helperText={formik.touched.firstName && formik.errors.firstName}
 								label="Full name"
@@ -89,7 +89,7 @@ export const CustomerEditForm: FC<CustomerEditFormProps> = ( props ) => {
 							md={6}
 						>
 							<TextField
-								error={!!( formik.touched.email && formik.errors.email )}
+								error={!!(formik.touched.email && formik.errors.email)}
 								fullWidth
 								helperText={formik.touched.email && formik.errors.email}
 								label="Email address"
@@ -105,7 +105,7 @@ export const CustomerEditForm: FC<CustomerEditFormProps> = ( props ) => {
 							xs={12}
 						>
 							<TextField
-								error={!!( formik.touched.address && formik.errors.address )}
+								error={!!(formik.touched.address && formik.errors.address)}
 								fullWidth
 								// helperText={formik.touched.address && formik.errors.address}
 								label="Address"
@@ -120,7 +120,7 @@ export const CustomerEditForm: FC<CustomerEditFormProps> = ( props ) => {
 							md={6}
 						>
 							<TextField
-								error={!!( formik.touched.telephone && formik.errors.telephone )}
+								error={!!(formik.touched.telephone && formik.errors.telephone)}
 								fullWidth
 								helperText={formik.touched.telephone && formik.errors.telephone}
 								label="Phone number"
@@ -158,7 +158,7 @@ export const CustomerEditForm: FC<CustomerEditFormProps> = ( props ) => {
 					</Button>
 				</Stack>
 			</Card>
-		</form >
+		</form>
 	);
 };
 

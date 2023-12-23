@@ -33,9 +33,9 @@ const calculateAmounts = (
 	total: number;
 } => {
 	const shippingTax = 12;
-	const subtotal = products.reduce( ( acc, product ) => {
+	const subtotal = products.reduce((acc, product) => {
 		return acc + product.price * product.quantity;
-	}, 0 );
+	}, 0);
 	const total = shippingTax + subtotal;
 
 	return {
@@ -46,17 +46,17 @@ const calculateAmounts = (
 };
 
 interface CheckoutLoanSummaryProps {
-	onQuantityChange?: ( event: SelectChangeEvent<number>, productId: string ) => void;
+	onQuantityChange?: (event: SelectChangeEvent<number>, productId: string) => void;
 	products?: Product[];
 }
 
-export const CheckoutSummary: FC<CheckoutLoanSummaryProps> = ( props ) => {
+export const CheckoutSummary: FC<CheckoutLoanSummaryProps> = (props) => {
 	const { onQuantityChange, products = [], ...other } = props;
-	const { shippingTax, subtotal, total } = calculateAmounts( products );
+	const { shippingTax, subtotal, total } = calculateAmounts(products);
 
-	const formattedShippingTax = numeral( shippingTax ).format( '$00.00' );
-	const formattedSubtotal = numeral( subtotal ).format( '$00.00' );
-	const formattedTotal = numeral( total ).format( '$00.00' );
+	const formattedShippingTax = numeral(shippingTax).format('$00.00');
+	const formattedSubtotal = numeral(subtotal).format('$00.00');
+	const formattedTotal = numeral(total).format('$00.00');
 
 	return (
 		<Card
@@ -66,8 +66,8 @@ export const CheckoutSummary: FC<CheckoutLoanSummaryProps> = ( props ) => {
 		>
 			<Typography variant="h6">Loan Summary</Typography>
 			<List sx={{ mt: 2 }}>
-				{products.map( ( product ) => {
-					const price = numeral( product.price ).format( '$00.00' );
+				{products.map((product) => {
+					const price = numeral(product.price).format('$00.00');
 
 					return (
 						<ListItem
@@ -123,7 +123,7 @@ export const CheckoutSummary: FC<CheckoutLoanSummaryProps> = ( props ) => {
 								>
 									<Select
 										value={product.quantity}
-										onChange={( event ) => onQuantityChange?.( event, product.id )}
+										onChange={(event) => onQuantityChange?.(event, product.id)}
 									>
 										<MenuItem value={1}>1</MenuItem>
 										<MenuItem value={2}>2</MenuItem>
@@ -133,7 +133,7 @@ export const CheckoutSummary: FC<CheckoutLoanSummaryProps> = ( props ) => {
 							</ListItemSecondaryAction>
 						</ListItem>
 					);
-				} )}
+				})}
 			</List>
 			<OutlinedInput
 				fullWidth

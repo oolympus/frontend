@@ -18,20 +18,20 @@ import { Customer } from 'src/types/customer';
 import { Loan } from 'src/types/loan';
 
 interface AccountGeneralSettingsProps {
-	user: Customer
-	loans: Loan[]
+	user: Customer;
+	loans: Loan[];
 }
 
-export const AccountGeneralSettings: FC<AccountGeneralSettingsProps> = ( props ) => {
+export const AccountGeneralSettings: FC<AccountGeneralSettingsProps> = (props) => {
 	const { user, loans } = props;
-	const [emailDisabled, setEmailDisabled] = React.useState( true );
-	const [nameDisabled, setNameDisabled] = React.useState( true );
+	const [emailDisabled, setEmailDisabled] = React.useState(true);
+	const [nameDisabled, setNameDisabled] = React.useState(true);
 
 	const editEmailBtn = emailDisabled ? (
 		<Button
 			color="inherit"
 			size="small"
-			onClick={() => setEmailDisabled( false )}
+			onClick={() => setEmailDisabled(false)}
 		>
 			Edit
 		</Button>
@@ -39,7 +39,7 @@ export const AccountGeneralSettings: FC<AccountGeneralSettingsProps> = ( props )
 		<Button
 			color="inherit"
 			size="small"
-			onClick={() => setEmailDisabled( true )}
+			onClick={() => setEmailDisabled(true)}
 		>
 			Save
 		</Button>
@@ -49,7 +49,7 @@ export const AccountGeneralSettings: FC<AccountGeneralSettingsProps> = ( props )
 		<Button
 			color="inherit"
 			size="small"
-			onClick={() => setNameDisabled( false )}
+			onClick={() => setNameDisabled(false)}
 		>
 			Edit
 		</Button>
@@ -57,13 +57,13 @@ export const AccountGeneralSettings: FC<AccountGeneralSettingsProps> = ( props )
 		<Button
 			color="inherit"
 			size="small"
-			onClick={() => setNameDisabled( true )}
+			onClick={() => setNameDisabled(true)}
 		>
 			Save
 		</Button>
 	);
 
-	const fullname = user.first_name + " " + user.surname
+	const fullname = user.first_name + ' ' + user.surname;
 
 	return (
 		<Stack
@@ -112,7 +112,7 @@ export const AccountGeneralSettings: FC<AccountGeneralSettingsProps> = ( props )
 											<Box
 												sx={{
 													alignItems: 'center',
-													backgroundColor: ( theme ) => alpha( theme.palette.neutral[700], 0.5 ),
+													backgroundColor: (theme) => alpha(theme.palette.neutral[700], 0.5),
 													borderRadius: '50%',
 													color: 'common.white',
 													cursor: 'pointer',
@@ -215,7 +215,7 @@ export const AccountGeneralSettings: FC<AccountGeneralSettingsProps> = ( props )
 			</Card>
 			<AccountDetailsSettings
 				user={user}
-				loans={loans.slice( 0, 3 )}
+				loans={loans.slice(0, 3)}
 			/>
 			<Card>
 				<CardContent>
@@ -254,4 +254,3 @@ export const AccountGeneralSettings: FC<AccountGeneralSettingsProps> = ( props )
 		</Stack>
 	);
 };
-

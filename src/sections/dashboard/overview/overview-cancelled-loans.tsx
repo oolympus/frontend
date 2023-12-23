@@ -16,7 +16,7 @@ interface OverviewCancelledLoansProps {
 	amount: number;
 }
 
-export const OverviewCancelledLoans: FC<OverviewCancelledLoansProps> = ( props ) => {
+export const OverviewCancelledLoans: FC<OverviewCancelledLoansProps> = (props) => {
 	const { amount } = props;
 
 	return (

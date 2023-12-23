@@ -20,15 +20,15 @@ interface InvoicePreviewProps {
 	invoice: Invoice;
 }
 
-export const InvoicePreview: FC<InvoicePreviewProps> = ( props ) => {
+export const InvoicePreview: FC<InvoicePreviewProps> = (props) => {
 	const { invoice, ...other } = props;
 
 	const items = invoice.items || [];
-	const dueDate = invoice.dueDate && format( invoice.dueDate, 'dd MMM yyyy' );
-	const issueDate = invoice.issueDate && format( invoice.issueDate, 'dd MMM yyyy' );
-	const subtotalAmount = numeral( invoice.subtotalAmount ).format( `${invoice.currency}0,0.00` );
-	const taxAmount = numeral( invoice.taxAmount ).format( `${invoice.currency}0,0.00` );
-	const totalAmount = numeral( invoice.totalAmount ).format( `${invoice.currency}0,0.00` );
+	const dueDate = invoice.dueDate && format(invoice.dueDate, 'dd MMM yyyy');
+	const issueDate = invoice.issueDate && format(invoice.issueDate, 'dd MMM yyyy');
+	const subtotalAmount = numeral(invoice.subtotalAmount).format(`${invoice.currency}0,0.00`);
+	const taxAmount = numeral(invoice.taxAmount).format(`${invoice.currency}0,0.00`);
+	const totalAmount = numeral(invoice.totalAmount).format(`${invoice.currency}0,0.00`);
 
 	return (
 		<Card
@@ -183,9 +183,9 @@ export const InvoicePreview: FC<InvoicePreviewProps> = ( props ) => {
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{items.map( ( item, index ) => {
-						const unitAmount = numeral( item.unitAmount ).format( `${item.currency}0,0.00` );
-						const totalAmount = numeral( item.totalAmount ).format( `${item.currency}0,0.00` );
+					{items.map((item, index) => {
+						const unitAmount = numeral(item.unitAmount).format(`${item.currency}0,0.00`);
+						const totalAmount = numeral(item.totalAmount).format(`${item.currency}0,0.00`);
 
 						return (
 							<TableRow key={item.id}>
@@ -196,7 +196,7 @@ export const InvoicePreview: FC<InvoicePreviewProps> = ( props ) => {
 								<TableCell align="right">{totalAmount}</TableCell>
 							</TableRow>
 						);
-					} )}
+					})}
 					<TableRow>
 						<TableCell
 							colSpan={3}

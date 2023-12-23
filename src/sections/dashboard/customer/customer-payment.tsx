@@ -7,8 +7,8 @@ import type { Theme } from '@mui/material/styles/createTheme';
 import { PropertyList } from 'src/components/property-list';
 import { PropertyListItem } from 'src/components/property-list-item';
 
-export const CustomerPayment: FC = ( props ) => {
-	const mdUp = useMediaQuery( ( theme: Theme ) => theme.breakpoints.up( 'md' ) );
+export const CustomerPayment: FC = (props) => {
+	const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
 
 	const align = mdUp ? 'horizontal' : 'vertical';
 
@@ -44,7 +44,7 @@ export const CustomerPayment: FC = ( props ) => {
 					align={align}
 					divider
 					label="State/Region"
-					value={"Kampala, uganda"}
+					value={'Kampala, uganda'}
 				/>
 				<PropertyListItem
 					align={align}

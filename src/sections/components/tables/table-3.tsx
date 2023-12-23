@@ -62,7 +62,7 @@ const customers: Customer[] = [
 		state: 'Ohio',
 		totalSpent: 300.0,
 		totalLoans: 3,
-		updatedAt: subDays( subHours( now, 7 ), 1 ).getTime(),
+		updatedAt: subDays(subHours(now, 7), 1).getTime(),
 	},
 	{
 		id: '5e887b209c28ac3dd97f6db5',
@@ -78,7 +78,7 @@ const customers: Customer[] = [
 		state: 'Georgia',
 		totalSpent: 0.0,
 		totalLoans: 0,
-		updatedAt: subDays( subHours( now, 1 ), 2 ).getTime(),
+		updatedAt: subDays(subHours(now, 1), 2).getTime(),
 	},
 	{
 		id: '5e887b7602bdbc4dbb234b27',
@@ -94,7 +94,7 @@ const customers: Customer[] = [
 		state: 'Ohio',
 		totalSpent: 5600.0,
 		totalLoans: 6,
-		updatedAt: subDays( subHours( now, 4 ), 2 ).getTime(),
+		updatedAt: subDays(subHours(now, 4), 2).getTime(),
 	},
 	{
 		id: '5e86809283e28b96d2d38537',
@@ -110,7 +110,7 @@ const customers: Customer[] = [
 		state: 'Madrid',
 		totalSpent: 500.0,
 		totalLoans: 1,
-		updatedAt: subDays( subHours( now, 11 ), 2 ).getTime(),
+		updatedAt: subDays(subHours(now, 11), 2).getTime(),
 	},
 	{
 		id: '5e86805e2bafd54f66cc95c3',
@@ -126,7 +126,7 @@ const customers: Customer[] = [
 		totalSpent: 0.0,
 		totalLoans: 0,
 		state: 'California',
-		updatedAt: subDays( subHours( now, 7 ), 3 ).getTime(),
+		updatedAt: subDays(subHours(now, 7), 3).getTime(),
 	},
 ];
 
@@ -176,7 +176,7 @@ const sortOptions: Option[] = [
 export const Table3: FC = () => (
 	<Box
 		sx={{
-			backgroundColor: ( theme ) => ( theme.palette.mode === 'dark' ? 'neutral.800' : 'neutral.100' ),
+			backgroundColor: (theme) => (theme.palette.mode === 'dark' ? 'neutral.800' : 'neutral.100'),
 			p: 3,
 		}}
 	>
@@ -189,13 +189,13 @@ export const Table3: FC = () => (
 				sx={{ px: 3 }}
 				variant="scrollable"
 			>
-				{tabs.map( ( tab ) => (
+				{tabs.map((tab) => (
 					<Tab
 						key={tab.value}
 						label={tab.label}
 						value={tab.value}
 					/>
-				) )}
+				))}
 			</Tabs>
 			<Divider />
 			<Stack
@@ -222,14 +222,14 @@ export const Table3: FC = () => (
 					select
 					SelectProps={{ native: true }}
 				>
-					{sortOptions.map( ( option ) => (
+					{sortOptions.map((option) => (
 						<option
 							key={option.value}
 							value={option.value}
 						>
 							{option.label}
 						</option>
-					) )}
+					))}
 				</TextField>
 			</Stack>
 			<Scrollbar>
@@ -247,9 +247,9 @@ export const Table3: FC = () => (
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{customers.map( ( customer ) => {
+						{customers.map((customer) => {
 							const location = `${customer.city}, ${customer.state}, ${customer.country}`;
-							const totalSpent = numeral( customer.totalSpent ).format( `${customer.currency}0,0.00` );
+							const totalSpent = numeral(customer.totalSpent).format(`${customer.currency}0,0.00`);
 
 							return (
 								<TableRow
@@ -305,15 +305,15 @@ export const Table3: FC = () => (
 									</TableCell>
 								</TableRow>
 							);
-						} )}
+						})}
 					</TableBody>
 				</Table>
 			</Scrollbar>
 			<TablePagination
 				component="div"
 				count={customers.length}
-				onPageChange={() => { }}
-				onRowsPerPageChange={() => { }}
+				onPageChange={() => {}}
+				onRowsPerPageChange={() => {}}
 				page={0}
 				rowsPerPage={5}
 				rowsPerPageOptions={[5, 10, 25]}

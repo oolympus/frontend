@@ -37,16 +37,16 @@ interface LoanDetailsProps {
 	loan: Loan;
 }
 
-export const LoanDetails: FC<LoanDetailsProps> = ( props ) => {
+export const LoanDetails: FC<LoanDetailsProps> = (props) => {
 	const { onApprove, onEdit, onReject, loan } = props;
-	const lgUp = useMediaQuery( ( theme: Theme ) => theme.breakpoints.up( 'lg' ) );
+	const lgUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
 
 	const align = lgUp ? 'horizontal' : 'vertical';
-	const createdAt = format( new Date( loan.application_time ), 'dd/MM/yyyy HH:mm' );
+	const createdAt = format(new Date(loan.application_time), 'dd/MM/yyyy HH:mm');
 	const statusColor = statusMap[loan.loan_status] as SeverityPillColor;
-	const totalAmount = numeral( loan.amount_payable ).format( `$0,0.00` );
+	const totalAmount = numeral(loan.amount_payable).format(`$0,0.00`);
 
-	const customer = getCustomers( 1 )[0];
+	const customer = getCustomers(1)[0];
 
 	return (
 		<Stack spacing={6}>
@@ -184,9 +184,7 @@ export const LoanDetails: FC<LoanDetailsProps> = ( props ) => {
 						</TableHead>
 						<TableBody>
 							<TableRow>
-								<TableCell>
-									{loan.disbursed_by}
-								</TableCell>
+								<TableCell>{loan.disbursed_by}</TableCell>
 								<TableCell>{loan.percent_interest}</TableCell>
 								<TableCell>{loan.payment_intervals}</TableCell>
 								<TableCell>{loan.amount_payable}</TableCell>

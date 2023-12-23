@@ -1,4 +1,5 @@
-export interface Customer { // This is the real deal
+export interface Customer {
+	// This is the real deal
 	id: string;
 	last_login?: any;
 	email: string;

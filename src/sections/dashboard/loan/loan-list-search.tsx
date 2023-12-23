@@ -68,57 +68,57 @@ const sortOptions: SortOption[] = [
 ];
 
 interface LoanListSearchProps {
-	onFiltersChange?: ( filters: Filters ) => void;
-	onSortChange?: ( sort: SortDir ) => void;
+	onFiltersChange?: (filters: Filters) => void;
+	onSortChange?: (sort: SortDir) => void;
 	sortBy?: string;
 	sortDir?: 'asc' | 'desc';
 }
 
-export const LoanListSearch: FC<LoanListSearchProps> = ( props ) => {
+export const LoanListSearch: FC<LoanListSearchProps> = (props) => {
 	const {
 		onFiltersChange,
 		onSortChange,
 		// sortBy = 'createdAt',
 		sortDir = 'asc',
 	} = props;
-	const queryRef = useRef<HTMLInputElement | null>( null );
-	const [currentTab, setCurrentTab] = useState<TabValue>( 'all' );
-	const [filters, setFilters] = useState<Filters>( {
+	const queryRef = useRef<HTMLInputElement | null>(null);
+	const [currentTab, setCurrentTab] = useState<TabValue>('all');
+	const [filters, setFilters] = useState<Filters>({
 		query: undefined,
 		status: undefined,
-	} );
+	});
 
-	const handleFiltersUpdate = useCallback( () => {
-		onFiltersChange?.( filters );
-	}, [filters, onFiltersChange] );
+	const handleFiltersUpdate = useCallback(() => {
+		onFiltersChange?.(filters);
+	}, [filters, onFiltersChange]);
 
-	useUpdateEffect( () => {
+	useUpdateEffect(() => {
 		handleFiltersUpdate();
-	}, [filters, handleFiltersUpdate] );
+	}, [filters, handleFiltersUpdate]);
 
-	const handleTabsChange = useCallback( ( event: ChangeEvent<any>, tab: TabValue ): void => {
-		setCurrentTab( tab );
+	const handleTabsChange = useCallback((event: ChangeEvent<any>, tab: TabValue): void => {
+		setCurrentTab(tab);
 		const status = tab === 'all' ? undefined : tab;
 
-		setFilters( ( prevState ) => ( {
+		setFilters((prevState) => ({
 			...prevState,
 			status,
-		} ) );
-	}, [] );
+		}));
+	}, []);
 
-	const handleQueryChange = useCallback( ( event: FormEvent<HTMLFormElement> ): void => {
+	const handleQueryChange = useCallback((event: FormEvent<HTMLFormElement>): void => {
 		event.preventDefault();
 		const query = queryRef.current?.value || '';
-		setFilters( ( prevState ) => ( {
+		setFilters((prevState) => ({
 			...prevState,
 			query,
-		} ) );
-	}, [] );
+		}));
+	}, []);
 
 	const handleSortChange = useCallback(
-		( event: ChangeEvent<HTMLInputElement> ): void => {
+		(event: ChangeEvent<HTMLInputElement>): void => {
 			const sortDir = event.target.value as SortDir;
-			onSortChange?.( sortDir );
+			onSortChange?.(sortDir);
 		},
 		[onSortChange]
 	);
@@ -134,13 +134,13 @@ export const LoanListSearch: FC<LoanListSearchProps> = ( props ) => {
 				value={currentTab}
 				variant="scrollable"
 			>
-				{tabOptions.map( ( tab ) => (
+				{tabOptions.map((tab) => (
 					<Tab
 						key={tab.value}
 						label={tab.label}
 						value={tab.value}
 					/>
-				) )}
+				))}
 			</Tabs>
 			<Divider />
 			<Stack
@@ -178,14 +178,14 @@ export const LoanListSearch: FC<LoanListSearchProps> = ( props ) => {
 					SelectProps={{ native: true }}
 					value={sortDir}
 				>
-					{sortOptions.map( ( option ) => (
+					{sortOptions.map((option) => (
 						<option
 							key={option.value}
 							value={option.value}
 						>
 							{option.label}
 						</option>
-					) )}
+					))}
 				</TextField>
 			</Stack>
 		</div>
@@ -196,5 +196,5 @@ LoanListSearch.propTypes = {
 	onFiltersChange: PropTypes.func,
 	onSortChange: PropTypes.func,
 	sortBy: PropTypes.string,
-	sortDir: PropTypes.oneOf<SortDir>( ['asc', 'desc'] ),
+	sortDir: PropTypes.oneOf<SortDir>(['asc', 'desc']),
 };

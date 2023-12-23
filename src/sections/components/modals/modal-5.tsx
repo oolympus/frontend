@@ -30,28 +30,28 @@ interface Notification {
 const notifications: Notification[] = [
 	{
 		id: '5e8883f1b51cc1956a5a1ec0',
-		createdAt: subHours( now, 2 ).getTime(),
+		createdAt: subHours(now, 2).getTime(),
 		description: 'Dummy text',
 		title: 'Your loan is placed',
 		type: 'loan_placed',
 	},
 	{
 		id: '5e8883f7ed1486d665d8be1e',
-		createdAt: subDays( now, 1 ).getTime(),
+		createdAt: subDays(now, 1).getTime(),
 		description: 'You have 32 unread messages',
 		title: 'New message received',
 		type: 'new_message',
 	},
 	{
 		id: '5e8883fca0e8612044248ecf',
-		createdAt: subDays( now, 3 ).getTime(),
+		createdAt: subDays(now, 3).getTime(),
 		description: 'Dummy text',
 		title: 'Your item is shipped',
 		type: 'item_shipped',
 	},
 	{
 		id: '5e88840187f6b09b431bae68',
-		createdAt: subDays( now, 7 ).getTime(),
+		createdAt: subDays(now, 7).getTime(),
 		description: 'You have 32 unread messages',
 		title: 'New message received',
 		type: 'new_message',
@@ -67,7 +67,7 @@ const iconsMap: Record<NotificationType, JSX.Element> = {
 export const Modal5: FC = () => (
 	<Box
 		sx={{
-			backgroundColor: ( theme ) => ( theme.palette.mode === 'dark' ? 'neutral.800' : 'neutral.100' ),
+			backgroundColor: (theme) => (theme.palette.mode === 'dark' ? 'neutral.800' : 'neutral.100'),
 			p: 3,
 		}}
 	>
@@ -82,7 +82,7 @@ export const Modal5: FC = () => (
 				<Typography variant="h6">Notifications</Typography>
 			</Box>
 			<List disablePadding>
-				{notifications.map( ( notification ) => {
+				{notifications.map((notification) => {
 					const icon = iconsMap[notification.type];
 
 					return (
@@ -117,7 +117,7 @@ export const Modal5: FC = () => (
 							/>
 						</ListItem>
 					);
-				} )}
+				})}
 			</List>
 			<Box
 				sx={{

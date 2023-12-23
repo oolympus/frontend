@@ -24,21 +24,21 @@ interface CustomerListTableProps {
 	count?: number;
 	items?: Customer[];
 	onDeselectAll?: () => void;
-	onDeselectOne?: ( customerId: string ) => void;
-	onPageChange?: ( event: MouseEvent<HTMLButtonElement> | null, newPage: number ) => void;
-	onRowsPerPageChange?: ( event: ChangeEvent<HTMLInputElement> ) => void;
+	onDeselectOne?: (customerId: string) => void;
+	onPageChange?: (event: MouseEvent<HTMLButtonElement> | null, newPage: number) => void;
+	onRowsPerPageChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 	onSelectAll?: () => void;
-	onSelectOne?: ( customerId: string ) => void;
+	onSelectOne?: (customerId: string) => void;
 	page?: number;
 	rowsPerPage?: number;
 	selected?: string[];
 }
 
-export const CustomerListTable: FC<CustomerListTableProps> = ( props ) => {
+export const CustomerListTable: FC<CustomerListTableProps> = (props) => {
 	const {
 		count = 0,
 		items = [],
-		onPageChange = () => { },
+		onPageChange = () => {},
 		onRowsPerPageChange,
 		page = 0,
 		rowsPerPage = 0,
@@ -46,8 +46,10 @@ export const CustomerListTable: FC<CustomerListTableProps> = ( props ) => {
 	} = props;
 
 	return (
-		<Box sx={{ position: 'relative' }}
-			p={2} >
+		<Box
+			sx={{ position: 'relative' }}
+			p={2}
+		>
 			<Scrollbar>
 				<Table sx={{ minWidth: 700 }}>
 					<TableHead>
@@ -63,17 +65,15 @@ export const CustomerListTable: FC<CustomerListTableProps> = ( props ) => {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{items.map( ( customer ) => {
-							const isSelected = selected.includes( customer.id );
+						{items.map((customer) => {
+							const isSelected = selected.includes(customer.id);
 							return (
 								<TableRow
 									hover
 									key={customer.id}
 									selected={isSelected}
 								>
-									<TableCell padding="checkbox">
-										{customer.id}
-									</TableCell>
+									<TableCell padding="checkbox">{customer.id}</TableCell>
 									<TableCell>
 										<Stack
 											alignItems="center"
@@ -146,7 +146,7 @@ export const CustomerListTable: FC<CustomerListTableProps> = ( props ) => {
 									</TableCell>
 								</TableRow>
 							);
-						} )}
+						})}
 					</TableBody>
 				</Table>
 			</Scrollbar>

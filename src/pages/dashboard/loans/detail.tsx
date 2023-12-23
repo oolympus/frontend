@@ -22,19 +22,19 @@ import { Loan } from 'src/types/loan';
 
 const useLoan = (): Loan | null => {
 	const isMounted = useMounted();
-	const [loan, setLoan] = useState<Loan | null>( null );
+	const [loan, setLoan] = useState<Loan | null>(null);
 
-	const handleLoanGet = useCallback( async () => {
+	const handleLoanGet = useCallback(async () => {
 		try {
 			const response = await loansApi.getLoan();
 
-			if ( isMounted() ) {
-				setLoan( response );
+			if (isMounted()) {
+				setLoan(response);
 			}
-		} catch ( err ) {
-			console.error( err );
+		} catch (err) {
+			console.error(err);
 		}
-	}, [isMounted] );
+	}, [isMounted]);
 
 	useEffect(
 		() => {
@@ -52,11 +52,11 @@ const Page = () => {
 
 	usePageView();
 
-	if ( !loan ) {
+	if (!loan) {
 		return null;
 	}
 
-	const createdAt = new Date( loan.application_time ).toLocaleString()
+	const createdAt = new Date(loan.application_time).toLocaleString();
 
 	return (
 		<>

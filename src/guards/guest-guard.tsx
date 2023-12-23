@@ -10,20 +10,20 @@ interface GuestGuardProps {
 	children: ReactNode;
 }
 
-export const GuestGuard: FC<GuestGuardProps> = ( props ) => {
+export const GuestGuard: FC<GuestGuardProps> = (props) => {
 	const { children } = props;
 	const { isAuthenticated } = useAuth();
 	const router = useRouter();
-	const [checked, setChecked] = useState<boolean>( false );
+	const [checked, setChecked] = useState<boolean>(false);
 
-	const check = useCallback( () => {
-		if ( isAuthenticated ) {
-			router.replace( paths.dashboard.index );
+	const check = useCallback(() => {
+		if (isAuthenticated) {
+			router.replace(paths.dashboard.index);
 		} else {
-			router.replace( paths.auth.login );
-			setChecked( true );
+			router.replace(paths.auth.login);
+			setChecked(true);
 		}
-	}, [isAuthenticated, router] );
+	}, [isAuthenticated, router]);
 
 	// Only check on mount, this allows us to redirect the user manually when auth state changes
 	useEffect(
@@ -34,7 +34,7 @@ export const GuestGuard: FC<GuestGuardProps> = ( props ) => {
 		[]
 	);
 
-	if ( !checked ) {
+	if (!checked) {
 		return null;
 	}
 

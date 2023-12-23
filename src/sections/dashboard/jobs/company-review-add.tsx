@@ -12,11 +12,11 @@ import { getInitials } from 'src/utils/get-initials';
 
 export const CompanyReviewAdd = () => {
 	const user = useMockedUser();
-	const [rating, setRating] = useState<number | null>( null );
+	const [rating, setRating] = useState<number | null>(null);
 
 	const handleRatingChange = useCallback(
-		( event: SyntheticEvent, newRating: number | null ): void => {
-			setRating( newRating );
+		(event: SyntheticEvent, newRating: number | null): void => {
+			setRating(newRating);
 		},
 		[]
 	);
@@ -27,7 +27,7 @@ export const CompanyReviewAdd = () => {
 			direction="row"
 			spacing={2}
 		>
-			<Avatar src={user.avatar}>{getInitials( user.username )}</Avatar>
+			<Avatar src={user.avatar}>{getInitials(user.username)}</Avatar>
 			<Box sx={{ flexGrow: 1 }}>
 				<OutlinedInput
 					fullWidth

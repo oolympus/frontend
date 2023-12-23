@@ -31,39 +31,41 @@ const initialValues: Values = {
 	submit: null,
 };
 
-const validationSchema = Yup.object( {
-	username: Yup.string().max( 255 ).required( 'Username is required' ),
-	password: Yup.string().min( 3, 'Password must be at least 3 characters' ).max( 255 ).required( 'Password is required' ),
-} );
-
+const validationSchema = Yup.object({
+	username: Yup.string().max(255).required('Username is required'),
+	password: Yup.string()
+		.min(3, 'Password must be at least 3 characters')
+		.max(255)
+		.required('Password is required'),
+});
 
 const Page = () => {
 	const isMounted = useMounted();
 	const router = useRouter();
 	const searchParams = useSearchParams();
-	const returnTo = searchParams.get( 'returnTo' );
+	const returnTo = searchParams.get('returnTo');
 	const { signIn } = useAuth<AuthContextType>();
-	const formik = useFormik( {
+	const formik = useFormik({
 		initialValues,
 		validationSchema,
-		onSubmit: async ( values, helpers ): Promise<void> => {
+		onSubmit: async (values, helpers): Promise<void> => {
 			try {
-				await signIn( { ...values } );
+				await signIn({ ...values });
 
-				if ( isMounted() ) {
-					router.push( returnTo || paths.dashboard.index );
+				if (isMounted()) {
+					router.push(returnTo || paths.dashboard.index);
 				}
-			} catch ( err ) {
-				console.error( err );
+			} catch (err) {
+				console.error(err);
 
-				if ( isMounted() ) {
-					helpers.setStatus( { success: false } );
-					helpers.setErrors( { submit: err.message } );
-					helpers.setSubmitting( false );
+				if (isMounted()) {
+					helpers.setStatus({ success: false });
+					helpers.setErrors({ submit: err.message });
+					helpers.setSubmitting(false);
 				}
 			}
 		},
-	} );
+	});
 
 	usePageView();
 
@@ -100,7 +102,7 @@ const Page = () => {
 							<Stack spacing={3}>
 								<TextField
 									autoFocus
-									error={!!( formik.touched.username && formik.errors.username )}
+									error={!!(formik.touched.username && formik.errors.username)}
 									fullWidth
 									helperText={formik.touched.username && formik.errors.username}
 									label="Username"
@@ -111,7 +113,7 @@ const Page = () => {
 									value={formik.values.username}
 								/>
 								<TextField
-									error={!!( formik.touched.password && formik.errors.password )}
+									error={!!(formik.touched.password && formik.errors.password)}
 									fullWidth
 									helperText={formik.touched.password && formik.errors.password}
 									label="Password"

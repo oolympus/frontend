@@ -11,8 +11,8 @@ import type { Invoice } from 'src/types/invoice';
 const useStyles = () => {
 	const theme = useTheme();
 
-	return useMemo( () => {
-		return StyleSheet.create( {
+	return useMemo(() => {
+		return StyleSheet.create({
 			page: {
 				backgroundColor: '#FFFFFF',
 				padding: 24,
@@ -117,24 +117,24 @@ const useStyles = () => {
 			notes: {
 				marginTop: 32,
 			},
-		} );
-	}, [theme] );
+		});
+	}, [theme]);
 };
 
 interface InvoicePdfDocumentProps {
 	invoice: Invoice;
 }
 
-export const InvoicePdfDocument: FC<InvoicePdfDocumentProps> = ( props ) => {
+export const InvoicePdfDocument: FC<InvoicePdfDocumentProps> = (props) => {
 	const { invoice } = props;
 	const styles = useStyles();
 
 	const items = invoice.items || [];
-	const dueDate = invoice.dueDate && format( invoice.dueDate, 'dd MMM yyyy' );
-	const issueDate = invoice.issueDate && format( invoice.issueDate, 'dd MMM yyyy' );
-	const subtotalAmount = numeral( invoice.subtotalAmount ).format( `${invoice.currency}0,0.00` );
-	const taxAmount = numeral( invoice.taxAmount ).format( `${invoice.currency}0,0.00` );
-	const totalAmount = numeral( invoice.totalAmount ).format( `${invoice.currency}0,0.00` );
+	const dueDate = invoice.dueDate && format(invoice.dueDate, 'dd MMM yyyy');
+	const issueDate = invoice.issueDate && format(invoice.issueDate, 'dd MMM yyyy');
+	const subtotalAmount = numeral(invoice.subtotalAmount).format(`${invoice.currency}0,0.00`);
+	const taxAmount = numeral(invoice.taxAmount).format(`${invoice.currency}0,0.00`);
+	const totalAmount = numeral(invoice.totalAmount).format(`${invoice.currency}0,0.00`);
 
 	return (
 		<Document>
@@ -209,9 +209,9 @@ export const InvoicePdfDocument: FC<InvoicePdfDocumentProps> = ( props ) => {
 							<Text style={[styles.h6, styles.alignRight]}>Total</Text>
 						</View>
 					</View>
-					{items.map( ( item, index ) => {
-						const unitAmount = numeral( item.unitAmount ).format( `${item.currency}0,0.00` );
-						const totalAmount = numeral( item.totalAmount ).format( `${item.currency}0,0.00` );
+					{items.map((item, index) => {
+						const unitAmount = numeral(item.unitAmount).format(`${item.currency}0,0.00`);
+						const totalAmount = numeral(item.totalAmount).format(`${item.currency}0,0.00`);
 
 						return (
 							<View
@@ -235,7 +235,7 @@ export const InvoicePdfDocument: FC<InvoicePdfDocumentProps> = ( props ) => {
 								</View>
 							</View>
 						);
-					} )}
+					})}
 					<View style={styles.summaryRow}>
 						<View style={styles.summaryGap} />
 						<View style={styles.summaryTitle}>

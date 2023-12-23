@@ -45,7 +45,7 @@ const loanItems: LoanItem[] = [
 export const Table11: FC = () => (
 	<Box
 		sx={{
-			backgroundColor: ( theme ) => ( theme.palette.mode === 'dark' ? 'neutral.800' : 'neutral.100' ),
+			backgroundColor: (theme) => (theme.palette.mode === 'dark' ? 'neutral.800' : 'neutral.100'),
 			p: 3,
 		}}
 	>
@@ -62,8 +62,8 @@ export const Table11: FC = () => (
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{loanItems.map( ( item ) => {
-							const unitAmount = numeral( item.unitAmount ).format( `${item.currency}0,0.00` );
+						{loanItems.map((item) => {
+							const unitAmount = numeral(item.unitAmount).format(`${item.currency}0,0.00`);
 							const description = `${item.quantity} x ${item.name}`;
 
 							return (
@@ -75,15 +75,15 @@ export const Table11: FC = () => (
 									<TableCell>{unitAmount}</TableCell>
 								</TableRow>
 							);
-						} )}
+						})}
 					</TableBody>
 				</Table>
 			</Scrollbar>
 			<TablePagination
 				component="div"
 				count={loanItems.length}
-				onPageChange={(): void => { }}
-				onRowsPerPageChange={(): void => { }}
+				onPageChange={(): void => {}}
+				onRowsPerPageChange={(): void => {}}
 				page={0}
 				rowsPerPage={5}
 				rowsPerPageOptions={[5, 10, 25]}

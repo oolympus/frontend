@@ -16,7 +16,7 @@ interface OverviewCompletedLoansProps {
 	amount: number;
 }
 
-export const OverviewCompletedLoans: FC<OverviewCompletedLoansProps> = ( props ) => {
+export const OverviewCompletedLoans: FC<OverviewCompletedLoansProps> = (props) => {
 	const { amount } = props;
 
 	return (
