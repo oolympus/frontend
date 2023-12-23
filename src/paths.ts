@@ -1,0 +1,91 @@
+export const paths = {
+	index: '/',
+	checkout: '/checkout',
+	contact: '/contact',
+	pricing: '/pricing',
+	auth: {
+		login: '/auth/login',
+		register: '/auth/register',
+		forgotPassword: '/auth/forgot-password',
+		resetPassword: '/auth/reset-password',
+		verifyCode: '/auth/verify-code',
+	},
+	dashboard: {
+		index: '/',
+		academy: {
+			index: '/academy',
+			courseDetails: '/academy/courses/:courseId',
+		},
+		account: '/account',
+		analytics: '/analytics',
+		blank: '/blank',
+		blog: {
+			index: '/blog',
+			postDetails: '/blog/:postId',
+			postCreate: '/blog/create',
+		},
+		calendar: '/calendar',
+		chat: '/chat',
+		crypto: '/crypto',
+		customers: {
+			index: '/customers',
+			details: '/customers/:customerId',
+			edit: '/customers/:customerId/edit',
+		},
+		ecommerce: '/ecommerce',
+		fileManager: '/file-manager',
+		invoices: {
+			index: '/invoices',
+			details: '/invoices/:loanId',
+		},
+		jobs: {
+			index: '/jobs',
+			create: '/jobs/create',
+			companies: {
+				details: '/jobs/companies/:companyId',
+			},
+		},
+		kanban: '/kanban',
+		logistics: {
+			index: '/logistics',
+			fleet: '/logistics/fleet',
+		},
+		mail: '/mail',
+		loans: {
+			index: '/loans',
+			details: '/loans/:loanId',
+		},
+		products: {
+			index: '/products',
+			create: '/products/create',
+		},
+		social: {
+			index: '/social',
+			profile: '/social/profile',
+			feed: '/social/feed',
+		},
+	},
+	components: {
+		index: '/components',
+		dataDisplay: {
+			detailLists: '/components/data-display/detail-lists',
+			tables: '/components/data-display/tables',
+			quickStats: '/components/data-display/quick-stats',
+		},
+		lists: {
+			groupedLists: '/components/lists/grouped-lists',
+			gridLists: '/components/lists/grid-lists',
+		},
+		forms: '/components/forms',
+		modals: '/components/modals',
+		charts: '/components/charts',
+		buttons: '/components/buttons',
+		typography: '/components/typography',
+		colors: '/components/colors',
+		inputs: '/components/inputs',
+	},
+	docs: 'https://material-kit-pro-react-docs.olympus.com',
+	notAuthorized: '/401',
+	notFound: '/404',
+	serverError: '/500',
+};
