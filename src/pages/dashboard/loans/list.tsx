@@ -38,7 +38,7 @@ interface LoansSearchState {
 }
 
 const useLoansSearch = () => {
-	const [state, setState] = useState<LoansSearchState>( {
+	const [state, setState] = useState<LoansSearchState>({
 		filters: {
 			query: undefined,
 			status: undefined,
@@ -47,38 +47,38 @@ const useLoansSearch = () => {
 		rowsPerPage: 5,
 		sortBy: 'createdAt',
 		sortDir: 'desc',
-	} );
+	});
 
-	const handleFiltersChange = useCallback( ( filters: Filters ): void => {
-		setState( ( prevState ) => ( {
+	const handleFiltersChange = useCallback((filters: Filters): void => {
+		setState((prevState) => ({
 			...prevState,
 			filters,
-		} ) );
-	}, [] );
+		}));
+	}, []);
 
-	const handleSortChange = useCallback( ( sortDir: SortDir ): void => {
-		setState( ( prevState ) => ( {
+	const handleSortChange = useCallback((sortDir: SortDir): void => {
+		setState((prevState) => ({
 			...prevState,
 			sortDir,
-		} ) );
-	}, [] );
+		}));
+	}, []);
 
 	const handlePageChange = useCallback(
-		( event: MouseEvent<HTMLButtonElement> | null, page: number ): void => {
-			setState( ( prevState ) => ( {
+		(event: MouseEvent<HTMLButtonElement> | null, page: number): void => {
+			setState((prevState) => ({
 				...prevState,
 				page,
-			} ) );
+			}));
 		},
 		[]
 	);
 
-	const handleRowsPerPageChange = useCallback( ( event: ChangeEvent<HTMLInputElement> ): void => {
-		setState( ( prevState ) => ( {
+	const handleRowsPerPageChange = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
+		setState((prevState) => ({
 			...prevState,
-			rowsPerPage: parseInt( event.target.value, 10 ),
-		} ) );
-	}, [] );
+			rowsPerPage: parseInt(event.target.value, 10),
+		}));
+	}, []);
 
 	return {
 		handleFiltersChange,
@@ -94,27 +94,27 @@ interface LoansStoreState {
 	loansCount: number;
 }
 
-const useLoansStore = ( searchState: LoansSearchState ) => {
+const useLoansStore = (searchState: LoansSearchState) => {
 	const isMounted = useMounted();
-	const [state, setState] = useState<LoansStoreState>( {
+	const [state, setState] = useState<LoansStoreState>({
 		loans: [],
 		loansCount: 0,
-	} );
+	});
 
-	const handleLoansGet = useCallback( async () => {
+	const handleLoansGet = useCallback(async () => {
 		try {
-			const response = await loansApi.getLoans( searchState );
+			const response = await loansApi.getLoans(searchState);
 
-			if ( isMounted() ) {
-				setState( {
+			if (isMounted()) {
+				setState({
 					loans: response.data,
 					loansCount: response.count,
-				} );
+				});
 			}
-		} catch ( err ) {
-			console.error( err );
+		} catch (err) {
+			console.error(err);
 		}
-	}, [searchState, isMounted] );
+	}, [searchState, isMounted]);
 
 	useEffect(
 		() => {
@@ -129,42 +129,42 @@ const useLoansStore = ( searchState: LoansSearchState ) => {
 	};
 };
 
-const useCurrentLoan = ( loans: Loan[], loanId?: string ): Loan | undefined => {
-	return useMemo( (): Loan | undefined => {
-		if ( !loanId ) {
+const useCurrentLoan = (loans: Loan[], loanId?: string): Loan | undefined => {
+	return useMemo((): Loan | undefined => {
+		if (!loanId) {
 			return undefined;
 		}
 
-		return loans.find( ( loan ) => loan.id === loanId );
-	}, [loans, loanId] );
+		return loans.find((loan) => loan.id === loanId);
+	}, [loans, loanId]);
 };
 
 const Page = () => {
-	const rootRef = useRef<HTMLDivElement | null>( null );
+	const rootRef = useRef<HTMLDivElement | null>(null);
 	const loansSearch = useLoansSearch();
-	const loansStore = useLoansStore( loansSearch.state );
+	const loansStore = useLoansStore(loansSearch.state);
 	const dialog = useDialog<string>();
-	const currentLoan = useCurrentLoan( loansStore.loans, dialog.data );
-	const [modalOpen, setModalOpen] = React.useState( false );
-	const handleOpen = () => setModalOpen( true );
+	const currentLoan = useCurrentLoan(loansStore.loans, dialog.data);
+	const [modalOpen, setModalOpen] = React.useState(false);
+	const handleOpen = () => setModalOpen(true);
 
-	const customer = getCustomers( 1 )[0]
+	const customer = getCustomers(1)[0];
 
 	usePageView();
 
-	const onApply = useCallback( (): void => { }, [] );
-	const onCancel = useCallback( () => setModalOpen( false ), [] )
+	const onApply = useCallback((): void => {}, []);
+	const onCancel = useCallback(() => setModalOpen(false), []);
 
 	const handleLoanOpen = useCallback(
-		( loanId: string ): void => {
+		(loanId: string): void => {
 			// Close drawer if is the same loan
 
-			if ( dialog.open && dialog.data === loanId ) {
+			if (dialog.open && dialog.data === loanId) {
 				dialog.handleClose();
 				return;
 			}
 
-			dialog.handleOpen( loanId );
+			dialog.handleOpen(loanId);
 		},
 		[dialog]
 	);
@@ -195,8 +195,7 @@ const Page = () => {
 					}}
 				>
 					<LoanListContainer open={dialog.open}>
-						<Box
-							sx={{ p: 3 }}>
+						<Box sx={{ p: 3 }}>
 							<Stack
 								alignItems="flex-start"
 								direction="row"
@@ -245,17 +244,20 @@ const Page = () => {
 						open={dialog.open}
 						loan={currentLoan}
 					/>
-					{modalOpen ? <Modal
-						open={modalOpen}
-						onClose={onCancel}
-						aria-labelledby="modal-modal-title"
-						aria-describedby="modal-modal-description"
-					>
-						<LoanApplication onCancel={onCancel}
-							onApply={onApply}
-							customer={customer} />
-					</Modal> : null
-					}
+					{modalOpen ? (
+						<Modal
+							open={modalOpen}
+							onClose={onCancel}
+							aria-labelledby="modal-modal-title"
+							aria-describedby="modal-modal-description"
+						>
+							<LoanApplication
+								onCancel={onCancel}
+								onApply={onApply}
+								customer={customer}
+							/>
+						</Modal>
+					) : null}
 				</Box>
 			</Box>
 		</>

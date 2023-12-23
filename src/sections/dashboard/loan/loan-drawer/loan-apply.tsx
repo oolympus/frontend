@@ -6,7 +6,16 @@ import TextField from '@mui/material/TextField';
 import * as Yup from 'yup';
 
 import { Customer } from 'src/types/customer';
-import { Card, CardContent, CardHeader, FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material';
+import {
+	Card,
+	CardContent,
+	CardHeader,
+	FormControl,
+	FormHelperText,
+	InputLabel,
+	MenuItem,
+	Select,
+} from '@mui/material';
 import { useFormik } from 'formik';
 import { useMounted } from 'src/hooks/use-mounted';
 
@@ -22,10 +31,12 @@ const initialValues: Values = {
 	submit: null,
 };
 
-const validationSchema = Yup.object( {
-	principal: Yup.string().max( 255 ).required( 'Principal is required' ),
-	payment_interval: Yup.string().oneOf( ['weekly', 'monthly'] ).required( 'Payment interval is required' ),
-} );
+const validationSchema = Yup.object({
+	principal: Yup.string().max(255).required('Principal is required'),
+	payment_interval: Yup.string()
+		.oneOf(['weekly', 'monthly'])
+		.required('Payment interval is required'),
+});
 
 interface LoanApplicationProps {
 	onCancel: () => void;
@@ -33,39 +44,40 @@ interface LoanApplicationProps {
 	customer: Customer;
 }
 
-export const LoanApplication: FC<LoanApplicationProps> = ( props ) => {
+export const LoanApplication: FC<LoanApplicationProps> = (props) => {
 	const { onCancel, onApply, customer } = props;
 	const isMounted = useMounted();
 
-	const formik = useFormik( {
+	const formik = useFormik({
 		initialValues,
 		validationSchema,
-		onSubmit: async ( values, helpers ): Promise<void> => {
+		onSubmit: async (values, helpers): Promise<void> => {
 			try {
-				console.log( values )
-			} catch ( err ) {
-				console.error( err );
+				console.log(values);
+			} catch (err) {
+				console.error(err);
 
-				if ( isMounted() ) {
-					helpers.setStatus( { success: false } );
-					helpers.setErrors( { submit: err.message } );
-					helpers.setSubmitting( false );
+				if (isMounted()) {
+					helpers.setStatus({ success: false });
+					helpers.setErrors({ submit: err.message });
+					helpers.setSubmitting(false);
 				}
 			}
 		},
-	} );
+	});
 
 	return (
 		<Stack
 			sx={{
-				justifyContent: "center",
-				alignItems: "center",
-				height: "100vh"
+				justifyContent: 'center',
+				alignItems: 'center',
+				height: '100vh',
 			}}
 		>
-			<Card elevation={16}
+			<Card
+				elevation={16}
 				sx={{
-					width: "40%"
+					width: '40%',
 				}}
 			>
 				<CardHeader
@@ -81,7 +93,7 @@ export const LoanApplication: FC<LoanApplicationProps> = ( props ) => {
 							<TextField
 								size="small"
 								autoFocus
-								error={!!( formik.touched.principal && formik.errors.principal )}
+								error={!!(formik.touched.principal && formik.errors.principal)}
 								fullWidth
 								helperText={formik.touched.principal && formik.errors.principal}
 								label="Principal"
@@ -91,8 +103,10 @@ export const LoanApplication: FC<LoanApplicationProps> = ( props ) => {
 								type="text"
 								value={formik.values.principal}
 							/>
-							<FormControl sx={{ m: 1, minWidth: 120 }}
-								size="small">
+							<FormControl
+								sx={{ m: 1, minWidth: 120 }}
+								size="small"
+							>
 								<InputLabel id="payment_interval">Payment Interval</InputLabel>
 								<Select
 									labelId="payment_interval"
@@ -120,7 +134,7 @@ export const LoanApplication: FC<LoanApplicationProps> = ( props ) => {
 							direction="row"
 							spacing={2}
 							marginTop={1}
-							justifyContent={"space-between"}
+							justifyContent={'space-between'}
 						>
 							<Button
 								color="primary"

@@ -34,11 +34,11 @@ interface LoanEditProps {
 	loan: Loan;
 }
 
-export const LoanEdit: FC<LoanEditProps> = ( props ) => {
+export const LoanEdit: FC<LoanEditProps> = (props) => {
 	const { onCancel, onSave, loan } = props;
 
-	const createdAt = format( new Date( loan.application_time ), 'dd/MM/yyyy HH:mm' );
-	const customer = getCustomers( 1 )[0];
+	const createdAt = format(new Date(loan.application_time), 'dd/MM/yyyy HH:mm');
+	const customer = getCustomers(1)[0];
 
 	const fullname = `${customer.first_name} ${customer.surname}`;
 
@@ -101,14 +101,14 @@ export const LoanEdit: FC<LoanEditProps> = ( props ) => {
 						SelectProps={{ native: true }}
 						value={loan.loan_status}
 					>
-						{statusOptions.map( ( option ) => (
+						{statusOptions.map((option) => (
 							<option
 								key={option.value}
 								value={option.value}
 							>
 								{option.label}
 							</option>
-						) )}
+						))}
 					</TextField>
 				</Stack>
 				<Stack

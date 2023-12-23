@@ -27,9 +27,9 @@ type GroupedInvoices = {
 	[key in InvoiceStatus]: Invoice[];
 };
 
-const groupInvoices = ( invoices: Invoice[] ): GroupedInvoices => {
+const groupInvoices = (invoices: Invoice[]): GroupedInvoices => {
 	return invoices.reduce(
-		( acc, invoice ) => {
+		(acc, invoice) => {
 			const { status } = invoice;
 
 			return {
@@ -55,13 +55,13 @@ interface InvoiceRowProps {
 	invoice: Invoice;
 }
 
-const InvoiceRow: FC<InvoiceRowProps> = ( props ) => {
+const InvoiceRow: FC<InvoiceRowProps> = (props) => {
 	const { invoice, ...other } = props;
 
 	const statusColor = statusColorsMap[invoice.status];
-	const totalAmount = numeral( invoice.totalAmount ).format( '0,0.00' );
-	const issueDate = invoice.issueDate && format( invoice.issueDate, 'dd/MM/yyyy' );
-	const dueDate = invoice.dueDate && format( invoice.dueDate, 'dd/MM/yyyy' );
+	const totalAmount = numeral(invoice.totalAmount).format('0,0.00');
+	const issueDate = invoice.issueDate && format(invoice.issueDate, 'dd/MM/yyyy');
+	const dueDate = invoice.dueDate && format(invoice.dueDate, 'dd/MM/yyyy');
 
 	return (
 		<TableRow
@@ -87,7 +87,7 @@ const InvoiceRow: FC<InvoiceRowProps> = ( props ) => {
 							width: 42,
 						}}
 					>
-						{getInitials( invoice.customer.name )}
+						{getInitials(invoice.customer.name)}
 					</Avatar>
 					<div>
 						<Typography
@@ -155,18 +155,18 @@ interface InvoiceListTableProps {
 	count?: number;
 	group?: boolean;
 	items?: Invoice[];
-	onPageChange?: ( event: MouseEvent<HTMLButtonElement> | null, newPage: number ) => void;
-	onRowsPerPageChange?: ( event: ChangeEvent<HTMLInputElement> ) => void;
+	onPageChange?: (event: MouseEvent<HTMLButtonElement> | null, newPage: number) => void;
+	onRowsPerPageChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 	page?: number;
 	rowsPerPage?: number;
 }
 
-export const InvoiceListTable: FC<InvoiceListTableProps> = ( props ) => {
+export const InvoiceListTable: FC<InvoiceListTableProps> = (props) => {
 	const {
 		group = false,
 		items = [],
 		count = 0,
-		onPageChange = () => { },
+		onPageChange = () => {},
 		onRowsPerPageChange,
 		page = 0,
 		rowsPerPage = 0,
@@ -174,14 +174,14 @@ export const InvoiceListTable: FC<InvoiceListTableProps> = ( props ) => {
 
 	let content: JSX.Element;
 
-	if ( group ) {
-		const groupedInvoices = groupInvoices( items );
-		const statuses = Object.keys( groupedInvoices ) as InvoiceStatus[];
+	if (group) {
+		const groupedInvoices = groupInvoices(items);
+		const statuses = Object.keys(groupedInvoices) as InvoiceStatus[];
 
 		content = (
 			<Stack spacing={6}>
-				{statuses.map( ( status ) => {
-					const groupTitle = status.charAt( 0 ).toUpperCase() + status.slice( 1 );
+				{statuses.map((status) => {
+					const groupTitle = status.charAt(0).toUpperCase() + status.slice(1);
 					const count = groupedInvoices[status].length;
 					const invoices = groupedInvoices[status];
 					const hasInvoices = invoices.length > 0;
@@ -206,12 +206,12 @@ export const InvoiceListTable: FC<InvoiceListTableProps> = ( props ) => {
 											}}
 										>
 											<TableBody>
-												{invoices.map( ( invoice ) => (
+												{invoices.map((invoice) => (
 													<InvoiceRow
 														key={invoice.id}
 														invoice={invoice}
 													/>
-												) )}
+												))}
 											</TableBody>
 										</Table>
 									</Scrollbar>
@@ -219,7 +219,7 @@ export const InvoiceListTable: FC<InvoiceListTableProps> = ( props ) => {
 							)}
 						</Stack>
 					);
-				} )}
+				})}
 			</Stack>
 		);
 	} else {
@@ -227,12 +227,12 @@ export const InvoiceListTable: FC<InvoiceListTableProps> = ( props ) => {
 			<Card>
 				<Table>
 					<TableBody>
-						{items.map( ( invoice ) => (
+						{items.map((invoice) => (
 							<InvoiceRow
 								key={invoice.id}
 								invoice={invoice}
 							/>
-						) )}
+						))}
 					</TableBody>
 				</Table>
 			</Card>

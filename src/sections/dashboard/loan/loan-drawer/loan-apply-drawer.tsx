@@ -18,24 +18,24 @@ interface LoanApplyDrawerProps {
 	loan?: Loan;
 }
 
-export const LoanApplyDrawer: FC<LoanApplyDrawerProps> = ( props ) => {
+export const LoanApplyDrawer: FC<LoanApplyDrawerProps> = (props) => {
 	const { container, onClose, open, loan } = props;
-	const [isApplying, setIsApplying] = useState<boolean>( false );
-	const lgUp = useMediaQuery( ( theme: Theme ) => theme.breakpoints.up( 'lg' ) );
+	const [isApplying, setIsApplying] = useState<boolean>(false);
+	const lgUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
 
-	const customer = getCustomers( 1 )[0];
+	const customer = getCustomers(1)[0];
 
-	const onApply = useCallback( () => {
-		setIsApplying( true );
-	}, [] );
+	const onApply = useCallback(() => {
+		setIsApplying(true);
+	}, []);
 
-	const onCancel = useCallback( () => {
-		setIsApplying( false );
-	}, [] );
+	const onCancel = useCallback(() => {
+		setIsApplying(false);
+	}, []);
 
 	let content: JSX.Element | null = null;
 
-	if ( loan ) {
+	if (loan) {
 		content = (
 			<div>
 				<Stack
@@ -47,15 +47,17 @@ export const LoanApplyDrawer: FC<LoanApplyDrawerProps> = ( props ) => {
 						py: 2,
 					}}
 				>
-					<LoanApplication customer={customer}
+					<LoanApplication
+						customer={customer}
 						onCancel={onCancel}
-						onApply={onApply} />
+						onApply={onApply}
+					/>
 				</Stack>
 			</div>
 		);
 	}
 
-	if ( lgUp ) {
+	if (lgUp) {
 		return (
 			<Drawer
 				anchor="right"
