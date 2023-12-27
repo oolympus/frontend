@@ -27,24 +27,24 @@ interface AccountPopoverProps {
 	open?: boolean;
 }
 
-export const AccountPopover: FC<AccountPopoverProps> = (props) => {
+export const AccountPopover: FC<AccountPopoverProps> = ( props ) => {
 	const { anchorEl, onClose, open, ...other } = props;
 	const router = useRouter();
 	const auth = useAuth();
 	const user = useMockedUser();
 
-	const handleLogout = useCallback(async (): Promise<void> => {
+	const handleLogout = useCallback( async (): Promise<void> => {
 		try {
 			onClose?.();
 
 			await auth.signOut();
 
-			router.push(paths.auth.login);
-		} catch (err) {
-			console.error(err);
-			toast.error('Something went wrong!');
+			router.push( paths.auth.login );
+		} catch ( err ) {
+			console.error( err );
+			toast.error( 'Something went wrong!' );
 		}
-	}, [auth, router, onClose]);
+	}, [auth, router, onClose] );
 
 	return (
 		<Popover
@@ -119,7 +119,6 @@ export const AccountPopover: FC<AccountPopoverProps> = (props) => {
 							<CreditCard01Icon />
 						</SvgIcon>
 					</ListItemIcon>
-					<ListItemText primary={<Typography variant="body1">Billing</Typography>} />
 				</ListItemButton>
 			</Box>
 			<Divider sx={{ my: '0 !important' }} />
