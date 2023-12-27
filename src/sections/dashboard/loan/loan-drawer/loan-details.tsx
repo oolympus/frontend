@@ -32,13 +32,15 @@ const statusMap: Record<LoanStatus, string> = {
 
 interface LoanDetailsProps {
 	onApprove?: () => void;
+	onReview?: () => void;
+	onPayback?: () => void;
 	onEdit?: () => void;
 	onReject?: () => void;
 	loan: Loan;
 }
 
 export const LoanDetails: FC<LoanDetailsProps> = (props) => {
-	const { onApprove, onEdit, onReject, loan } = props;
+	const { onApprove, onEdit, onReject, onPayback, onReview, loan } = props;
 	const lgUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
 
 	const align = lgUp ? 'horizontal' : 'vertical';
@@ -150,10 +152,26 @@ export const LoanDetails: FC<LoanDetailsProps> = (props) => {
 					alignItems="center"
 					direction="row"
 					flexWrap="wrap"
-					justifyContent="flex-end"
+					justifyContent="space-between"
 					spacing={2}
 				>
 					<Button
+						onClick={onApprove}
+						size="small"
+						variant="contained"
+					>
+						Review
+					</Button>
+					<Button
+						color="success"
+						onClick={onPayback}
+						size="small"
+						variant="outlined"
+					>
+						Payback
+					</Button>
+					<Button
+						color="info"
 						onClick={onApprove}
 						size="small"
 						variant="contained"

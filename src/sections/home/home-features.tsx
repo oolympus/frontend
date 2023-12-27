@@ -168,7 +168,7 @@ export const HomeFeatures: FC = () => {
 															<LinkExternal01Icon />
 														</SvgIcon>
 													}
-													href="https://www.figma.com/file/xrx6uDljzsWuDZiuz3ITCp/Devias-Kit-Pro-UI-6.0-Master"
+													href="https://www.figma.com/file/xrx6uDljzsWuDZiuz3ITCp/Olympus-Kit-Pro-UI-6.0-Master"
 													size="small"
 													target="_blank"
 													variant="contained"

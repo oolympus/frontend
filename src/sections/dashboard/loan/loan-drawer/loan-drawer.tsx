@@ -20,11 +20,12 @@ interface LoanDrawerProps {
 	container?: HTMLDivElement | null;
 	open?: boolean;
 	onClose?: () => void;
+	onPayback?: () => void;
 	loan?: Loan;
 }
 
 export const LoanDrawer: FC<LoanDrawerProps> = (props) => {
-	const { container, onClose, open, loan } = props;
+	const { container, onClose, onPayback, open, loan } = props;
 	const [isEditing, setIsEditing] = useState<boolean>(false);
 	const lgUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
 
@@ -74,6 +75,7 @@ export const LoanDrawer: FC<LoanDrawerProps> = (props) => {
 					{!isEditing ? (
 						<LoanDetails
 							onApprove={onClose}
+							onPayback={onPayback}
 							onEdit={handleEditOpen}
 							onReject={onClose}
 							loan={loan}

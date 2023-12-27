@@ -108,8 +108,6 @@ const useLogs = (): CustomerLog[] => {
 const Page = () => {
 	const [currentTab, setCurrentTab] = useState<string>('details');
 	const customer = useCustomer();
-	const invoices = useInvoices();
-	const logs = useLogs();
 
 	usePageView();
 

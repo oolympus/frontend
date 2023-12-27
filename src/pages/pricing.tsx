@@ -46,7 +46,7 @@ const Page = () => {
 								sx={{ my: 2 }}
 								variant="body1"
 							>
-								Join 6,000+ developers &amp; designers using Devias to power modern web projects.
+								Join 6,000+ developers &amp; designers using Olympus to power modern web projects.
 							</Typography>
 							<Stack
 								alignItems="center"

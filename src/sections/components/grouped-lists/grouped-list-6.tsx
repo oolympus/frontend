@@ -28,7 +28,7 @@ const transactions: Transaction[] = [
 		amount: 25000,
 		currency: 'usd',
 		createdAt: now.getTime(),
-		sender: 'Devias',
+		sender: 'Olympus',
 		type: 'receive',
 	},
 	{
@@ -52,7 +52,7 @@ const transactions: Transaction[] = [
 		amount: 49550,
 		currency: 'usd',
 		createdAt: subDays(now, 3).getTime(),
-		sender: 'Devias',
+		sender: 'Olympus',
 		type: 'receive',
 	},
 ];

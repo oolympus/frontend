@@ -3,7 +3,7 @@ import type { RouteObject } from 'react-router';
 import { Outlet } from 'react-router-dom';
 
 import { GuestGuard } from 'src/guards/guest-guard';
-import { Layout as AuthModernLayout } from 'src/layouts/auth/modern-layout';
+import { Layout as AuthClassicLayout } from 'src/layouts/auth/classic-layout';
 
 const LoginPage = lazy(() => import('src/pages/auth/login'));
 const RegisterPage = lazy(() => import('src/pages/auth/register'));
@@ -16,9 +16,9 @@ export const authRoutes: RouteObject[] = [
 		path: 'auth',
 		element: (
 			<GuestGuard>
-				<AuthModernLayout>
+				<AuthClassicLayout>
 					<Outlet />
-				</AuthModernLayout>
+				</AuthClassicLayout>
 			</GuestGuard>
 		),
 		children: [

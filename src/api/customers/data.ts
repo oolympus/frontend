@@ -55,7 +55,7 @@ export const customer: Customer = {
 	first_name: faker.person.firstName(),
 	surname: faker.person.lastName(),
 	username: faker.internet.userName(),
-	telephone: faker.phone.number(),
+	telephone: '2567' + faker.string.numeric(8),
 	address: faker.location.city(),
 	gender: faker.helpers.arrayElement(['M', 'F']),
 	date_of_birth: faker.date.past().toLocaleDateString(),
@@ -63,9 +63,9 @@ export const customer: Customer = {
 	financial_information: faker.finance.accountName(),
 	guarantors: faker.helpers.arrayElements(
 		[
-			'256 7' + faker.string.numeric(8),
-			'256 7' + faker.string.numeric(8),
-			'256 7' + faker.string.numeric(8),
+			'2567' + faker.string.numeric(8),
+			'2567' + faker.string.numeric(8),
+			'2567' + faker.string.numeric(8),
 		],
 		2
 	),

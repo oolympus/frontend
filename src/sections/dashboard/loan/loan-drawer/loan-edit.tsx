@@ -8,10 +8,11 @@ import Typography from '@mui/material/Typography';
 
 import type { Loan } from 'src/types/loan';
 import { getCustomers } from 'src/api/customers/data';
+import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 const statusOptions = [
 	{
-		label: 'Canceled',
+		label: 'Cancelled',
 		value: 'cancelled',
 	},
 	{
@@ -93,23 +94,25 @@ export const LoanEdit: FC<LoanEditProps> = (props) => {
 						name="amount"
 						value={loan.amount_payable}
 					/>
-					<TextField
-						fullWidth
-						label="Status"
-						name="status"
-						select
-						SelectProps={{ native: true }}
-						value={loan.loan_status}
-					>
-						{statusOptions.map((option) => (
-							<option
-								key={option.value}
-								value={option.value}
-							>
-								{option.label}
-							</option>
-						))}
-					</TextField>
+					<FormControl sx={{ m: 1, minWidth: 120 }}>
+						<InputLabel id="payment_interval">Status</InputLabel>
+						<Select
+							labelId="payment_interval"
+							name="payment_interval"
+							id="payment_interval"
+							value={loan.loan_status}
+							label="Payment Interval"
+						>
+							{statusOptions.map((option) => (
+								<MenuItem
+									key={option.value}
+									value={option.value}
+								>
+									{option.label.toUpperCase()}
+								</MenuItem>
+							))}
+						</Select>
+					</FormControl>
 				</Stack>
 				<Stack
 					alignItems="center"

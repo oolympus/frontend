@@ -52,7 +52,7 @@ export const DetailList8: FC = () => (
 										href="#"
 										variant="subtitle2"
 									>
-										Devias
+										Olympus
 									</Link>
 								</Typography>
 							}

@@ -91,7 +91,6 @@ export const LoanApplication: FC<LoanApplicationProps> = (props) => {
 					>
 						<Stack spacing={2}>
 							<TextField
-								size="small"
 								autoFocus
 								error={!!(formik.touched.principal && formik.errors.principal)}
 								fullWidth
@@ -103,10 +102,7 @@ export const LoanApplication: FC<LoanApplicationProps> = (props) => {
 								type="text"
 								value={formik.values.principal}
 							/>
-							<FormControl
-								sx={{ m: 1, minWidth: 120 }}
-								size="small"
-							>
+							<FormControl sx={{ m: 1, minWidth: 120 }}>
 								<InputLabel id="payment_interval">Payment Interval</InputLabel>
 								<Select
 									labelId="payment_interval"
@@ -133,7 +129,7 @@ export const LoanApplication: FC<LoanApplicationProps> = (props) => {
 							alignItems="center"
 							direction="row"
 							spacing={2}
-							marginTop={1}
+							marginTop={3}
 							justifyContent={'space-between'}
 						>
 							<Button
@@ -147,7 +143,7 @@ export const LoanApplication: FC<LoanApplicationProps> = (props) => {
 								Apply
 							</Button>
 							<Button
-								color="inherit"
+								color="error"
 								onClick={onCancel}
 								size="small"
 								variant="outlined"

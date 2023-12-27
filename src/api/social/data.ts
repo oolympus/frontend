@@ -10,7 +10,7 @@ export const profile: Profile = {
 	connectedStatus: 'not_connected',
 	cover: '/assets/covers/abstract-1-4x3-large.png',
 	currentCity: 'Bucharest',
-	currentJobCompany: 'Devias IO',
+	currentJobCompany: 'Olympus IO',
 	currentJobTitle: 'Product Designer',
 	email: 'anika.visser@olympus.com',
 	name: 'Anika Visser',

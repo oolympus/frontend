@@ -14,15 +14,15 @@ export const CustomerDataManagement: FC = (props) => (
 				color="error"
 				variant="outlined"
 			>
-				Delete Account
+				Deactivate Account
 			</Button>
 			<Box sx={{ mt: 1 }}>
 				<Typography
 					color="text.secondary"
 					variant="body2"
 				>
-					Remove this customer’s chart if he requested that, if not please be aware that what has
-					been deleted can never brought back
+					Deactivate this customer’s aacount if they requested that, if not please be aware that
+					what has been deactivated may never be brought back
 				</Typography>
 			</Box>
 		</CardContent>

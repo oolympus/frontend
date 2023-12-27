@@ -147,7 +147,7 @@ export const TopNav: FC<TopNavProps> = (props) => {
 										},
 									}}
 								>
-									Devias Kit <span>PRO</span>
+									Olympus
 								</Box>
 							)}
 						</Stack>

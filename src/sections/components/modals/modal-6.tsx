@@ -31,7 +31,7 @@ export const Modal6: FC = () => (
 					color="text.secondary"
 					variant="subtitle2"
 				>
-					Devias
+					Olympus
 				</Typography>
 			</Box>
 			<Divider />

@@ -145,7 +145,7 @@ export const AccountDetailsSettings: FC<AccountDetailsSettingsProps> = (props) =
 							<TableCell>Date</TableCell>
 							<TableCell>Total</TableCell>
 							<TableCell>Billing cyle</TableCell>
-							<TableCell>Payment Method</TableCell>
+							<TableCell>Interest</TableCell>
 							<TableCell>Status</TableCell>
 							<TableCell />
 						</TableRow>
@@ -161,7 +161,7 @@ export const AccountDetailsSettings: FC<AccountDetailsSettingsProps> = (props) =
 									<TableCell>{amount}</TableCell>
 									{/* @ts-ignore */}
 									<TableCell>{loan.amount_payable}</TableCell>
-									<TableCell>{loan.disbursed_amount}</TableCell>
+									<TableCell>{loan.interest}</TableCell>
 									<TableCell>{loan.loan_status}</TableCell>
 									<TableCell align="right">
 										<Button

@@ -63,20 +63,6 @@ export const useSections = () => {
 								<Users03Icon />
 							</SvgIcon>
 						),
-						items: [
-							{
-								title: t(tokens.nav.list),
-								path: paths.dashboard.customers.index,
-							},
-							{
-								title: t(tokens.nav.details),
-								path: paths.dashboard.customers.details,
-							},
-							{
-								title: t(tokens.nav.edit),
-								path: paths.dashboard.customers.edit,
-							},
-						],
 					},
 					{
 						title: t(tokens.nav.productList),
@@ -86,35 +72,15 @@ export const useSections = () => {
 								<ShoppingBag03Icon />
 							</SvgIcon>
 						),
-						items: [
-							{
-								title: t(tokens.nav.list),
-								path: paths.dashboard.products.index,
-							},
-							{
-								title: t(tokens.nav.create),
-								path: paths.dashboard.products.create,
-							},
-						],
 					},
 					{
-						title: t(tokens.nav.orderList),
+						title: t(tokens.nav.loanList),
 						icon: (
 							<SvgIcon fontSize="small">
 								<ShoppingCart01Icon />
 							</SvgIcon>
 						),
 						path: paths.dashboard.loans.index,
-						items: [
-							{
-								title: t(tokens.nav.list),
-								path: paths.dashboard.loans.index,
-							},
-							{
-								title: t(tokens.nav.details),
-								path: paths.dashboard.loans.details,
-							},
-						],
 					},
 				],
 			},

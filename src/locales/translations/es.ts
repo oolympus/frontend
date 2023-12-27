@@ -26,7 +26,7 @@ export const es = {
 	[tokens.nav.logistics]: 'Logística',
 	[tokens.nav.mail]: 'Correo',
 	[tokens.nav.management]: 'Gestión',
-	[tokens.nav.orderList]: 'Pedidos',
+	[tokens.nav.loanList]: 'Pedidos',
 	[tokens.nav.overview]: 'Visión general',
 	[tokens.nav.pages]: 'Páginas',
 	[tokens.nav.postCreate]: 'Crear Articulo',

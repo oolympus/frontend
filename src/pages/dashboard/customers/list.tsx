@@ -1,8 +1,6 @@
 import type { ChangeEvent, MouseEvent } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import Download01Icon from '@untitled-ui/icons-react/build/esm/Download01';
 import PlusIcon from '@untitled-ui/icons-react/build/esm/Plus';
-import Upload01Icon from '@untitled-ui/icons-react/build/esm/Upload01';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -166,34 +164,6 @@ const Page = () => {
 						>
 							<Stack spacing={1}>
 								<Typography variant="h4">Customers</Typography>
-								<Stack
-									alignItems="center"
-									direction="row"
-									spacing={1}
-								>
-									<Button
-										color="inherit"
-										size="small"
-										startIcon={
-											<SvgIcon>
-												<Upload01Icon />
-											</SvgIcon>
-										}
-									>
-										Import
-									</Button>
-									<Button
-										color="inherit"
-										size="small"
-										startIcon={
-											<SvgIcon>
-												<Download01Icon />
-											</SvgIcon>
-										}
-									>
-										Export
-									</Button>
-								</Stack>
 							</Stack>
 							<Stack
 								alignItems="center"

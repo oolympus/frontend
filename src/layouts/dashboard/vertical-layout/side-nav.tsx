@@ -1,7 +1,6 @@
 import type { FC } from 'react';
 import { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import File04Icon from '@untitled-ui/icons-react/build/esm/File04';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Drawer from '@mui/material/Drawer';

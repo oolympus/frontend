@@ -23,7 +23,7 @@ export const Buttons2: FC = () => (
 				}
 				variant="contained"
 			>
-				Delete Account
+				Deactivate Account
 			</Button>
 			<Button
 				endIcon={

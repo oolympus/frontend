@@ -139,21 +139,25 @@ const useCurrentLoan = (loans: Loan[], loanId?: string): Loan | undefined => {
 	}, [loans, loanId]);
 };
 
+// eslint-disable-next-line react/display-name
 const Page = () => {
 	const rootRef = useRef<HTMLDivElement | null>(null);
 	const loansSearch = useLoansSearch();
 	const loansStore = useLoansStore(loansSearch.state);
 	const dialog = useDialog<string>();
 	const currentLoan = useCurrentLoan(loansStore.loans, dialog.data);
-	const [modalOpen, setModalOpen] = React.useState(false);
-	const handleOpen = () => setModalOpen(true);
+	const [loanApplyModalOpened, setLoanApplyModalOpened] = React.useState(false);
+	const [loanPaybackModalOpened, setLoanPaybackModalOpened] = React.useState(false);
+	const handleOpen = () => setLoanApplyModalOpened(true);
 
 	const customer = getCustomers(1)[0];
 
 	usePageView();
 
 	const onApply = useCallback((): void => {}, []);
-	const onCancel = useCallback(() => setModalOpen(false), []);
+	const onCancel = useCallback(() => setLoanApplyModalOpened(false), []);
+
+	const onPayback = useCallback(() => console.log('Paying back...'), []);
 
 	const handleLoanOpen = useCallback(
 		(loanId: string): void => {
@@ -168,6 +172,32 @@ const Page = () => {
 		},
 		[dialog]
 	);
+
+	const loanAppyModal = loanApplyModalOpened ? (
+		<Modal
+			open={loanApplyModalOpened}
+			onClose={onCancel}
+			aria-labelledby="modal-modal-title"
+			aria-describedby="modal-modal-description"
+		>
+			<LoanApplication
+				onCancel={onCancel}
+				onApply={onApply}
+				customer={customer}
+			/>
+		</Modal>
+	) : null;
+
+	const loanPaybackModal = loanPaybackModalOpened ? (
+		<Modal
+			open={loanPaybackModalOpened}
+			onClose={onCancel}
+			aria-labelledby="modal-modal-title"
+			aria-describedby="modal-modal-description"
+		>
+			<></>
+		</Modal>
+	) : null;
 
 	return (
 		<>
@@ -241,23 +271,12 @@ const Page = () => {
 					<LoanDrawer
 						container={rootRef.current}
 						onClose={dialog.handleClose}
+						onPayback={onPayback}
 						open={dialog.open}
 						loan={currentLoan}
 					/>
-					{modalOpen ? (
-						<Modal
-							open={modalOpen}
-							onClose={onCancel}
-							aria-labelledby="modal-modal-title"
-							aria-describedby="modal-modal-description"
-						>
-							<LoanApplication
-								onCancel={onCancel}
-								onApply={onApply}
-								customer={customer}
-							/>
-						</Modal>
-					) : null}
+					{loanAppyModal}
+					{loanPaybackModal}
 				</Box>
 			</Box>
 		</>

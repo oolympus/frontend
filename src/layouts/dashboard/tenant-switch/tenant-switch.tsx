@@ -12,7 +12,7 @@ import { usePopover } from 'src/hooks/use-popover';
 
 import { TenantPopover } from './tenant-popover';
 
-const tenants: string[] = ['Devias', 'Acme Corp'];
+const tenants: string[] = ['Olympus', 'Acme Corp'];
 
 interface TenantSwitchProps {
 	sx?: SxProps;
@@ -34,13 +34,13 @@ export const TenantSwitch: FC<TenantSwitchProps> = (props) => {
 						color="inherit"
 						variant="h6"
 					>
-						Devias
+						Olympus
 					</Typography>
 					<Typography
 						color="neutral.400"
 						variant="body2"
 					>
-						Production
+						Loans
 					</Typography>
 				</Box>
 				<IconButton

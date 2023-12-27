@@ -130,14 +130,14 @@ export const Footer: FC = (props) => (
 									},
 								}}
 							>
-								Devias Kit <span>PRO</span>
+								Olympus
 							</Box>
 						</Stack>
 						<Typography
 							color="text.secondary"
 							variant="caption"
 						>
-							© 2022 Devias IO
+							© 2022 Olympus IO
 						</Typography>
 					</Stack>
 				</Grid>

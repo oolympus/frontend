@@ -28,7 +28,7 @@ export const tokens = {
 		logistics: 'nav.logistics',
 		mail: 'nav.mail',
 		management: 'nav.management',
-		orderList: 'nav.loans',
+		loanList: 'nav.loans',
 		overview: 'nav.overview',
 		pages: 'nav.pages',
 		postCreate: 'nav.postCreate',

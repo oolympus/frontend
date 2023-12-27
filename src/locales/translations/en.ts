@@ -26,7 +26,7 @@ export const en = {
 	[tokens.nav.logistics]: 'Logistics',
 	[tokens.nav.mail]: 'Mail',
 	[tokens.nav.management]: 'Management',
-	[tokens.nav.orderList]: 'Loans',
+	[tokens.nav.loanList]: 'Loans',
 	[tokens.nav.overview]: 'Overview',
 	[tokens.nav.pages]: 'Pages',
 	[tokens.nav.postCreate]: 'Post Create',

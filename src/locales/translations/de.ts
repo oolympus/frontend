@@ -26,7 +26,7 @@ export const de = {
 	[tokens.nav.logistics]: 'Logistik',
 	[tokens.nav.mail]: 'E-Mail',
 	[tokens.nav.management]: 'Verwaltung',
-	[tokens.nav.orderList]: 'Aufträge',
+	[tokens.nav.loanList]: 'Aufträge',
 	[tokens.nav.overview]: 'Überblick',
 	[tokens.nav.pages]: 'Seiten',
 	[tokens.nav.postCreate]: 'Beitrag erstellen',
