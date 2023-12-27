@@ -65,8 +65,8 @@ export const useSections = () => {
 						),
 					},
 					{
-						title: t(tokens.nav.productList),
-						path: paths.dashboard.products.index,
+						title: t(tokens.nav.transactionList),
+						path: paths.dashboard.transactions.index,
 						icon: (
 							<SvgIcon fontSize="small">
 								<ShoppingBag03Icon />

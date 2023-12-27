@@ -30,7 +30,7 @@ import Typography from '@mui/material/Typography';
 
 import { Scrollbar } from 'src/components/scrollbar';
 import { SeverityPill } from 'src/components/severity-pill';
-import type { Product } from 'src/types/product';
+import type { Transaction } from 'src/types/transaction';
 
 interface CategoryOption {
 	label: string;
@@ -64,16 +64,16 @@ const categoryOptions: CategoryOption[] = [
 	},
 ];
 
-interface ProductListTableProps {
+interface TransactionListTableProps {
 	count?: number;
-	items?: Product[];
+	items?: Transaction[];
 	onPageChange?: (event: MouseEvent<HTMLButtonElement> | null, newPage: number) => void;
 	onRowsPerPageChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 	page?: number;
 	rowsPerPage?: number;
 }
 
-export const ProductListTable: FC<ProductListTableProps> = (props) => {
+export const TransactionListTable: FC<TransactionListTableProps> = (props) => {
 	const {
 		count = 0,
 		items = [],
@@ -82,29 +82,29 @@ export const ProductListTable: FC<ProductListTableProps> = (props) => {
 		page = 0,
 		rowsPerPage = 0,
 	} = props;
-	const [currentProduct, setCurrentProduct] = useState<string | null>(null);
+	const [currentTransaction, setCurrentTransaction] = useState<string | null>(null);
 
-	const handleProductToggle = useCallback((productId: string): void => {
-		setCurrentProduct((prevProductId) => {
-			if (prevProductId === productId) {
+	const handleTransactionToggle = useCallback((transactionId: string): void => {
+		setCurrentTransaction((prevTransactionId) => {
+			if (prevTransactionId === transactionId) {
 				return null;
 			}
 
-			return productId;
+			return transactionId;
 		});
 	}, []);
 
-	const handleProductClose = useCallback((): void => {
-		setCurrentProduct(null);
+	const handleTransactionClose = useCallback((): void => {
+		setCurrentTransaction(null);
 	}, []);
 
-	const handleProductUpdate = useCallback((): void => {
-		setCurrentProduct(null);
-		toast.success('Product updated');
+	const handleTransactionUpdate = useCallback((): void => {
+		setCurrentTransaction(null);
+		toast.success('Transaction updated');
 	}, []);
 
-	const handleProductDelete = useCallback((): void => {
-		toast.error('Product cannot be deleted');
+	const handleTransactionDelete = useCallback((): void => {
+		toast.error('Transaction cannot be deleted');
 	}, []);
 
 	return (
@@ -123,18 +123,18 @@ export const ProductListTable: FC<ProductListTableProps> = (props) => {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{items.map((product) => {
-							const isCurrent = product.id === currentProduct;
-							const price = numeral(product.price).format(`${product.currency}0,0.00`);
-							const quantityColor = product.quantity >= 10 ? 'success' : 'error';
-							const statusColor = product.status === 'published' ? 'success' : 'info';
-							const hasManyVariants = product.variants > 1;
+						{items.map((transaction) => {
+							const isCurrent = transaction.id === currentTransaction;
+							const price = numeral(transaction.price).format(`${transaction.currency}0,0.00`);
+							const quantityColor = transaction.quantity >= 10 ? 'success' : 'error';
+							const statusColor = transaction.status === 'published' ? 'success' : 'info';
+							const hasManyVariants = transaction.variants > 1;
 
 							return (
-								<Fragment key={product.id}>
+								<Fragment key={transaction.id}>
 									<TableRow
 										hover
-										key={product.id}
+										key={transaction.id}
 									>
 										<TableCell
 											padding="checkbox"
@@ -154,7 +154,7 @@ export const ProductListTable: FC<ProductListTableProps> = (props) => {
 											}}
 											width="25%"
 										>
-											<IconButton onClick={() => handleProductToggle(product.id)}>
+											<IconButton onClick={() => handleTransactionToggle(transaction.id)}>
 												<SvgIcon>{isCurrent ? <ChevronDownIcon /> : <ChevronRightIcon />}</SvgIcon>
 											</IconButton>
 										</TableCell>
@@ -165,12 +165,12 @@ export const ProductListTable: FC<ProductListTableProps> = (props) => {
 													display: 'flex',
 												}}
 											>
-												{product.image ? (
+												{transaction.image ? (
 													<Box
 														sx={{
 															alignItems: 'center',
 															backgroundColor: 'neutral.50',
-															backgroundImage: `url(${product.image})`,
+															backgroundImage: `url(${transaction.image})`,
 															backgroundPosition: 'center',
 															backgroundSize: 'cover',
 															borderRadius: 1,
@@ -204,19 +204,19 @@ export const ProductListTable: FC<ProductListTableProps> = (props) => {
 														ml: 2,
 													}}
 												>
-													<Typography variant="subtitle2">{product.name}</Typography>
+													<Typography variant="subtitle2">{transaction.name}</Typography>
 													<Typography
 														color="text.secondary"
 														variant="body2"
 													>
-														in {product.category}
+														in {transaction.category}
 													</Typography>
 												</Box>
 											</Box>
 										</TableCell>
 										<TableCell width="25%">
 											<LinearProgress
-												value={product.quantity}
+												value={transaction.quantity}
 												variant="determinate"
 												color={quantityColor}
 												sx={{
@@ -228,14 +228,14 @@ export const ProductListTable: FC<ProductListTableProps> = (props) => {
 												color="text.secondary"
 												variant="body2"
 											>
-												{product.quantity} in stock
-												{hasManyVariants && ` in ${product.variants} variants`}
+												{transaction.quantity} in stock
+												{hasManyVariants && ` in ${transaction.variants} variants`}
 											</Typography>
 										</TableCell>
 										<TableCell>{price}</TableCell>
-										<TableCell>{product.sku}</TableCell>
+										<TableCell>{transaction.sku}</TableCell>
 										<TableCell>
-											<SeverityPill color={statusColor}>{product.status}</SeverityPill>
+											<SeverityPill color={statusColor}>{transaction.status}</SeverityPill>
 										</TableCell>
 										<TableCell align="right">
 											<IconButton>
@@ -289,9 +289,9 @@ export const ProductListTable: FC<ProductListTableProps> = (props) => {
 																	xs={12}
 																>
 																	<TextField
-																		defaultValue={product.name}
+																		defaultValue={transaction.name}
 																		fullWidth
-																		label="Product name"
+																		label="Transaction name"
 																		name="name"
 																	/>
 																</Grid>
@@ -301,7 +301,7 @@ export const ProductListTable: FC<ProductListTableProps> = (props) => {
 																	xs={12}
 																>
 																	<TextField
-																		defaultValue={product.sku}
+																		defaultValue={transaction.sku}
 																		disabled
 																		fullWidth
 																		label="SKU"
@@ -314,7 +314,7 @@ export const ProductListTable: FC<ProductListTableProps> = (props) => {
 																	xs={12}
 																>
 																	<TextField
-																		defaultValue={product.category}
+																		defaultValue={transaction.category}
 																		fullWidth
 																		label="Category"
 																		select
@@ -335,7 +335,7 @@ export const ProductListTable: FC<ProductListTableProps> = (props) => {
 																	xs={12}
 																>
 																	<TextField
-																		defaultValue={product.id}
+																		defaultValue={transaction.id}
 																		disabled
 																		fullWidth
 																		label="Barcode"
@@ -365,14 +365,14 @@ export const ProductListTable: FC<ProductListTableProps> = (props) => {
 																	xs={12}
 																>
 																	<TextField
-																		defaultValue={product.price}
+																		defaultValue={transaction.price}
 																		fullWidth
 																		label="Old price"
 																		name="old-price"
 																		InputProps={{
 																			startAdornment: (
 																				<InputAdornment position="start">
-																					{product.currency}
+																					{transaction.currency}
 																				</InputAdornment>
 																			),
 																		}}
@@ -385,7 +385,7 @@ export const ProductListTable: FC<ProductListTableProps> = (props) => {
 																	xs={12}
 																>
 																	<TextField
-																		defaultValue={product.price}
+																		defaultValue={transaction.price}
 																		fullWidth
 																		label="New price"
 																		name="new-price"
@@ -430,7 +430,7 @@ export const ProductListTable: FC<ProductListTableProps> = (props) => {
 														spacing={2}
 													>
 														<Button
-															onClick={handleProductUpdate}
+															onClick={handleTransactionUpdate}
 															type="submit"
 															variant="contained"
 														>
@@ -438,17 +438,17 @@ export const ProductListTable: FC<ProductListTableProps> = (props) => {
 														</Button>
 														<Button
 															color="inherit"
-															onClick={handleProductClose}
+															onClick={handleTransactionClose}
 														>
 															Cancel
 														</Button>
 													</Stack>
 													<div>
 														<Button
-															onClick={handleProductDelete}
+															onClick={handleTransactionDelete}
 															color="error"
 														>
-															Delete product
+															Delete transaction
 														</Button>
 													</div>
 												</Stack>
@@ -474,7 +474,7 @@ export const ProductListTable: FC<ProductListTableProps> = (props) => {
 	);
 };
 
-ProductListTable.propTypes = {
+TransactionListTable.propTypes = {
 	count: PropTypes.number,
 	items: PropTypes.array,
 	onPageChange: PropTypes.func,

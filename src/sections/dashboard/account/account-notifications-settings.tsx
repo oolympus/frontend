@@ -36,12 +36,12 @@ export const AccountNotificationsSettings: FC = () => (
 							spacing={3}
 						>
 							<Stack spacing={1}>
-								<Typography variant="subtitle1">Product updates</Typography>
+								<Typography variant="subtitle1"> Transaction updates</Typography>
 								<Typography
 									color="text.secondary"
 									variant="body2"
 								>
-									News, announcements, and product updates.
+									News, announcements, and transaction updates.
 								</Typography>
 							</Stack>
 							<Switch defaultChecked />

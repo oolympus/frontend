@@ -11,16 +11,16 @@ import Stack from '@mui/material/Stack';
 import SvgIcon from '@mui/material/SvgIcon';
 import Typography from '@mui/material/Typography';
 
-import { productsApi } from 'src/api/products';
+import { transactionsApi } from 'src/api/transactions';
 import { BreadcrumbsSeparator } from 'src/components/breadcrumbs-separator';
 import { RouterLink } from 'src/components/router-link';
 import { Seo } from 'src/components/seo';
 import { useMounted } from 'src/hooks/use-mounted';
 import { usePageView } from 'src/hooks/use-page-view';
 import { paths } from 'src/paths';
-import { ProductListSearch } from 'src/sections/dashboard/product/product-list-search';
-import { ProductListTable } from 'src/sections/dashboard/product/product-list-table';
-import type { Product } from 'src/types/product';
+import { TransactionListSearch } from 'src/sections/dashboard/transaction/transaction-list-search';
+import { TransactionListTable } from 'src/sections/dashboard/transaction/transaction-list-table';
+import type { Transaction } from 'src/types/transaction';
 
 interface Filters {
 	name?: string;
@@ -29,14 +29,14 @@ interface Filters {
 	inStock?: boolean;
 }
 
-interface ProductsSearchState {
+interface TransactionsSearchState {
 	filters: Filters;
 	page: number;
 	rowsPerPage: number;
 }
 
-const useProductsSearch = () => {
-	const [state, setState] = useState<ProductsSearchState>({
+const useTransactionsSearch = () => {
+	const [state, setState] = useState<TransactionsSearchState>({
 		filters: {
 			name: undefined,
 			category: [],
@@ -79,26 +79,26 @@ const useProductsSearch = () => {
 	};
 };
 
-interface ProductsStoreState {
-	products: Product[];
-	productsCount: number;
+interface TransactionsStoreState {
+	transactions: Transaction[];
+	transactionsCount: number;
 }
 
-const useProductsStore = (searchState: ProductsSearchState) => {
+const useTransactionsStore = (searchState: TransactionsSearchState) => {
 	const isMounted = useMounted();
-	const [state, setState] = useState<ProductsStoreState>({
-		products: [],
-		productsCount: 0,
+	const [state, setState] = useState<TransactionsStoreState>({
+		transactions: [],
+		transactionsCount: 0,
 	});
 
-	const handleProductsGet = useCallback(async () => {
+	const handleTransactionsGet = useCallback(async () => {
 		try {
-			const response = await productsApi.getProducts(searchState);
+			const response = await transactionsApi.getTransactions(searchState);
 
 			if (isMounted()) {
 				setState({
-					products: response.data,
-					productsCount: response.count,
+					transactions: response.data,
+					transactionsCount: response.count,
 				});
 			}
 		} catch (err) {
@@ -108,7 +108,7 @@ const useProductsStore = (searchState: ProductsSearchState) => {
 
 	useEffect(
 		() => {
-			handleProductsGet();
+			handleTransactionsGet();
 		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[searchState]
@@ -120,14 +120,14 @@ const useProductsStore = (searchState: ProductsSearchState) => {
 };
 
 const Page = () => {
-	const productsSearch = useProductsSearch();
-	const productsStore = useProductsStore(productsSearch.state);
+	const transactionsSearch = useTransactionsSearch();
+	const transactionsStore = useTransactionsStore(transactionsSearch.state);
 
 	usePageView();
 
 	return (
 		<>
-			<Seo title="Dashboard: Product List" />
+			<Seo title="Dashboard:  Transaction List" />
 			<Box
 				component="main"
 				sx={{
@@ -143,7 +143,7 @@ const Page = () => {
 							spacing={4}
 						>
 							<Stack spacing={1}>
-								<Typography variant="h4">Products</Typography>
+								<Typography variant="h4"> Transactions</Typography>
 								<Breadcrumbs separator={<BreadcrumbsSeparator />}>
 									<Link
 										color="text.primary"
@@ -156,10 +156,10 @@ const Page = () => {
 									<Link
 										color="text.primary"
 										component={RouterLink}
-										href={paths.dashboard.products.index}
+										href={paths.dashboard.transactions.index}
 										variant="subtitle2"
 									>
-										Products
+										Transactions
 									</Link>
 									<Typography
 										color="text.secondary"
@@ -176,7 +176,7 @@ const Page = () => {
 							>
 								<Button
 									component={RouterLink}
-									href={paths.dashboard.products.create}
+									href={paths.dashboard.transactions.create}
 									startIcon={
 										<SvgIcon>
 											<PlusIcon />
@@ -189,14 +189,14 @@ const Page = () => {
 							</Stack>
 						</Stack>
 						<Card>
-							<ProductListSearch onFiltersChange={productsSearch.handleFiltersChange} />
-							<ProductListTable
-								onPageChange={productsSearch.handlePageChange}
-								onRowsPerPageChange={productsSearch.handleRowsPerPageChange}
-								page={productsSearch.state.page}
-								items={productsStore.products}
-								count={productsStore.productsCount}
-								rowsPerPage={productsSearch.state.rowsPerPage}
+							<TransactionListSearch onFiltersChange={transactionsSearch.handleFiltersChange} />
+							<TransactionListTable
+								onPageChange={transactionsSearch.handlePageChange}
+								onRowsPerPageChange={transactionsSearch.handleRowsPerPageChange}
+								page={transactionsSearch.state.page}
+								items={transactionsStore.transactions}
+								count={transactionsStore.transactionsCount}
+								rowsPerPage={transactionsSearch.state.rowsPerPage}
 							/>
 						</Card>
 					</Stack>

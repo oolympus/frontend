@@ -46,13 +46,13 @@ export const Form12: FC = () => (
 				</TextField>
 				<TextField
 					fullWidth
-					label="Product Code"
-					name="productCode"
+					label=" Transaction Code"
+					name="transactionCode"
 				/>
 				<TextField
 					fullWidth
-					label="Product Sku"
-					name="productSku"
+					label=" Transaction Sku"
+					name="transactionSku"
 				/>
 			</Stack>
 			<Box sx={{ mt: 3 }}>
@@ -60,7 +60,7 @@ export const Form12: FC = () => (
 					type="submit"
 					variant="contained"
 				>
-					Create Product
+					Create Transaction
 				</Button>
 			</Box>
 		</form>

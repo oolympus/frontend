@@ -85,11 +85,11 @@ const stockOptions: Option[] = [
 	},
 ];
 
-interface ProductListSearchProps {
+interface TransactionListSearchProps {
 	onFiltersChange?: (filters: Filters) => void;
 }
 
-export const ProductListSearch: FC<ProductListSearchProps> = (props) => {
+export const TransactionListSearch: FC<TransactionListSearchProps> = (props) => {
 	const { onFiltersChange, ...other } = props;
 	const queryRef = useRef<HTMLInputElement | null>(null);
 	const [chips, setChips] = useState<SearchChip[]>([]);
@@ -347,7 +347,7 @@ export const ProductListSearch: FC<ProductListSearchProps> = (props) => {
 					disableUnderline
 					fullWidth
 					inputProps={{ ref: queryRef }}
-					placeholder="Search by product name"
+					placeholder="Search by transaction name"
 					sx={{ flexGrow: 1 }}
 				/>
 			</Stack>
@@ -424,6 +424,6 @@ export const ProductListSearch: FC<ProductListSearchProps> = (props) => {
 	);
 };
 
-ProductListSearch.propTypes = {
+TransactionListSearch.propTypes = {
 	onFiltersChange: PropTypes.func,
 };

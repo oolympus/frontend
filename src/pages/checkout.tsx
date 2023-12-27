@@ -48,7 +48,7 @@ const initialBilling: Billing = {
 	zip: '',
 };
 
-interface Product {
+interface Transaction {
 	id: string;
 	image: string;
 	name: string;
@@ -56,17 +56,17 @@ interface Product {
 	quantity: number;
 }
 
-const initialProducts: Product[] = [
+const initialTransactions: Transaction[] = [
 	{
 		id: '97375399bf10f57d0f0f7fd9',
-		image: '/assets/products/product-1.png',
+		image: '/assets/transactions/transaction-1.png',
 		name: 'Healthcare Erbology',
 		price: 23.99,
 		quantity: 1,
 	},
 	{
 		id: 'ece4069546ff025047b97735',
-		image: '/assets/products/product-2.png',
+		image: '/assets/transactions/transaction-2.png',
 		name: 'Makeup Lancome Rouge',
 		price: 95.0,
 		quantity: 1,
@@ -75,7 +75,7 @@ const initialProducts: Product[] = [
 
 const Page = () => {
 	const [billing, setBilling] = useState(initialBilling);
-	const [products, setProducts] = useState<Product[]>(initialProducts);
+	const [transactions, setTransactions] = useState<Transaction[]>(initialTransactions);
 
 	usePageView();
 
@@ -87,15 +87,15 @@ const Page = () => {
 	}, []);
 
 	const handleQuantityChange = useCallback(
-		(event: SelectChangeEvent<number>, productId: string): void => {
-			setProducts((prevState) => {
-				return prevState.map((product) => {
-					if (product.id !== productId) {
-						return product;
+		(event: SelectChangeEvent<number>, transactionId: string): void => {
+			setTransactions((prevState) => {
+				return prevState.map((transaction) => {
+					if (transaction.id !== transactionId) {
+						return transaction;
 					}
 
 					return {
-						...product,
+						...transaction,
 						quantity: event.target.value as number,
 					};
 				});
@@ -160,7 +160,7 @@ const Page = () => {
 								>
 									<CheckoutSummary
 										onQuantityChange={handleQuantityChange}
-										products={products}
+										transactions={transactions}
 									/>
 								</Grid>
 							</Grid>

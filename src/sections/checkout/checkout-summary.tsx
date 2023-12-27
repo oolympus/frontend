@@ -17,7 +17,7 @@ import type { SelectChangeEvent } from '@mui/material/Select';
 import Select from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
 
-interface Product {
+interface Transaction {
 	id: string;
 	image: string;
 	name: string;
@@ -26,15 +26,15 @@ interface Product {
 }
 
 const calculateAmounts = (
-	products: Product[]
+	transactions: Transaction[]
 ): {
 	shippingTax: number;
 	subtotal: number;
 	total: number;
 } => {
 	const shippingTax = 12;
-	const subtotal = products.reduce((acc, product) => {
-		return acc + product.price * product.quantity;
+	const subtotal = transactions.reduce((acc, transaction) => {
+		return acc + transaction.price * transaction.quantity;
 	}, 0);
 	const total = shippingTax + subtotal;
 
@@ -46,13 +46,13 @@ const calculateAmounts = (
 };
 
 interface CheckoutLoanSummaryProps {
-	onQuantityChange?: (event: SelectChangeEvent<number>, productId: string) => void;
-	products?: Product[];
+	onQuantityChange?: (event: SelectChangeEvent<number>, transactionId: string) => void;
+	transactions?: Transaction[];
 }
 
 export const CheckoutSummary: FC<CheckoutLoanSummaryProps> = (props) => {
-	const { onQuantityChange, products = [], ...other } = props;
-	const { shippingTax, subtotal, total } = calculateAmounts(products);
+	const { onQuantityChange, transactions = [], ...other } = props;
+	const { shippingTax, subtotal, total } = calculateAmounts(transactions);
 
 	const formattedShippingTax = numeral(shippingTax).format('$00.00');
 	const formattedSubtotal = numeral(subtotal).format('$00.00');
@@ -66,13 +66,13 @@ export const CheckoutSummary: FC<CheckoutLoanSummaryProps> = (props) => {
 		>
 			<Typography variant="h6">Loan Summary</Typography>
 			<List sx={{ mt: 2 }}>
-				{products.map((product) => {
-					const price = numeral(product.price).format('$00.00');
+				{transactions.map((transaction) => {
+					const price = numeral(transaction.price).format('$00.00');
 
 					return (
 						<ListItem
 							disableGutters
-							key={product.id}
+							key={transaction.id}
 						>
 							<ListItemAvatar sx={{ pr: 2 }}>
 								<Box
@@ -90,8 +90,8 @@ export const CheckoutSummary: FC<CheckoutLoanSummaryProps> = (props) => {
 									}}
 								>
 									<img
-										alt={product.name}
-										src={product.image}
+										alt={transaction.name}
+										src={transaction.image}
 									/>
 								</Box>
 							</ListItemAvatar>
@@ -103,7 +103,7 @@ export const CheckoutSummary: FC<CheckoutLoanSummaryProps> = (props) => {
 										}}
 										variant="subtitle2"
 									>
-										{product.name}
+										{transaction.name}
 									</Typography>
 								}
 								secondary={
@@ -122,8 +122,8 @@ export const CheckoutSummary: FC<CheckoutLoanSummaryProps> = (props) => {
 									variant="outlined"
 								>
 									<Select
-										value={product.quantity}
-										onChange={(event) => onQuantityChange?.(event, product.id)}
+										value={transaction.quantity}
+										onChange={(event) => onQuantityChange?.(event, transaction.id)}
 									>
 										<MenuItem value={1}>1</MenuItem>
 										<MenuItem value={2}>2</MenuItem>
@@ -186,5 +186,5 @@ export const CheckoutSummary: FC<CheckoutLoanSummaryProps> = (props) => {
 
 CheckoutSummary.propTypes = {
 	onQuantityChange: PropTypes.func,
-	products: PropTypes.array,
+	transactions: PropTypes.array,
 };

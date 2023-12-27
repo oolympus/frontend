@@ -39,7 +39,7 @@ export const Form11: FC = () => (
 					<div>
 						<FormControlLabel
 							control={<Checkbox name="isTaxable" />}
-							label="Product is taxable"
+							label=" Transaction is taxable"
 						/>
 					</div>
 					<div>

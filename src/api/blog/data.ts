@@ -25,7 +25,7 @@ export const posts: Post[] = [
 			avatar: '/assets/avatars/avatar-omar-darboe.png',
 			name: 'Omar Darobe',
 		},
-		category: 'Productivity',
+		category: ' Transactionivity',
 		cover: '/assets/covers/abstract-2-4x4-large.png',
 		publishedAt: subHours(subMinutes(subSeconds(now, 29), 51), 6).getTime(),
 		readTime: '6 min',
@@ -76,7 +76,7 @@ export const post: Post = {
 Phasellus ullamcorper ultrices ullamcorper. Nunc auctor porttitor ex, non consequat ipsum aliquam at. Duis dapibus dolor in nisi viverra, a elementum nulla viverra. Etiam feugiat turpis leo, nec finibus diam rhoncus ac. Sed at metus et orci consequat facilisis vel vel diam.
 
 ## Cras at molestie lacus. Phasellus feugiat leo quis sem iaculis, sed mattis nibh accumsan.
-  
+
 
 Etiam faucibus massa auctor gravida finibus.
 Cras nulla magna, dapibus sit amet accumsan nec, ullamcorper sit amet dolor.

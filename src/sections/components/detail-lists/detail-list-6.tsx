@@ -22,7 +22,7 @@ const MarkdownWrapper = styled('div')(({ theme }) => ({
 const description = `
 Design files are attached in the files tab.
 
-Develop the web app screens for our product called "PDFace". Please look at the wireframes, system activity workflow and read the section above to understand what we're trying to archive.
+Develop the web app screens for our transaction called "PDFace". Please look at the wireframes, system activity workflow and read the section above to understand what we're trying to archive.
 
 There's not many screens we need designed, but there will be modals and various other system triggered events that will need to be considered.
 

@@ -29,7 +29,7 @@ const reviews: Review[] = [
 			avatar: '/assets/avatars/avatar-marcus-finn.png',
 			name: 'Marcus Finn',
 		},
-		comment: 'Great company, providing an awesome & easy to use product.',
+		comment: 'Great company, providing an awesome & easy to use transaction.',
 		createdAt: subHours(now, 2).getTime(),
 		value: 5,
 	},

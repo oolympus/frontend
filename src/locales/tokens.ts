@@ -35,7 +35,7 @@ export const tokens = {
 		postDetails: 'nav.postDetails',
 		postList: 'nav.postList',
 		pricing: 'nav.pricing',
-		productList: 'nav.products',
+		transactionList: 'nav.transactions',
 		profile: 'nav.profile',
 		register: 'nav.register',
 		resetPassword: 'nav.resetPassword',

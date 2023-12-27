@@ -37,9 +37,9 @@ const LogisticsFleetPage = lazy(() => import('src/pages/dashboard/logistics/flee
 const LoanListPage = lazy(() => import('src/pages/dashboard/loans/list'));
 const LoanDetailPage = lazy(() => import('src/pages/dashboard/loans/detail'));
 
-// Product
-const ProductListPage = lazy(() => import('src/pages/dashboard/products/list'));
-const ProductCreatePage = lazy(() => import('src/pages/dashboard/products/create'));
+//  Transaction
+const TransactionListPage = lazy(() => import('src/pages/dashboard/transactions/list'));
+const TransactionCreatePage = lazy(() => import('src/pages/dashboard/transactions/create'));
 
 // Social
 const SocialFeedPage = lazy(() => import('src/pages/dashboard/social/feed'));
@@ -186,15 +186,15 @@ export const dashboardRoutes: RouteObject[] = [
 				],
 			},
 			{
-				path: 'products',
+				path: 'transactions',
 				children: [
 					{
 						index: true,
-						element: <ProductListPage />,
+						element: <TransactionListPage />,
 					},
 					{
 						path: 'create',
-						element: <ProductCreatePage />,
+						element: <TransactionCreatePage />,
 					},
 				],
 			},

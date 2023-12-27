@@ -1,4 +1,4 @@
-export interface Product {
+export interface Transaction {
 	id: string;
 	attributes: string[];
 	category: string;

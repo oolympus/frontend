@@ -33,7 +33,7 @@ export const es = {
 	[tokens.nav.postDetails]: 'Detalles del Articulo',
 	[tokens.nav.postList]: 'Lista de Articulos',
 	[tokens.nav.pricing]: 'Precios',
-	[tokens.nav.productList]: 'Productos',
+	[tokens.nav.transactionList]: ' Transactionos',
 	[tokens.nav.profile]: 'Perfil',
 	[tokens.nav.register]: 'Registrarse',
 	[tokens.nav.resetPassword]: 'Restablecer Contraseña',

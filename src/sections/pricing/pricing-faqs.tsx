@@ -30,7 +30,7 @@ const faqs: FaqType[] = [
 	{
 		question: 'How many projects can I build with this template?',
 		answer:
-			'Absolutely! If you intend to charge users for using your product Extended license is created specifically for this context.',
+			'Absolutely! If you intend to charge users for using your transaction Extended license is created specifically for this context.',
 	},
 	{
 		question: 'What browsers does the template support?',

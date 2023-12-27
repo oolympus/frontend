@@ -89,7 +89,7 @@ const validationSchema = Yup.object({
 	sku: Yup.string().max(255),
 });
 
-export const ProductCreateForm: FC = (props) => {
+export const TransactionCreateForm: FC = (props) => {
 	const router = useRouter();
 	const [files, setFiles] = useState<File[]>([]);
 	const formik = useFormik({
@@ -98,8 +98,8 @@ export const ProductCreateForm: FC = (props) => {
 		onSubmit: async (values, helpers): Promise<void> => {
 			try {
 				// NOTE: Make API request
-				toast.success('Product created');
-				router.push(paths.dashboard.products.index);
+				toast.success(' Transaction created');
+				router.push(paths.dashboard.transactions.index);
 			} catch (err) {
 				console.error(err);
 				toast.error('Something went wrong!');
@@ -153,7 +153,7 @@ export const ProductCreateForm: FC = (props) => {
 										error={!!(formik.touched.name && formik.errors.name)}
 										fullWidth
 										helperText={formik.touched.name && formik.errors.name}
-										label="Product Name"
+										label=" Transaction Name"
 										name="name"
 										onBlur={formik.handleBlur}
 										onChange={formik.handleChange}

@@ -19,7 +19,7 @@ import Typography from '@mui/material/Typography';
 import { MoreMenu } from 'src/components/more-menu';
 import { Scrollbar } from 'src/components/scrollbar';
 
-interface Product {
+interface Transaction {
 	id: string;
 	category: string;
 	image?: string;
@@ -27,29 +27,29 @@ interface Product {
 	sales: number;
 }
 
-interface EcommerceProductsProps {
-	products: Product[];
+interface EcommerceTransactionsProps {
+	transactions: Transaction[];
 }
 
-export const EcommerceProducts: FC<EcommerceProductsProps> = (props) => {
-	const { products } = props;
+export const EcommerceTransactions: FC<EcommerceTransactionsProps> = (props) => {
+	const { transactions } = props;
 
 	return (
 		<Card>
 			<CardHeader
 				action={<MoreMenu />}
-				title="Top Selling Products"
+				title="Top Selling transactions"
 			/>
 			<Scrollbar>
 				<Table sx={{ minWidth: 300 }}>
 					<TableBody>
-						{products.map((product, index) => {
-							const sales = numeral(product.sales).format('0,0');
+						{transactions.map((transaction, index) => {
+							const sales = numeral(transaction.sales).format('0,0');
 
 							return (
 								<TableRow
 									hover
-									key={product.id}
+									key={transaction.id}
 								>
 									<TableCell>
 										<Stack
@@ -57,12 +57,12 @@ export const EcommerceProducts: FC<EcommerceProductsProps> = (props) => {
 											direction="row"
 											spacing={2}
 										>
-											{product.image ? (
+											{transaction.image ? (
 												<Box
 													sx={{
 														alignItems: 'center',
 														backgroundColor: 'neutral.50',
-														backgroundImage: `url(${product.image})`,
+														backgroundImage: `url(${transaction.image})`,
 														backgroundPosition: 'center',
 														backgroundSize: 'cover',
 														borderRadius: 1,
@@ -92,12 +92,12 @@ export const EcommerceProducts: FC<EcommerceProductsProps> = (props) => {
 												</Box>
 											)}
 											<div>
-												<Typography variant="subtitle2">{product.name}</Typography>
+												<Typography variant="subtitle2">{transaction.name}</Typography>
 												<Typography
 													color="text.secondary"
 													variant="body2"
 												>
-													in {product.category}
+													in {transaction.category}
 												</Typography>
 											</div>
 										</Stack>
@@ -154,6 +154,6 @@ export const EcommerceProducts: FC<EcommerceProductsProps> = (props) => {
 	);
 };
 
-EcommerceProducts.propTypes = {
-	products: PropTypes.array.isRequired,
+EcommerceTransactions.propTypes = {
+	transactions: PropTypes.array.isRequired,
 };

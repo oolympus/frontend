@@ -15,7 +15,7 @@ import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
-interface Product {
+interface Transaction {
 	id: string;
 	image: string;
 	name: string;
@@ -23,17 +23,17 @@ interface Product {
 	quantity: number;
 }
 
-const products: Product[] = [
+const transactions: Transaction[] = [
 	{
 		id: '97375399bf10f57d0f0f7fd9',
-		image: '/assets/products/product-1.png',
+		image: '/assets/transactions/transaction-1.png',
 		name: 'Healthcare Erbology',
 		price: 23.99,
 		quantity: 1,
 	},
 	{
 		id: 'ece4069546ff025047b97735',
-		image: '/assets/products/product-2.png',
+		image: '/assets/transactions/transaction-2.png',
 		name: 'Makeup Lancome Rouge',
 		price: 95.0,
 		quantity: 1,
@@ -54,13 +54,13 @@ export const Form14: FC = () => {
 				>
 					<Typography variant="h6">Loan Summary</Typography>
 					<List sx={{ mt: 2 }}>
-						{products.map((product) => {
-							const price = numeral(product.price).format('$00.00');
+						{transactions.map((transaction) => {
+							const price = numeral(transaction.price).format('$00.00');
 
 							return (
 								<ListItem
 									disableGutters
-									key={product.id}
+									key={transaction.id}
 								>
 									<ListItemAvatar sx={{ pr: 2 }}>
 										<Box
@@ -78,8 +78,8 @@ export const Form14: FC = () => {
 											}}
 										>
 											<img
-												alt={product.name}
-												src={product.image}
+												alt={transaction.name}
+												src={transaction.image}
 											/>
 										</Box>
 									</ListItemAvatar>
@@ -91,7 +91,7 @@ export const Form14: FC = () => {
 												}}
 												variant="subtitle2"
 											>
-												{product.name}
+												{transaction.name}
 											</Typography>
 										}
 										secondary={
@@ -111,7 +111,7 @@ export const Form14: FC = () => {
 											size="small"
 											variant="outlined"
 										>
-											<Select value={product.quantity}>
+											<Select value={transaction.quantity}>
 												<MenuItem value={1}>1</MenuItem>
 												<MenuItem value={2}>2</MenuItem>
 												<MenuItem value={3}>3</MenuItem>

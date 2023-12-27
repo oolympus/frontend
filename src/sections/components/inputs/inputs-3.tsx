@@ -36,7 +36,7 @@ export const Inputs3: FC = () => (
 						color="text.secondary"
 						variant="body2"
 					>
-						This will give the user discounted prices for all products.
+						This will give the user discounted prices for all transactions.
 					</Typography>
 					<Switch />
 				</Stack>

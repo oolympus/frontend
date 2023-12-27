@@ -42,7 +42,7 @@ const useComments = (): Comment[] => {
 			id: 'd0ab3d02ef737fa6b007e35d',
 			authorAvatar: '/assets/avatars/avatar-alcides-antonio.png',
 			authorName: 'Alcides Antonio',
-			authorRole: 'Product Designer',
+			authorRole: ' Transaction Designer',
 			content:
 				'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
 			createdAt: subHours(new Date(), 2).getTime(),

@@ -1,9 +1,9 @@
-import type { Product } from 'src/types/product';
+import { transactions } from 'src/api/transactions/data';
+import type { Transaction } from 'src/types/transaction';
 import { applyPagination } from 'src/utils/apply-pagination';
 import { deepCopy } from 'src/utils/deep-copy';
-import { products } from './data';
 
-type GetProductsRequest = {
+type GetTransactionsRequest = {
 	filters?: {
 		name?: string;
 		category?: string[];
@@ -14,22 +14,22 @@ type GetProductsRequest = {
 	rowsPerPage?: number;
 };
 
-type GetProductsResponse = Promise<{
-	data: Product[];
+type GetTransactionsResponse = Promise<{
+	data: Transaction[];
 	count: number;
 }>;
 
-class ProductsApi {
-	getProducts(request: GetProductsRequest = {}): GetProductsResponse {
+class TransactionsApi {
+	getTransactions(request: GetTransactionsRequest = {}): GetTransactionsResponse {
 		const { filters, page, rowsPerPage } = request;
 
-		let data = deepCopy(products) as Product[];
+		let data = deepCopy(transactions) as Transaction[];
 		let count = data.length;
 
 		if (typeof filters !== 'undefined') {
-			data = data.filter((product) => {
+			data = data.filter((transaction) => {
 				if (typeof filters.name !== 'undefined' && filters.name !== '') {
-					const nameMatched = product.name.toLowerCase().includes(filters.name.toLowerCase());
+					const nameMatched = transaction.name.toLowerCase().includes(filters.name.toLowerCase());
 
 					if (!nameMatched) {
 						return false;
@@ -38,7 +38,7 @@ class ProductsApi {
 
 				// It is possible to select multiple category options
 				if (typeof filters.category !== 'undefined' && filters.category.length > 0) {
-					const categoryMatched = filters.category.includes(product.category);
+					const categoryMatched = filters.category.includes(transaction.category);
 
 					if (!categoryMatched) {
 						return false;
@@ -47,7 +47,7 @@ class ProductsApi {
 
 				// It is possible to select multiple status options
 				if (typeof filters.status !== 'undefined' && filters.status.length > 0) {
-					const statusMatched = filters.status.includes(product.status);
+					const statusMatched = filters.status.includes(transaction.status);
 
 					if (!statusMatched) {
 						return false;
@@ -56,7 +56,7 @@ class ProductsApi {
 
 				// Present only if filter required
 				if (typeof filters.inStock !== 'undefined') {
-					const stockMatched = product.inStock === filters.inStock;
+					const stockMatched = transaction.inStock === filters.inStock;
 
 					if (!stockMatched) {
 						return false;
@@ -79,4 +79,4 @@ class ProductsApi {
 	}
 }
 
-export const productsApi = new ProductsApi();
+export const transactionsApi = new TransactionsApi();

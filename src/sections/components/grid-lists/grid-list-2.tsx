@@ -50,7 +50,7 @@ const projects: Project[] = [
 		},
 		budget: 6125.0,
 		caption:
-			"We're looking for experienced Developers and Product Designers to come aboard and help us build succesful businesses through software.",
+			"We're looking for experienced Developers and  Transaction Designers to come aboard and help us build succesful businesses through software.",
 		currency: '$',
 		isLiked: true,
 		likes: 7,
@@ -71,7 +71,7 @@ const projects: Project[] = [
 		},
 		budget: 4205.0,
 		caption:
-			"We're looking for experienced Developers and Product Designers to come aboard and help us build succesful businesses through software.",
+			"We're looking for experienced Developers and  Transaction Designers to come aboard and help us build succesful businesses through software.",
 		currency: '$',
 		isLiked: true,
 		likes: 12,
@@ -92,7 +92,7 @@ const projects: Project[] = [
 		},
 		budget: 2394.0,
 		caption:
-			"We're looking for experienced Developers and Product Designers to come aboard and help us build succesful businesses through software.",
+			"We're looking for experienced Developers and  Transaction Designers to come aboard and help us build succesful businesses through software.",
 		currency: '$',
 		isLiked: true,
 		likes: 18,

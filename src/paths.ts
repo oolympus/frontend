@@ -55,9 +55,9 @@ export const paths = {
 			index: '/loans',
 			details: '/loans/:loanId',
 		},
-		products: {
-			index: '/products',
-			create: '/products/create',
+		transactions: {
+			index: '/transactions',
+			create: '/transactions/create',
 		},
 		social: {
 			index: '/social',

@@ -11,7 +11,7 @@ export const Form10: FC = () => (
 		<form onSubmit={(event) => event.preventDefault()}>
 			<TextField
 				fullWidth
-				label="Product Name"
+				label=" Transaction Name"
 				name="name"
 			/>
 			<Typography

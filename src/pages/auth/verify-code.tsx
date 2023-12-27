@@ -15,6 +15,7 @@ import Typography from '@mui/material/Typography';
 import { RouterLink } from 'src/components/router-link';
 import { Seo } from 'src/components/seo';
 import { paths } from 'src/paths';
+import { usePageView } from 'src/hooks/use-page-view';
 
 interface Values {
 	code: string;
@@ -35,6 +36,7 @@ const Page = () => {
 		onSubmit: (): void => {},
 	});
 
+	usePageView();
 	return (
 		<>
 			<Seo title="Verify Code" />

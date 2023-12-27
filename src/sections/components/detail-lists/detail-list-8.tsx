@@ -46,7 +46,7 @@ export const DetailList8: FC = () => (
 							disableTypography
 							primary={
 								<Typography variant="subtitle2">
-									Product Designer at{' '}
+									Transaction Designer at{' '}
 									<Link
 										color="text.primary"
 										href="#"

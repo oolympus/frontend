@@ -32,7 +32,7 @@ const now = new Date();
 
 type InventoryType = 'in_stock' | 'limited' | 'out_of_stock';
 
-interface Product {
+interface Transaction {
 	id: string;
 	attributes: string[];
 	category: string;
@@ -49,14 +49,14 @@ interface Product {
 	variants: number;
 }
 
-const products: Product[] = [
+const transactions: Transaction[] = [
 	{
 		id: '5ece2c077e39da27658aa8a9',
 		attributes: ['Cotton'],
 		category: 'dress',
 		currency: '$',
 		createdAt: subDays(now, 1).getTime(),
-		image: '/assets/products/product-1.png',
+		image: '/assets/transactions/transaction-1.png',
 		inventoryType: 'in_stock',
 		isAvailable: true,
 		isShippable: false,
@@ -72,7 +72,7 @@ const products: Product[] = [
 		category: 'dress',
 		currency: '$',
 		createdAt: subDays(now, 3).getTime(),
-		image: '/assets/products/product-2.png',
+		image: '/assets/transactions/transaction-2.png',
 		inventoryType: 'out_of_stock',
 		isAvailable: false,
 		isShippable: true,
@@ -104,7 +104,7 @@ const products: Product[] = [
 		category: 'blouse',
 		currency: '$',
 		createdAt: subDays(now, 12).getTime(),
-		image: '/assets/products/product-4.png',
+		image: '/assets/transactions/transaction-4.png',
 		inventoryType: 'limited',
 		isAvailable: false,
 		isShippable: true,
@@ -215,7 +215,7 @@ export const Table5: FC = () => (
 				sx={{ p: 3 }}
 			>
 				<OutlinedInput
-					placeholder="Search products"
+					placeholder="Search transactions"
 					startAdornment={
 						<InputAdornment position="start">
 							<SvgIcon>
@@ -314,14 +314,14 @@ export const Table5: FC = () => (
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{products.map((product) => {
-							const price = numeral(product.price).format(`${product.currency}0,0.00`);
-							const hasManyVariants = product.variants > 1;
+						{transactions.map((transaction) => {
+							const price = numeral(transaction.price).format(`${transaction.currency}0,0.00`);
+							const hasManyVariants = transaction.variants > 1;
 
 							return (
 								<TableRow
 									hover
-									key={product.id}
+									key={transaction.id}
 								>
 									<TableCell padding="checkbox">
 										<Checkbox />
@@ -333,7 +333,7 @@ export const Table5: FC = () => (
 												display: 'flex',
 											}}
 										>
-											{product.image ? (
+											{transaction.image ? (
 												<Box
 													sx={{
 														alignItems: 'center',
@@ -350,8 +350,8 @@ export const Table5: FC = () => (
 													}}
 												>
 													<img
-														alt="Product"
-														src={product.image}
+														alt=" Transaction"
+														src={transaction.image}
 													/>
 												</Box>
 											) : (
@@ -378,16 +378,16 @@ export const Table5: FC = () => (
 												}}
 												variant="subtitle2"
 											>
-												{product.name}
+												{transaction.name}
 											</Link>
 										</Box>
 									</TableCell>
-									<TableCell>{getInventoryPill(product.inventoryType)}</TableCell>
+									<TableCell>{getInventoryPill(transaction.inventoryType)}</TableCell>
 									<TableCell>
-										{product.quantity} in stock
-										{hasManyVariants && ` in ${product.variants} variants`}
+										{transaction.quantity} in stock
+										{hasManyVariants && ` in ${transaction.variants} variants`}
 									</TableCell>
-									<TableCell>{product.attributes.map((attr) => attr)}</TableCell>
+									<TableCell>{transaction.attributes.map((attr) => attr)}</TableCell>
 									<TableCell>{price}</TableCell>
 									<TableCell align="right">
 										<IconButton>
@@ -409,7 +409,7 @@ export const Table5: FC = () => (
 			</Scrollbar>
 			<TablePagination
 				component="div"
-				count={products.length}
+				count={transactions.length}
 				onPageChange={() => {}}
 				onRowsPerPageChange={() => {}}
 				page={0}

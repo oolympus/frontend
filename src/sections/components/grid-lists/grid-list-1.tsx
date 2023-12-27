@@ -46,7 +46,7 @@ const posts: Post[] = [
 			avatar: '/assets/avatars/avatar-omar-darboe.png',
 			name: 'Omar Darobe',
 		},
-		category: 'Productivity',
+		category: ' Transactionivity',
 		cover: '/assets/covers/minimal-1-4x4-small.png',
 		publishedAt: subHours(subMinutes(subSeconds(now, 29), 51), 6).getTime(),
 		readTime: '6 min',

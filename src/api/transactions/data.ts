@@ -1,16 +1,16 @@
-import type { Product } from 'src/types/product';
+import type { Transaction } from 'src/types/transaction';
 import { subDays, subHours } from 'date-fns';
 
 const now = new Date();
 
-export const products: Product[] = [
+export const transactions: Transaction[] = [
 	{
 		id: '5ece2c077e39da27658aa8a9',
 		attributes: ['Healthcare'],
 		category: 'healthcare',
 		createdAt: subDays(now, 1).getTime(),
 		currency: '$',
-		image: '/assets/products/product-1.png',
+		image: '/assets/transactions/transaction-1.png',
 		inStock: true,
 		isAvailable: true,
 		isShippable: false,
@@ -28,7 +28,7 @@ export const products: Product[] = [
 		category: 'makeup',
 		createdAt: subDays(now, 3).getTime(),
 		currency: '$',
-		image: '/assets/products/product-2.png',
+		image: '/assets/transactions/transaction-2.png',
 		inStock: false,
 		isAvailable: false,
 		isShippable: true,
@@ -64,7 +64,7 @@ export const products: Product[] = [
 		category: 'skincare',
 		createdAt: subDays(now, 12).getTime(),
 		currency: '$',
-		image: '/assets/products/product-4.png',
+		image: '/assets/transactions/transaction-4.png',
 		inStock: true,
 		isAvailable: false,
 		isShippable: true,
@@ -82,7 +82,7 @@ export const products: Product[] = [
 		category: 'skincare',
 		createdAt: subDays(now, 4).getTime(),
 		currency: '$',
-		image: '/assets/products/product-5.png',
+		image: '/assets/transactions/transaction-5.png',
 		inStock: true,
 		isAvailable: false,
 		isShippable: true,
@@ -100,7 +100,7 @@ export const products: Product[] = [
 		category: 'makeup',
 		createdAt: subDays(now, 6).getTime(),
 		currency: '$',
-		image: '/assets/products/product-6.png',
+		image: '/assets/transactions/transaction-6.png',
 		inStock: true,
 		isAvailable: false,
 		isShippable: true,
@@ -118,7 +118,7 @@ export const products: Product[] = [
 		category: 'healthcare',
 		createdAt: subDays(now, 7).getTime(),
 		currency: '$',
-		image: '/assets/products/product-7.png',
+		image: '/assets/transactions/transaction-7.png',
 		inStock: true,
 		isAvailable: false,
 		isShippable: true,

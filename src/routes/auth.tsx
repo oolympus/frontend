@@ -2,7 +2,6 @@ import { lazy } from 'react';
 import type { RouteObject } from 'react-router';
 import { Outlet } from 'react-router-dom';
 
-import { GuestGuard } from 'src/guards/guest-guard';
 import { Layout as AuthClassicLayout } from 'src/layouts/auth/classic-layout';
 
 const LoginPage = lazy(() => import('src/pages/auth/login'));
@@ -15,11 +14,9 @@ export const authRoutes: RouteObject[] = [
 	{
 		path: 'auth',
 		element: (
-			<GuestGuard>
-				<AuthClassicLayout>
-					<Outlet />
-				</AuthClassicLayout>
-			</GuestGuard>
+			<AuthClassicLayout>
+				<Outlet />
+			</AuthClassicLayout>
 		),
 		children: [
 			{

@@ -151,11 +151,11 @@ export const company: Company = {
 		},
 	],
 	averageRating: 3.66,
-	description: `Augmastic is the world’s leading AR technology company, sparking creative and engaging journeys in the real world. Our products inspire outdoor exploration, exercise, and meaningful social interaction.
+	description: `Augmastic is the world’s leading AR technology company, sparking creative and engaging journeys in the real world. Our transactions inspire outdoor exploration, exercise, and meaningful social interaction.
 
  Originally formed at Google in 2011, we became an independent company in 2015 with a strong group of investors including Nintendo, The Pokémon Company, and Alsop Louie Partners.
 
-Niantic is an Equal Opportunity and Affirmative Action employer. We believe that cultivating a workplace where our people are supported and included is essential to creating great products our community will love.
+Niantic is an Equal Opportunity and Affirmative Action employer. We believe that cultivating a workplace where our people are supported and included is essential to creating great transactions our community will love.
 
 Our mission emphasizes seeking and hiring diverse voices, including those who are traditionally underrepresented in the technology industry, and we consider this to be one of the most important values we hold close. We're a hard-working, fun, and exciting group who value intellectual curiosity and a passion for problem-solving! We have growing offices located in San Francisco, Sunnyvale, Bellevue, Los Angeles, Tokyo, Hamburg, London, and Zurich.`,
 	employees: '50-100',
@@ -244,7 +244,7 @@ Our mission emphasizes seeking and hiring diverse voices, including those who ar
 			description:
 				'I have been working with this company full-time. Great for the work life balance. Cons, decentralized decision making process across the organization.',
 			rating: 3.8,
-			title: 'Great company, providing an awesome & easy to use product',
+			title: 'Great company, providing an awesome & easy to use transaction',
 		},
 		{
 			id: '973a87618e946f08ea8d8491',
@@ -262,7 +262,7 @@ Our mission emphasizes seeking and hiring diverse voices, including those who ar
 			description:
 				'I have been working with this company full-time. Great for the work life balance. Cons, decentralized decision making process across the organization.',
 			rating: 3.8,
-			title: 'Great company, providing an awesome & easy to use product',
+			title: 'Great company, providing an awesome & easy to use transaction',
 		},
 	],
 	shortDescription:

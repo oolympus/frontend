@@ -10,14 +10,14 @@ import { RouterLink } from 'src/components/router-link';
 import { Seo } from 'src/components/seo';
 import { usePageView } from 'src/hooks/use-page-view';
 import { paths } from 'src/paths';
-import { ProductCreateForm } from 'src/sections/dashboard/product/product-create-form';
+import { TransactionCreateForm } from 'src/sections/dashboard/transaction/transaction-create-form';
 
 const Page = () => {
 	usePageView();
 
 	return (
 		<>
-			<Seo title="Dashboard: Product Create" />
+			<Seo title="Dashboard:  Transaction Create" />
 			<Box
 				component="main"
 				sx={{
@@ -28,7 +28,7 @@ const Page = () => {
 				<Container maxWidth="xl">
 					<Stack spacing={3}>
 						<Stack spacing={1}>
-							<Typography variant="h4">Create a new product</Typography>
+							<Typography variant="h4">Create a new transaction</Typography>
 							<Breadcrumbs separator={<BreadcrumbsSeparator />}>
 								<Link
 									color="text.primary"
@@ -41,10 +41,10 @@ const Page = () => {
 								<Link
 									color="text.primary"
 									component={RouterLink}
-									href={paths.dashboard.products.index}
+									href={paths.dashboard.transactions.index}
 									variant="subtitle2"
 								>
-									Products
+									Transactions
 								</Link>
 								<Typography
 									color="text.secondary"
@@ -54,7 +54,7 @@ const Page = () => {
 								</Typography>
 							</Breadcrumbs>
 						</Stack>
-						<ProductCreateForm />
+						<TransactionCreateForm />
 					</Stack>
 				</Container>
 			</Box>
