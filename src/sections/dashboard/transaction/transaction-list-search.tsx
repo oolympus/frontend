@@ -109,9 +109,6 @@ export const TransactionListSearch: FC<TransactionListSearchProps> = (props) => 
 					// so we can set up it directly
 					filters.name = chip.value as string;
 					break;
-				case 'category':
-					filters.category.push(chip.value as string);
-					break;
 				case 'status':
 					filters.status.push(chip.value as string);
 					break;
@@ -402,22 +399,10 @@ export const TransactionListSearch: FC<TransactionListSearchProps> = (props) => 
 				sx={{ p: 1 }}
 			>
 				<MultiSelect
-					label="Category"
-					onChange={handleCategoryChange}
-					options={categoryOptions}
-					value={categoryValues}
-				/>
-				<MultiSelect
 					label="Status"
 					onChange={handleStatusChange}
 					options={statusOptions}
 					value={statusValues}
-				/>
-				<MultiSelect
-					label="Stock"
-					onChange={handleStockChange}
-					options={stockOptions}
-					value={stockValues}
 				/>
 			</Stack>
 		</div>

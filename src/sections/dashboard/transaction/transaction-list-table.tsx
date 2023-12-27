@@ -6,7 +6,6 @@ import { toast } from 'react-hot-toast';
 import ChevronDownIcon from '@untitled-ui/icons-react/build/esm/ChevronDown';
 import ChevronRightIcon from '@untitled-ui/icons-react/build/esm/ChevronRight';
 import DotsHorizontalIcon from '@untitled-ui/icons-react/build/esm/DotsHorizontal';
-import Image01Icon from '@untitled-ui/icons-react/build/esm/Image01';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CardContent from '@mui/material/CardContent';
@@ -119,7 +118,6 @@ export const TransactionListTable: FC<TransactionListTableProps> = (props) => {
 							<TableCell>Price</TableCell>
 							<TableCell>sku</TableCell>
 							<TableCell>Status</TableCell>
-							<TableCell align="right">Actions</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -161,57 +159,17 @@ export const TransactionListTable: FC<TransactionListTableProps> = (props) => {
 										<TableCell width="25%">
 											<Box
 												sx={{
-													alignItems: 'center',
-													display: 'flex',
+													cursor: 'pointer',
+													ml: 2,
 												}}
 											>
-												{transaction.image ? (
-													<Box
-														sx={{
-															alignItems: 'center',
-															backgroundColor: 'neutral.50',
-															backgroundImage: `url(${transaction.image})`,
-															backgroundPosition: 'center',
-															backgroundSize: 'cover',
-															borderRadius: 1,
-															display: 'flex',
-															height: 80,
-															justifyContent: 'center',
-															overflow: 'hidden',
-															width: 80,
-														}}
-													/>
-												) : (
-													<Box
-														sx={{
-															alignItems: 'center',
-															backgroundColor: 'neutral.50',
-															borderRadius: 1,
-															display: 'flex',
-															height: 80,
-															justifyContent: 'center',
-															width: 80,
-														}}
-													>
-														<SvgIcon>
-															<Image01Icon />
-														</SvgIcon>
-													</Box>
-												)}
-												<Box
-													sx={{
-														cursor: 'pointer',
-														ml: 2,
-													}}
+												<Typography variant="subtitle2">{transaction.name}</Typography>
+												<Typography
+													color="text.secondary"
+													variant="body2"
 												>
-													<Typography variant="subtitle2">{transaction.name}</Typography>
-													<Typography
-														color="text.secondary"
-														variant="body2"
-													>
-														in {transaction.category}
-													</Typography>
-												</Box>
+													in {transaction.category}
+												</Typography>
 											</Box>
 										</TableCell>
 										<TableCell width="25%">
@@ -236,13 +194,6 @@ export const TransactionListTable: FC<TransactionListTableProps> = (props) => {
 										<TableCell>{transaction.sku}</TableCell>
 										<TableCell>
 											<SeverityPill color={statusColor}>{transaction.status}</SeverityPill>
-										</TableCell>
-										<TableCell align="right">
-											<IconButton>
-												<SvgIcon>
-													<DotsHorizontalIcon />
-												</SvgIcon>
-											</IconButton>
 										</TableCell>
 									</TableRow>
 									{isCurrent && (
@@ -273,7 +224,6 @@ export const TransactionListTable: FC<TransactionListTableProps> = (props) => {
 															md={6}
 															xs={12}
 														>
-															<Typography variant="h6">Basic details</Typography>
 															<Divider
 																sx={{
 																	my: 2,
@@ -349,7 +299,6 @@ export const TransactionListTable: FC<TransactionListTableProps> = (props) => {
 															md={6}
 															xs={12}
 														>
-															<Typography variant="h6">Pricing and stocks</Typography>
 															<Divider
 																sx={{
 																	my: 2,
@@ -396,20 +345,6 @@ export const TransactionListTable: FC<TransactionListTableProps> = (props) => {
 																		}}
 																		type="number"
 																	/>
-																</Grid>
-																<Grid
-																	item
-																	md={6}
-																	xs={12}
-																	sx={{
-																		alignItems: 'center',
-																		display: 'flex',
-																	}}
-																>
-																	<Switch />
-																	<Typography variant="subtitle2">
-																		Keep selling when stock is empty
-																	</Typography>
 																</Grid>
 															</Grid>
 														</Grid>
