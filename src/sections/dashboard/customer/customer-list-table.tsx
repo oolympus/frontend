@@ -24,21 +24,21 @@ interface CustomerListTableProps {
 	count?: number;
 	items?: Customer[];
 	onDeselectAll?: () => void;
-	onDeselectOne?: (customerId: string) => void;
-	onPageChange?: (event: MouseEvent<HTMLButtonElement> | null, newPage: number) => void;
-	onRowsPerPageChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+	onDeselectOne?: ( customerId: string ) => void;
+	onPageChange?: ( event: MouseEvent<HTMLButtonElement> | null, newPage: number ) => void;
+	onRowsPerPageChange?: ( event: ChangeEvent<HTMLInputElement> ) => void;
 	onSelectAll?: () => void;
-	onSelectOne?: (customerId: string) => void;
+	onSelectOne?: ( customerId: string ) => void;
 	page?: number;
 	rowsPerPage?: number;
 	selected?: string[];
 }
 
-export const CustomerListTable: FC<CustomerListTableProps> = (props) => {
+export const CustomerListTable: FC<CustomerListTableProps> = ( props ) => {
 	const {
 		count = 0,
 		items = [],
-		onPageChange = () => {},
+		onPageChange = () => { },
 		onRowsPerPageChange,
 		page = 0,
 		rowsPerPage = 0,
@@ -65,8 +65,8 @@ export const CustomerListTable: FC<CustomerListTableProps> = (props) => {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{items.map((customer) => {
-							const isSelected = selected.includes(customer.id);
+						{items.map( ( customer ) => {
+							const isSelected = selected.includes( customer.id );
 							return (
 								<TableRow
 									hover
@@ -115,13 +115,13 @@ export const CustomerListTable: FC<CustomerListTableProps> = (props) => {
 													href={paths.dashboard.customers.details}
 													variant="subtitle2"
 												>
-													{customer.guarantors[0]}
+													{customer.guarantors ? customer.guarantors[0] : "NONE"}
 												</Link>
 												<Typography
 													color="text.secondary"
 													variant="body2"
 												>
-													{customer.guarantors[1]}
+													{customer.guarantors ? customer.guarantors[1] : "NONE"}
 												</Typography>
 											</div>
 										</Stack>
@@ -146,7 +146,7 @@ export const CustomerListTable: FC<CustomerListTableProps> = (props) => {
 									</TableCell>
 								</TableRow>
 							);
-						})}
+						} )}
 					</TableBody>
 				</Table>
 			</Scrollbar>

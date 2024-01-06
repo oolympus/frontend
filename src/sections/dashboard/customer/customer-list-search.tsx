@@ -16,12 +16,11 @@ import { useUpdateEffect } from 'src/hooks/use-update-effect';
 
 interface Filters {
 	query?: string;
-	hasAcceptedMarketing?: boolean;
 	isProspect?: boolean;
 	isReturning?: boolean;
 }
 
-type TabValue = 'all' | 'hasAcceptedMarketing' | 'isProspect' | 'isReturning';
+type TabValue = 'all' | 'isProspect' | 'isReturning';
 
 interface TabOption {
 	label: string;
@@ -32,10 +31,6 @@ const tabs: TabOption[] = [
 	{
 		label: 'All',
 		value: 'all',
-	},
-	{
-		label: 'Accepts Marketing',
-		value: 'hasAcceptedMarketing',
 	},
 	{
 		label: 'Prospect',
@@ -76,60 +71,59 @@ const sortOptions: SortOption[] = [
 type SortDir = 'asc' | 'desc';
 
 interface CustomerListSearchProps {
-	onFiltersChange?: (filters: Filters) => void;
-	onSortChange?: (sort: { sortBy: string; sortDir: SortDir }) => void;
+	onFiltersChange?: ( filters: Filters ) => void;
+	onSortChange?: ( sort: { sortBy: string; sortDir: SortDir } ) => void;
 	sortBy?: string;
 	sortDir?: SortDir;
 }
 
-export const CustomerListSearch: FC<CustomerListSearchProps> = (props) => {
+export const CustomerListSearch: FC<CustomerListSearchProps> = ( props ) => {
 	const { onFiltersChange, onSortChange, sortBy, sortDir } = props;
-	const queryRef = useRef<HTMLInputElement | null>(null);
-	const [currentTab, setCurrentTab] = useState<TabValue>('all');
-	const [filters, setFilters] = useState<Filters>({});
+	const queryRef = useRef<HTMLInputElement | null>( null );
+	const [currentTab, setCurrentTab] = useState<TabValue>( 'all' );
+	const [filters, setFilters] = useState<Filters>( {} );
 
-	const handleFiltersUpdate = useCallback(() => {
-		onFiltersChange?.(filters);
-	}, [filters, onFiltersChange]);
+	const handleFiltersUpdate = useCallback( () => {
+		onFiltersChange?.( filters );
+	}, [filters, onFiltersChange] );
 
-	useUpdateEffect(() => {
+	useUpdateEffect( () => {
 		handleFiltersUpdate();
-	}, [filters, handleFiltersUpdate]);
+	}, [filters, handleFiltersUpdate] );
 
-	const handleTabsChange = useCallback((event: ChangeEvent<any>, value: TabValue): void => {
-		setCurrentTab(value);
-		setFilters((prevState) => {
+	const handleTabsChange = useCallback( ( event: ChangeEvent<any>, value: TabValue ): void => {
+		setCurrentTab( value );
+		setFilters( ( prevState ) => {
 			const updatedFilters: Filters = {
 				...prevState,
-				hasAcceptedMarketing: undefined,
 				isProspect: undefined,
 				isReturning: undefined,
 			};
 
-			if (value !== 'all') {
+			if ( value !== 'all' ) {
 				updatedFilters[value] = true;
 			}
 
 			return updatedFilters;
-		});
-	}, []);
+		} );
+	}, [] );
 
-	const handleQueryChange = useCallback((event: FormEvent<HTMLFormElement>): void => {
+	const handleQueryChange = useCallback( ( event: FormEvent<HTMLFormElement> ): void => {
 		event.preventDefault();
-		setFilters((prevState) => ({
+		setFilters( ( prevState ) => ( {
 			...prevState,
 			query: queryRef.current?.value,
-		}));
-	}, []);
+		} ) );
+	}, [] );
 
 	const handleSortChange = useCallback(
-		(event: ChangeEvent<HTMLInputElement>): void => {
-			const [sortBy, sortDir] = event.target.value.split('|') as [string, SortDir];
+		( event: ChangeEvent<HTMLInputElement> ): void => {
+			const [sortBy, sortDir] = event.target.value.split( '|' ) as [string, SortDir];
 
-			onSortChange?.({
+			onSortChange?.( {
 				sortBy,
 				sortDir,
-			});
+			} );
 		},
 		[onSortChange]
 	);
@@ -145,13 +139,13 @@ export const CustomerListSearch: FC<CustomerListSearchProps> = (props) => {
 				value={currentTab}
 				variant="scrollable"
 			>
-				{tabs.map((tab) => (
+				{tabs.map( ( tab ) => (
 					<Tab
 						key={tab.value}
 						label={tab.label}
 						value={tab.value}
 					/>
-				))}
+				) )}
 			</Tabs>
 			<Divider />
 			<Stack
@@ -188,14 +182,14 @@ export const CustomerListSearch: FC<CustomerListSearchProps> = (props) => {
 					SelectProps={{ native: true }}
 					value={`${sortBy}|${sortDir}`}
 				>
-					{sortOptions.map((option) => (
+					{sortOptions.map( ( option ) => (
 						<option
 							key={option.value}
 							value={option.value}
 						>
 							{option.label}
 						</option>
-					))}
+					) )}
 				</TextField>
 			</Stack>
 		</>
@@ -206,5 +200,5 @@ CustomerListSearch.propTypes = {
 	onFiltersChange: PropTypes.func,
 	onSortChange: PropTypes.func,
 	sortBy: PropTypes.string,
-	sortDir: PropTypes.oneOf<SortDir>(['asc', 'desc']),
+	sortDir: PropTypes.oneOf<SortDir>( ['asc', 'desc'] ),
 };

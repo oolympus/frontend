@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from 'src/store';
 import { thunks } from 'src/thunks/kanban';
 
 const useColumnsIds = (): string[] => {
-	const { columns } = useSelector((state) => state.kanban);
+	const { columns } = useSelector( ( state ) => state.kanban );
 
 	return columns.allIds;
 };
@@ -23,9 +23,9 @@ const useColumnsIds = (): string[] => {
 const useBoard = (): void => {
 	const dispatch = useDispatch();
 
-	const handleBoardGet = useCallback((): void => {
-		dispatch(thunks.getBoard());
-	}, [dispatch]);
+	const handleBoardGet = useCallback( (): void => {
+		dispatch( thunks.getBoard() );
+	}, [dispatch] );
 
 	useEffect(
 		() => {
@@ -39,143 +39,143 @@ const useBoard = (): void => {
 const Page = () => {
 	const dispatch = useDispatch();
 	const columnsIds = useColumnsIds();
-	const [currentTaskId, setCurrentTaskId] = useState<string | null>(null);
+	const [currentTaskId, setCurrentTaskId] = useState<string | null>( null );
 
 	usePageView();
 
 	useBoard();
 
 	const handleDragEnd = useCallback(
-		async ({ source, destination, draggableId }: DropResult): Promise<void> => {
+		async ( { source, destination, draggableId }: DropResult ): Promise<void> => {
 			try {
 				// Dropped outside the column
-				if (!destination) {
+				if ( !destination ) {
 					return;
 				}
 
 				// Task has not been moved
-				if (source.droppableId === destination.droppableId && source.index === destination.index) {
+				if ( source.droppableId === destination.droppableId && source.index === destination.index ) {
 					return;
 				}
 
-				if (source.droppableId === destination.droppableId) {
+				if ( source.droppableId === destination.droppableId ) {
 					// Moved to the same column on different position
-					await dispatch(
-						thunks.moveTask({
+					dispatch(
+						thunks.moveTask( {
 							taskId: draggableId,
 							position: destination.index,
-						})
+						} )
 					);
 				} else {
 					// Moved to another column
-					await dispatch(
-						thunks.moveTask({
+					dispatch(
+						thunks.moveTask( {
 							taskId: draggableId,
 							position: destination.index,
 							columnId: destination.droppableId,
-						})
+						} )
 					);
 				}
-			} catch (err) {
-				console.error(err);
-				toast.error('Something went wrong!');
+			} catch ( err ) {
+				console.error( err );
+				toast.error( 'Something went wrong!' );
 			}
 		},
 		[dispatch]
 	);
 
 	const handleColumnAdd = useCallback(
-		async (name?: string) => {
+		async ( name?: string ) => {
 			try {
-				await dispatch(
-					thunks.createColumn({
+				dispatch(
+					thunks.createColumn( {
 						name: name || 'Untitled Column',
-					})
+					} )
 				);
-				toast.success('Column created');
-			} catch (err) {
-				console.error(err);
-				toast.error('Something went wrong!');
+				toast.success( 'Column created' );
+			} catch ( err ) {
+				console.error( err );
+				toast.error( 'Something went wrong!' );
 			}
 		},
 		[dispatch]
 	);
 
 	const handleColumnClear = useCallback(
-		async (columnId: string): Promise<void> => {
+		async ( columnId: string ): Promise<void> => {
 			try {
-				await dispatch(
-					thunks.clearColumn({
+				dispatch(
+					thunks.clearColumn( {
 						columnId,
-					})
+					} )
 				);
-				toast.success('Column cleared');
-			} catch (err) {
-				console.error(err);
-				toast.error('Something went wrong!');
+				toast.success( 'Column cleared' );
+			} catch ( err ) {
+				console.error( err );
+				toast.error( 'Something went wrong!' );
 			}
 		},
 		[dispatch]
 	);
 
 	const handleColumnDelete = useCallback(
-		async (columnId: string): Promise<void> => {
+		async ( columnId: string ): Promise<void> => {
 			try {
-				await dispatch(
-					thunks.deleteColumn({
+				dispatch(
+					thunks.deleteColumn( {
 						columnId,
-					})
+					} )
 				);
-				toast.success('Column deleted');
-			} catch (err) {
-				console.error(err);
-				toast.error('Something went wrong!');
+				toast.success( 'Column deleted' );
+			} catch ( err ) {
+				console.error( err );
+				toast.error( 'Something went wrong!' );
 			}
 		},
 		[dispatch]
 	);
 
 	const handleColumnRename = useCallback(
-		async (columnId: string, name: string): Promise<void> => {
+		async ( columnId: string, name: string ): Promise<void> => {
 			try {
-				await dispatch(
-					thunks.updateColumn({
+				dispatch(
+					thunks.updateColumn( {
 						columnId,
 						update: { name },
-					})
+					} )
 				);
-			} catch (err) {
-				console.error(err);
-				toast.error('Something went wrong!');
+			} catch ( err ) {
+				console.error( err );
+				toast.error( 'Something went wrong!' );
 			}
 		},
 		[dispatch]
 	);
 
 	const handleTaskAdd = useCallback(
-		async (columnId: string, name?: string): Promise<void> => {
+		async ( columnId: string, name?: string ): Promise<void> => {
 			try {
-				await dispatch(
-					thunks.createTask({
+				dispatch(
+					thunks.createTask( {
 						columnId,
 						name: name || 'Untitled Task',
-					})
+					} )
 				);
-			} catch (err) {
-				console.error(err);
-				toast.error('Something went wrong!');
+			} catch ( err ) {
+				console.error( err );
+				toast.error( 'Something went wrong!' );
 			}
 		},
 		[dispatch]
 	);
 
-	const handleTaskOpen = useCallback((taskId: string): void => {
-		setCurrentTaskId(taskId);
-	}, []);
+	const handleTaskOpen = useCallback( ( taskId: string ): void => {
+		setCurrentTaskId( taskId );
+	}, [] );
 
-	const handleTaskClose = useCallback((): void => {
-		setCurrentTaskId(null);
-	}, []);
+	const handleTaskClose = useCallback( (): void => {
+		setCurrentTaskId( null );
+	}, [] );
 
 	return (
 		<>
@@ -210,17 +210,17 @@ const Page = () => {
 							direction="row"
 							spacing={3}
 						>
-							{columnsIds.map((columnId: string) => (
+							{columnsIds.map( ( columnId: string ) => (
 								<ColumnCard
 									key={columnId}
 									columnId={columnId}
-									onClear={() => handleColumnClear(columnId)}
-									onDelete={() => handleColumnDelete(columnId)}
-									onRename={(name) => handleColumnRename(columnId, name)}
-									onTaskAdd={(name) => handleTaskAdd(columnId, name)}
+									onClear={() => handleColumnClear( columnId )}
+									onDelete={() => handleColumnDelete( columnId )}
+									onRename={( name ) => handleColumnRename( columnId, name )}
+									onTaskAdd={( name ) => handleTaskAdd( columnId, name )}
 									onTaskOpen={handleTaskOpen}
 								/>
-							))}
+							) )}
 							<ColumnAdd onAdd={handleColumnAdd} />
 						</Stack>
 					</Box>

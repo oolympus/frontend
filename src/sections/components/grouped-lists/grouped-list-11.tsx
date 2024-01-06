@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import type { SeverityPillColor } from 'src/components/severity-pill';
 import { SeverityPill } from 'src/components/severity-pill';
 
-type CampaignStatus = 'draft' | 'active' | 'stopped';
+type CampaignStatus = 'pending' | 'active' | 'stopped';
 
 interface Campaign {
 	id: string;
@@ -34,7 +34,7 @@ const campaigns: Campaign[] = [
 		createdAt: 'Jan 23 2022',
 		name: 'Summer Active Health',
 		platform: 'Google',
-		status: 'draft',
+		status: 'pending',
 		target: 'Men Group',
 	},
 	{
@@ -64,7 +64,7 @@ const campaigns: Campaign[] = [
 		createdAt: 'Feb 1 2022',
 		name: 'Best Marketing Course Online',
 		platform: 'Bing',
-		status: 'draft',
+		status: 'pending',
 		target: 'Young Group',
 	},
 ];
@@ -78,7 +78,7 @@ const statusColorsMap: Record<CampaignStatus, SeverityPillColor> = {
 export const GroupedList11: FC = () => (
 	<Box
 		sx={{
-			backgroundColor: (theme) => (theme.palette.mode === 'dark' ? 'neutral.800' : 'neutral.100'),
+			backgroundColor: ( theme ) => ( theme.palette.mode === 'dark' ? 'neutral.800' : 'neutral.100' ),
 			p: 3,
 		}}
 	>
@@ -87,7 +87,7 @@ export const GroupedList11: FC = () => (
 			<Divider />
 			<Table>
 				<TableBody>
-					{campaigns.map((campaign) => {
+					{campaigns.map( ( campaign ) => {
 						const statusColor = statusColorsMap[campaign.status];
 
 						return (
@@ -169,7 +169,7 @@ export const GroupedList11: FC = () => (
 								</TableCell>
 							</TableRow>
 						);
-					})}
+					} )}
 				</TableBody>
 			</Table>
 		</Card>

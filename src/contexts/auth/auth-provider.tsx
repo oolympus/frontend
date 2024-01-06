@@ -45,10 +45,10 @@ type SignOutAction = {
 
 type Action = InitializeAction | SignInAction | SignUpAction | SignOutAction;
 
-type Handler = (state: State, action: any) => State;
+type Handler = ( state: State, action: any ) => State;
 
 const handlers: Record<ActionType, Handler> = {
-	INITIALIZE: (state: State, action: InitializeAction): State => {
+	INITIALIZE: ( state: State, action: InitializeAction ): State => {
 		const { isAuthenticated, user } = action.payload;
 
 		return {
@@ -58,7 +58,7 @@ const handlers: Record<ActionType, Handler> = {
 			user,
 		};
 	},
-	SIGN_IN: (state: State, action: SignInAction): State => {
+	SIGN_IN: ( state: State, action: SignInAction ): State => {
 		const { user } = action.payload;
 
 		return {
@@ -67,7 +67,7 @@ const handlers: Record<ActionType, Handler> = {
 			user,
 		};
 	},
-	SIGN_UP: (state: State, action: SignUpAction): State => {
+	SIGN_UP: ( state: State, action: SignUpAction ): State => {
 		const { user } = action.payload;
 
 		return {
@@ -76,58 +76,58 @@ const handlers: Record<ActionType, Handler> = {
 			user,
 		};
 	},
-	SIGN_OUT: (state: State): State => ({
+	SIGN_OUT: ( state: State ): State => ( {
 		...state,
 		isAuthenticated: false,
 		user: null,
-	}),
+	} ),
 };
 
-const reducer = (state: State, action: Action): State =>
-	handlers[action.type] ? handlers[action.type](state, action) : state;
+const reducer = ( state: State, action: Action ): State =>
+	handlers[action.type] ? handlers[action.type]( state, action ) : state;
 
 interface AuthProviderProps {
 	children: ReactNode;
 }
 
-export const AuthProvider: FC<AuthProviderProps> = (props) => {
+export const AuthProvider: FC<AuthProviderProps> = ( props ) => {
 	const { children } = props;
-	const [state, dispatch] = useReducer(reducer, initialState);
+	const [state, dispatch] = useReducer( reducer, initialState );
 
-	const initialize = useCallback(async (): Promise<void> => {
+	const initialize = useCallback( async (): Promise<void> => {
 		try {
-			const accessToken = window.sessionStorage.getItem(STORAGE_KEY);
+			const accessToken = window.sessionStorage.getItem( STORAGE_KEY );
 
-			if (accessToken) {
-				const user = await authApi.me({ accessToken });
+			if ( accessToken ) {
+				// const user = await authApi.me({ accessToken });
 
-				dispatch({
+				dispatch( {
 					type: ActionType.INITIALIZE,
 					payload: {
 						isAuthenticated: true,
-						user,
+						user: null,
 					},
-				});
+				} );
 			} else {
-				dispatch({
+				dispatch( {
 					type: ActionType.INITIALIZE,
 					payload: {
 						isAuthenticated: false,
 						user: null,
 					},
-				});
+				} );
 			}
-		} catch (err) {
-			console.error(err);
-			dispatch({
+		} catch ( err ) {
+			console.error( err );
+			dispatch( {
 				type: ActionType.INITIALIZE,
 				payload: {
 					isAuthenticated: false,
 					user: null,
 				},
-			});
+			} );
 		}
-	}, [dispatch]);
+	}, [dispatch] );
 
 	useEffect(
 		() => {
@@ -138,43 +138,46 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
 	);
 
 	const signIn = useCallback(
-		async (request: SignInRequest): Promise<void> => {
-			const { accessToken } = await authApi.signIn({ ...request });
-			const user = await authApi.me({ accessToken });
-
-			sessionStorage.setItem(STORAGE_KEY, accessToken);
-
-			dispatch({
+		async ( request: SignInRequest ): Promise<void> => {
+			dispatch( {
 				type: ActionType.SIGN_IN,
 				payload: {
-					user,
+					user: {
+						id: "",
+						email: "",
+						avatar: ""
+					},
 				},
-			});
+			} );
 		},
 		[dispatch]
 	);
 
 	const signUp = useCallback(
-		async (req: SignUpRequest): Promise<void> => {
-			const { accessToken } = await authApi.signUp({ ...req });
-			const user = await authApi.me({ accessToken });
+		async ( req: SignUpRequest ): Promise<void> => {
+			const { accessToken } = await authApi.signUp( { ...req } );
+			// const user = await authApi.me( { accessToken } );
 
-			sessionStorage.setItem(STORAGE_KEY, accessToken);
+			sessionStorage.setItem( STORAGE_KEY, accessToken );
 
-			dispatch({
+			dispatch( {
 				type: ActionType.SIGN_UP,
 				payload: {
-					user,
+					user: {
+						id: "",
+						email: "",
+						avatar: ""
+					},
 				},
-			});
+			} );
 		},
 		[dispatch]
 	);
 
-	const signOut = useCallback(async (): Promise<void> => {
-		sessionStorage.removeItem(STORAGE_KEY);
-		dispatch({ type: ActionType.SIGN_OUT });
-	}, [dispatch]);
+	const signOut = useCallback( async (): Promise<void> => {
+		sessionStorage.removeItem( STORAGE_KEY );
+		dispatch( { type: ActionType.SIGN_OUT } );
+	}, [dispatch] );
 
 	return (
 		<AuthContext.Provider

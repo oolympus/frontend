@@ -12,7 +12,7 @@ export interface Transaction {
 	price: number;
 	quantity: number;
 	sku: string;
-	status: 'published' | 'draft';
+	status: 'approved' | 'pending';
 	updatedAt: number;
 	variants: number;
 }

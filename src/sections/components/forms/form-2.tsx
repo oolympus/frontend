@@ -30,12 +30,12 @@ const categoryOptions: Option[] = [
 
 const statusOptions: Option[] = [
 	{
-		label: 'Published',
-		value: 'published',
+		label: 'Approved',
+		value: 'approved',
 	},
 	{
-		label: 'Draft',
-		value: 'draft',
+		label: 'Pending',
+		value: 'pending',
 	},
 ];
 
@@ -73,8 +73,8 @@ export const Form2: FC = () => {
 			{
 				label: 'Status',
 				field: 'status',
-				value: 'published',
-				displayValue: 'Published',
+				value: 'approved',
+				displayValue: 'Approved',
 			},
 			{
 				label: 'Stock',
@@ -87,17 +87,17 @@ export const Form2: FC = () => {
 	);
 
 	const categoryValues = useMemo(
-		() => chips.filter((chip) => chip.field === 'category').map((chip) => chip.value),
+		() => chips.filter( ( chip ) => chip.field === 'category' ).map( ( chip ) => chip.value ),
 		[chips]
 	);
 
 	const statusValues = useMemo(
-		() => chips.filter((chip) => chip.field === 'status').map((chip) => chip.value),
+		() => chips.filter( ( chip ) => chip.field === 'status' ).map( ( chip ) => chip.value ),
 		[chips]
 	);
 
 	const stockValues = useMemo(
-		() => chips.filter((chip) => chip.field === 'inStock').map((chip) => chip.value),
+		() => chips.filter( ( chip ) => chip.field === 'inStock' ).map( ( chip ) => chip.value ),
 		[chips]
 	);
 
@@ -135,7 +135,7 @@ export const Form2: FC = () => {
 					p: 2,
 				}}
 			>
-				{chips.map((chip, index) => (
+				{chips.map( ( chip, index ) => (
 					<Chip
 						key={index}
 						label={
@@ -151,11 +151,11 @@ export const Form2: FC = () => {
 								<span>{chip.label}</span>: {chip.displayValue}
 							</Box>
 						}
-						onDelete={(): void => {}}
+						onDelete={(): void => { }}
 						sx={{ m: 1 }}
 						variant="outlined"
 					/>
-				))}
+				) )}
 			</Box>
 			<Divider />
 			<Stack

@@ -20,7 +20,6 @@ import type { Customer } from 'src/types/customer';
 
 interface Filters {
 	query?: string;
-	hasAcceptedMarketing?: boolean;
 	isProspect?: boolean;
 	isReturning?: boolean;
 }
@@ -34,10 +33,9 @@ interface CustomersSearchState {
 }
 
 const useCustomersSearch = () => {
-	const [state, setState] = useState<CustomersSearchState>({
+	const [state, setState] = useState<CustomersSearchState>( {
 		filters: {
 			query: undefined,
-			hasAcceptedMarketing: undefined,
 			isProspect: undefined,
 			isReturning: undefined,
 		},
@@ -45,42 +43,42 @@ const useCustomersSearch = () => {
 		rowsPerPage: 5,
 		sortBy: 'updatedAt',
 		sortDir: 'desc',
-	});
+	} );
 
-	const handleFiltersChange = useCallback((filters: Filters): void => {
-		setState((prevState) => ({
+	const handleFiltersChange = useCallback( ( filters: Filters ): void => {
+		setState( ( prevState ) => ( {
 			...prevState,
 			filters,
-		}));
-	}, []);
+		} ) );
+	}, [] );
 
 	const handleSortChange = useCallback(
-		(sort: { sortBy: string; sortDir: 'asc' | 'desc' }): void => {
-			setState((prevState) => ({
+		( sort: { sortBy: string; sortDir: 'asc' | 'desc' } ): void => {
+			setState( ( prevState ) => ( {
 				...prevState,
 				sortBy: sort.sortBy,
 				sortDir: sort.sortDir,
-			}));
+			} ) );
 		},
 		[]
 	);
 
 	const handlePageChange = useCallback(
-		(event: MouseEvent<HTMLButtonElement> | null, page: number): void => {
-			setState((prevState) => ({
+		( event: MouseEvent<HTMLButtonElement> | null, page: number ): void => {
+			setState( ( prevState ) => ( {
 				...prevState,
 				page,
-			}));
+			} ) );
 		},
 		[]
 	);
 
-	const handleRowsPerPageChange = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
-		setState((prevState) => ({
+	const handleRowsPerPageChange = useCallback( ( event: ChangeEvent<HTMLInputElement> ): void => {
+		setState( ( prevState ) => ( {
 			...prevState,
-			rowsPerPage: parseInt(event.target.value, 10),
-		}));
-	}, []);
+			rowsPerPage: parseInt( event.target.value, 10 ),
+		} ) );
+	}, [] );
 
 	return {
 		handleFiltersChange,
@@ -96,27 +94,27 @@ interface CustomersStoreState {
 	customersCount: number;
 }
 
-const useCustomersStore = (searchState: CustomersSearchState) => {
+const useCustomersStore = ( searchState: CustomersSearchState ) => {
 	const isMounted = useMounted();
-	const [state, setState] = useState<CustomersStoreState>({
+	const [state, setState] = useState<CustomersStoreState>( {
 		customers: [],
 		customersCount: 0,
-	});
+	} );
 
-	const handleCustomersGet = useCallback(async () => {
+	const handleCustomersGet = useCallback( async () => {
 		try {
-			const response = await customersApi.getCustomers(searchState);
+			const response = await customersApi.getCustomers( searchState );
 
-			if (isMounted()) {
-				setState({
+			if ( isMounted() ) {
+				setState( {
 					customers: response.data,
 					customersCount: response.count,
-				});
+				} );
 			}
-		} catch (err) {
-			console.error(err);
+		} catch ( err ) {
+			console.error( err );
 		}
-	}, [searchState, isMounted]);
+	}, [searchState, isMounted] );
 
 	useEffect(
 		() => {
@@ -131,17 +129,17 @@ const useCustomersStore = (searchState: CustomersSearchState) => {
 	};
 };
 
-const useCustomersIds = (customers: Customer[] = []) => {
-	return useMemo(() => {
-		return customers.map((customer) => customer.id);
-	}, [customers]);
+const useCustomersIds = ( customers: Customer[] = [] ) => {
+	return useMemo( () => {
+		return customers.map( ( customer ) => customer.id );
+	}, [customers] );
 };
 
 const Page = () => {
 	const customersSearch = useCustomersSearch();
-	const customersStore = useCustomersStore(customersSearch.state);
-	const customersIds = useCustomersIds(customersStore.customers);
-	const customersSelection = useSelection<string>(customersIds);
+	const customersStore = useCustomersStore( customersSearch.state );
+	const customersIds = useCustomersIds( customersStore.customers );
+	const customersSelection = useSelection<string>( customersIds );
 
 	usePageView();
 

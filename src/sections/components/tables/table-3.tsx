@@ -37,7 +37,6 @@ interface Customer {
 	country: string;
 	currency: string;
 	email: string;
-	hasAcceptedMarketing: boolean;
 	isProspect: boolean;
 	isReturning: boolean;
 	name: string;
@@ -55,14 +54,13 @@ const customers: Customer[] = [
 		country: 'USA',
 		currency: '$',
 		email: 'carson.darrin@olympus.com',
-		hasAcceptedMarketing: true,
 		isProspect: false,
 		isReturning: true,
 		name: 'Carson Darrin',
 		state: 'Ohio',
 		totalSpent: 300.0,
 		totalLoans: 3,
-		updatedAt: subDays(subHours(now, 7), 1).getTime(),
+		updatedAt: subDays( subHours( now, 7 ), 1 ).getTime(),
 	},
 	{
 		id: '5e887b209c28ac3dd97f6db5',
@@ -71,14 +69,13 @@ const customers: Customer[] = [
 		country: 'USA',
 		currency: '$',
 		email: 'fran.perez@olympus.com',
-		hasAcceptedMarketing: true,
 		isProspect: true,
 		isReturning: false,
 		name: 'Fran Perez',
 		state: 'Georgia',
 		totalSpent: 0.0,
 		totalLoans: 0,
-		updatedAt: subDays(subHours(now, 1), 2).getTime(),
+		updatedAt: subDays( subHours( now, 1 ), 2 ).getTime(),
 	},
 	{
 		id: '5e887b7602bdbc4dbb234b27',
@@ -87,14 +84,13 @@ const customers: Customer[] = [
 		country: 'USA',
 		currency: '$',
 		email: 'jie.yan.song@olympus.com',
-		hasAcceptedMarketing: false,
 		isProspect: false,
 		isReturning: false,
 		name: 'Jie Yan Song',
 		state: 'Ohio',
 		totalSpent: 5600.0,
 		totalLoans: 6,
-		updatedAt: subDays(subHours(now, 4), 2).getTime(),
+		updatedAt: subDays( subHours( now, 4 ), 2 ).getTime(),
 	},
 	{
 		id: '5e86809283e28b96d2d38537',
@@ -103,14 +99,13 @@ const customers: Customer[] = [
 		country: 'Spain',
 		currency: '$',
 		email: 'anika.visser@olympus.com',
-		hasAcceptedMarketing: true,
 		isProspect: false,
 		isReturning: true,
 		name: 'Anika Visser',
 		state: 'Madrid',
 		totalSpent: 500.0,
 		totalLoans: 1,
-		updatedAt: subDays(subHours(now, 11), 2).getTime(),
+		updatedAt: subDays( subHours( now, 11 ), 2 ).getTime(),
 	},
 	{
 		id: '5e86805e2bafd54f66cc95c3',
@@ -119,14 +114,13 @@ const customers: Customer[] = [
 		country: 'USA',
 		currency: '$',
 		email: 'miron.vitold@olympus.com',
-		hasAcceptedMarketing: true,
 		isProspect: true,
 		isReturning: false,
 		name: 'Miron Vitold',
 		totalSpent: 0.0,
 		totalLoans: 0,
 		state: 'California',
-		updatedAt: subDays(subHours(now, 7), 3).getTime(),
+		updatedAt: subDays( subHours( now, 7 ), 3 ).getTime(),
 	},
 ];
 
@@ -134,10 +128,6 @@ const tabs = [
 	{
 		label: 'All',
 		value: 'all',
-	},
-	{
-		label: 'Accepts Marketing',
-		value: 'hasAcceptedMarketing',
 	},
 	{
 		label: 'Prospect',
@@ -176,7 +166,7 @@ const sortOptions: Option[] = [
 export const Table3: FC = () => (
 	<Box
 		sx={{
-			backgroundColor: (theme) => (theme.palette.mode === 'dark' ? 'neutral.800' : 'neutral.100'),
+			backgroundColor: ( theme ) => ( theme.palette.mode === 'dark' ? 'neutral.800' : 'neutral.100' ),
 			p: 3,
 		}}
 	>
@@ -189,13 +179,13 @@ export const Table3: FC = () => (
 				sx={{ px: 3 }}
 				variant="scrollable"
 			>
-				{tabs.map((tab) => (
+				{tabs.map( ( tab ) => (
 					<Tab
 						key={tab.value}
 						label={tab.label}
 						value={tab.value}
 					/>
-				))}
+				) )}
 			</Tabs>
 			<Divider />
 			<Stack
@@ -222,14 +212,14 @@ export const Table3: FC = () => (
 					select
 					SelectProps={{ native: true }}
 				>
-					{sortOptions.map((option) => (
+					{sortOptions.map( ( option ) => (
 						<option
 							key={option.value}
 							value={option.value}
 						>
 							{option.label}
 						</option>
-					))}
+					) )}
 				</TextField>
 			</Stack>
 			<Scrollbar>
@@ -247,9 +237,9 @@ export const Table3: FC = () => (
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{customers.map((customer) => {
+						{customers.map( ( customer ) => {
 							const location = `${customer.city}, ${customer.state}, ${customer.country}`;
-							const totalSpent = numeral(customer.totalSpent).format(`${customer.currency}0,0.00`);
+							const totalSpent = numeral( customer.totalSpent ).format( `${customer.currency}0,0.00` );
 
 							return (
 								<TableRow
@@ -305,15 +295,15 @@ export const Table3: FC = () => (
 									</TableCell>
 								</TableRow>
 							);
-						})}
+						} )}
 					</TableBody>
 				</Table>
 			</Scrollbar>
 			<TablePagination
 				component="div"
 				count={customers.length}
-				onPageChange={() => {}}
-				onRowsPerPageChange={() => {}}
+				onPageChange={() => { }}
+				onRowsPerPageChange={() => { }}
 				page={0}
 				rowsPerPage={5}
 				rowsPerPageOptions={[5, 10, 25]}

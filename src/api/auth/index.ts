@@ -11,26 +11,26 @@ const STORAGE_KEY = 'users';
 
 const getPersistedUsers = (): User[] => {
 	try {
-		const data = sessionStorage.getItem(STORAGE_KEY);
+		const data = sessionStorage.getItem( STORAGE_KEY );
 
-		if (!data) {
+		if ( !data ) {
 			return [];
 		}
 
-		return JSON.parse(data) as User[];
-	} catch (err) {
-		console.error(err);
+		return JSON.parse( data ) as User[];
+	} catch ( err ) {
+		console.error( err );
 		return [];
 	}
 };
 
-const persistUser = (user: User): void => {
+const persistUser = ( user: User ): void => {
 	try {
 		const users = getPersistedUsers();
-		const data = JSON.stringify([...users, user]);
-		sessionStorage.setItem(STORAGE_KEY, data);
-	} catch (err) {
-		console.error(err);
+		const data = JSON.stringify( [...users, user] );
+		sessionStorage.setItem( STORAGE_KEY, data );
+	} catch ( err ) {
+		console.error( err );
 	}
 };
 
@@ -63,72 +63,61 @@ type MeRequest = {
 type MeResponse = Promise<User>;
 
 class AuthApi {
-	async signIn(request: SignInRequest): SignInResponse {
+	async signIn( request: SignInRequest ): SignInResponse {
 		const { username, password } = request;
 
-		await wait(500);
+		await wait( 500 );
 
-		return new Promise((resolve, reject) => {
+		return new Promise( ( resolve, reject ) => {
 			try {
-				// Merge static users (data file) with persisted users (browser storage)
-				const mergedUsers = [...users, ...getPersistedUsers()];
-
-				// Find the user
-				const user = mergedUsers.find((user) => user.username === username);
-
-				// if ( !user || user.password !== password ) {
-				// 	reject( new Error( 'Please check your username and password' ) );
-				// 	return;
-				// }
-
 				// Create the access token
-				const accessToken = sign({ userId: 'this is an id' }, JWT_SECRET, {
+				const accessToken = sign( { userId: 'this is an id' }, JWT_SECRET, {
 					expiresIn: JWT_EXPIRES_IN,
-				});
+				} );
 
-				resolve({ accessToken });
-			} catch (err) {
-				console.error('[Auth Api]: ', err);
-				reject(new Error('Internal server error'));
+				resolve( { accessToken } );
+			} catch ( err ) {
+				console.error( '[Auth Api]: ', err );
+				reject( new Error( 'Internal server error' ) );
 			}
-		});
+		} );
 	}
 
-	async signUp(request: SignUpRequest): SignUpResponse {
-		await wait(1000);
+	async signUp( request: SignUpRequest ): SignUpResponse {
+		await wait( 1000 );
 
-		return new Promise((resolve, reject) => {
+		return new Promise( ( resolve, reject ) => {
 			try {
-				const accessToken = sign({ userId: 'this is an id' }, JWT_SECRET, {
+				const accessToken = sign( { userId: 'this is an id' }, JWT_SECRET, {
 					expiresIn: JWT_EXPIRES_IN,
-				});
-				resolve({ accessToken });
-				console.log(request);
-			} catch (err) {
-				console.error('[Auth Api]: ', err);
-				reject(new Error('Internal server error'));
+				} );
+				resolve( { accessToken } );
+				console.log( request );
+			} catch ( err ) {
+				console.error( '[Auth Api]: ', err );
+				reject( new Error( 'Internal server error' ) );
 			}
-		});
+		} );
 	}
 
-	async me(request: MeRequest): MeResponse {
-		const { accessToken } = request;
-		await wait(1000);
+	// async me( request: MeRequest ): MeResponse {
+	// 	const { accessToken } = request;
+	// 	await wait( 1000 );
 
-		return new Promise((resolve, reject) => {
-			try {
-				resolve({
-					username: 'ianbalijawa',
-					id: 'ianbalijawa',
-					email: 'ianbalijawa@gmail.com',
-					avatar: '',
-				});
-			} catch (err) {
-				console.error('[Auth Api]: ', err);
-				reject(new Error('Internal server error'));
-			}
-		});
-	}
+	// 	return new Promise( ( resolve, reject ) => {
+	// 		try {
+	// 			resolve( {
+	// 				username: 'ianbalijawa',
+	// 				id: 'ianbalijawa',
+	// 				email: 'ianbalijawa@gmail.com',
+	// 				avatar: '',
+	// 			} );
+	// 		} catch ( err ) {
+	// 			console.error( '[Auth Api]: ', err );
+	// 			reject( new Error( 'Internal server error' ) );
+	// 		}
+	// 	} );
+	// }
 }
 
 export const authApi = new AuthApi();

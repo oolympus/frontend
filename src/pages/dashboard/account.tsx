@@ -1,5 +1,5 @@
 import type { ChangeEvent } from 'react';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { subDays, subHours, subMinutes } from 'date-fns';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -14,7 +14,8 @@ import { usePageView } from 'src/hooks/use-page-view';
 import { AccountGeneralSettings } from 'src/sections/dashboard/account/account-general-settings';
 import { AccountSecuritySettings } from 'src/sections/dashboard/account/account-security-settings';
 import { getCustomers } from 'src/api/customers/data';
-import { loans } from 'src/api/loans/data';
+import { loansApi } from 'src/api/loans';
+import { Loan } from 'src/types/loan';
 
 const now = new Date();
 
@@ -24,14 +25,24 @@ const tabs = [
 ];
 
 const Page = () => {
-	const user = getCustomers(1)[0];
-	const [currentTab, setCurrentTab] = useState<string>('general');
+	const user = getCustomers( 1 )[0];
+	const [currentTab, setCurrentTab] = useState<string>( 'general' );
+	const loansRef = useRef<Loan[]>( [] );
+
+	const handleGetLoans = useCallback( async () => {
+		const response = await loansApi.getLoans();
+		loansRef.current = response.data;
+	}, [] );
+
+	useEffect( () => {
+		handleGetLoans();
+	}, [handleGetLoans] );
 
 	usePageView();
 
-	const handleTabsChange = useCallback((event: ChangeEvent<any>, value: string): void => {
-		setCurrentTab(value);
-	}, []);
+	const handleTabsChange = useCallback( ( event: ChangeEvent<any>, value: string ): void => {
+		setCurrentTab( value );
+	}, [] );
 
 	return (
 		<>
@@ -58,13 +69,13 @@ const Page = () => {
 								value={currentTab}
 								variant="scrollable"
 							>
-								{tabs.map((tab) => (
+								{tabs.map( ( tab ) => (
 									<Tab
 										key={tab.value}
 										label={tab.label}
 										value={tab.value}
 									/>
-								))}
+								) )}
 							</Tabs>
 							<Divider />
 						</div>
@@ -73,7 +84,7 @@ const Page = () => {
 						<>
 							<AccountGeneralSettings
 								user={user}
-								loans={loans}
+								loans={loansRef.current}
 							/>
 						</>
 					)}
@@ -82,14 +93,14 @@ const Page = () => {
 							loginEvents={[
 								{
 									id: '1bd6d44321cb78fd915462fa',
-									createdAt: subDays(subHours(subMinutes(now, 5), 7), 1).getTime(),
+									createdAt: subDays( subHours( subMinutes( now, 5 ), 7 ), 1 ).getTime(),
 									ip: '95.130.17.84',
 									type: 'Credential login',
 									userAgent: 'Chrome, Mac OS 10.15.7',
 								},
 								{
 									id: 'bde169c2fe9adea5d4598ea9',
-									createdAt: subDays(subHours(subMinutes(now, 25), 9), 1).getTime(),
+									createdAt: subDays( subHours( subMinutes( now, 25 ), 9 ), 1 ).getTime(),
 									ip: '95.130.17.84',
 									type: 'Credential login',
 									userAgent: 'Chrome, Mac OS 10.15.7',
