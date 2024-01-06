@@ -11,11 +11,34 @@ import { OverviewCompletedLoans } from 'src/sections/dashboard/overview/overview
 import { OverviewPendingLoans } from 'src/sections/dashboard/overview/overview-pending-loans';
 import { OverviewActiveLoans } from 'src/sections/dashboard/overview/overview-active-loans';
 import { OverviewCancelledLoans } from 'src/sections/dashboard/overview/overview-cancelled-loans';
+import api from 'src/utils/axios-instance';
+import { useCallback, useRef } from 'react';
 
 const now = new Date();
 
+interface Stats {
+	pending_loans: number
+	active_loans: number
+	completed_loans: number
+	cancelled_loans: number
+}
+
 const Page = () => {
 	const settings = useSettings();
+	const statRef = useRef<Stats>( {
+		pending_loans: 0,
+		active_loans: 0,
+		completed_loans: 0,
+		cancelled_loans: 0,
+	} )
+	const axios = api()
+
+	const handleGetDashboardStats = useCallback( async () => {
+		const response = await axios.get( "/dashboard" )
+		statRef.current = response.data?.data[0]
+	}, [axios] )
+
+	handleGetDashboardStats()
 
 	usePageView();
 
@@ -53,25 +76,25 @@ const Page = () => {
 							xs={12}
 							md={3}
 						>
-							<OverviewCompletedLoans amount={31} />
+							<OverviewCompletedLoans amount={statRef.current.completed_loans} />
 						</Grid>
 						<Grid
 							xs={12}
 							md={3}
 						>
-							<OverviewPendingLoans amount={12} />
+							<OverviewPendingLoans amount={statRef.current.pending_loans} />
 						</Grid>
 						<Grid
 							xs={12}
 							md={3}
 						>
-							<OverviewActiveLoans amount={5} />
+							<OverviewActiveLoans amount={statRef.current.active_loans} />
 						</Grid>
 						<Grid
 							xs={12}
 							md={3}
 						>
-							<OverviewCancelledLoans amount={1} />
+							<OverviewCancelledLoans amount={statRef.current.cancelled_loans} />
 						</Grid>
 					</Grid>
 				</Container>
