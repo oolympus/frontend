@@ -25,7 +25,7 @@ interface Stats {
 
 const Page = () => {
 	const settings = useSettings();
-	const statRef = useRef<Stats>( {
+	const overviewRef = useRef<Stats>( {
 		pending_loans: 0,
 		active_loans: 0,
 		completed_loans: 0,
@@ -35,7 +35,7 @@ const Page = () => {
 
 	const handleGetDashboardStats = useCallback( async () => {
 		const response = await axios.get( "/dashboard" )
-		statRef.current = response.data?.data[0]
+		overviewRef.current = response.data?.data[0]
 	}, [axios] )
 
 	handleGetDashboardStats()
@@ -76,25 +76,25 @@ const Page = () => {
 							xs={12}
 							md={3}
 						>
-							<OverviewCompletedLoans amount={statRef.current.completed_loans} />
+							<OverviewCompletedLoans amount={overviewRef.current.completed_loans} />
 						</Grid>
 						<Grid
 							xs={12}
 							md={3}
 						>
-							<OverviewPendingLoans amount={statRef.current.pending_loans} />
+							<OverviewPendingLoans amount={overviewRef.current.pending_loans} />
 						</Grid>
 						<Grid
 							xs={12}
 							md={3}
 						>
-							<OverviewActiveLoans amount={statRef.current.active_loans} />
+							<OverviewActiveLoans amount={overviewRef.current.active_loans} />
 						</Grid>
 						<Grid
 							xs={12}
 							md={3}
 						>
-							<OverviewCancelledLoans amount={statRef.current.cancelled_loans} />
+							<OverviewCancelledLoans amount={overviewRef.current.cancelled_loans} />
 						</Grid>
 					</Grid>
 				</Container>
