@@ -70,9 +70,9 @@ const campaigns: Campaign[] = [
 ];
 
 const statusColorsMap: Record<CampaignStatus, SeverityPillColor> = {
-	draft: 'secondary',
 	active: 'success',
 	stopped: 'error',
+	pending: 'primary'
 };
 
 export const GroupedList11: FC = () => (
