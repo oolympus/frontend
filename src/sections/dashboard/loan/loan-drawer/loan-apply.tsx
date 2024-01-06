@@ -18,6 +18,7 @@ import {
 } from '@mui/material';
 import { useFormik } from 'formik';
 import { useMounted } from 'src/hooks/use-mounted';
+import api from 'src/utils/axios-instance';
 
 interface Values {
 	principal: number;
@@ -31,12 +32,12 @@ const initialValues: Values = {
 	submit: null,
 };
 
-const validationSchema = Yup.object({
-	principal: Yup.string().max(255).required('Principal is required'),
+const validationSchema = Yup.object( {
+	principal: Yup.string().max( 255 ).required( 'Principal is required' ),
 	payment_interval: Yup.string()
-		.oneOf(['weekly', 'monthly'])
-		.required('Payment interval is required'),
-});
+		.oneOf( ['weekly', 'monthly'] )
+		.required( 'Payment interval is required' ),
+} );
 
 interface LoanApplicationProps {
 	onCancel: () => void;
@@ -44,27 +45,30 @@ interface LoanApplicationProps {
 	customer: Customer;
 }
 
-export const LoanApplication: FC<LoanApplicationProps> = (props) => {
+export const LoanApplication: FC<LoanApplicationProps> = ( props ) => {
 	const { onCancel, onApply, customer } = props;
 	const isMounted = useMounted();
 
-	const formik = useFormik({
+	const formik = useFormik( {
 		initialValues,
 		validationSchema,
-		onSubmit: async (values, helpers): Promise<void> => {
+		onSubmit: async ( values, helpers ): Promise<void> => {
 			try {
-				console.log(values);
-			} catch (err) {
-				console.error(err);
+				const token = window.sessionStorage.getItem( 'accessToken' )
+				const axios = api( token! )
+				const response = await axios.post( "/loans/apply", { principal: values.principal, pay_intervals: values.payment_interval } );
+				console.log( response )
+			} catch ( err ) {
+				console.error( err );
 
-				if (isMounted()) {
-					helpers.setStatus({ success: false });
-					helpers.setErrors({ submit: err.message });
-					helpers.setSubmitting(false);
+				if ( isMounted() ) {
+					helpers.setStatus( { success: false } );
+					helpers.setErrors( { submit: err.message } );
+					helpers.setSubmitting( false );
 				}
 			}
 		},
-	});
+	} );
 
 	return (
 		<Stack
@@ -92,7 +96,7 @@ export const LoanApplication: FC<LoanApplicationProps> = (props) => {
 						<Stack spacing={2}>
 							<TextField
 								autoFocus
-								error={!!(formik.touched.principal && formik.errors.principal)}
+								error={!!( formik.touched.principal && formik.errors.principal )}
 								fullWidth
 								helperText={formik.touched.principal && formik.errors.principal}
 								label="Principal"
