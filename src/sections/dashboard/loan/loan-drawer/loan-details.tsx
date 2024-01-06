@@ -39,16 +39,17 @@ interface LoanDetailsProps {
 	loan: Loan;
 }
 
-export const LoanDetails: FC<LoanDetailsProps> = (props) => {
+export const LoanDetails: FC<LoanDetailsProps> = ( props ) => {
 	const { onApprove, onEdit, onReject, onPayback, onReview, loan } = props;
-	const lgUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
+	const lgUp = useMediaQuery( ( theme: Theme ) => theme.breakpoints.up( 'lg' ) );
 
 	const align = lgUp ? 'horizontal' : 'vertical';
-	const createdAt = format(new Date(loan.application_time), 'dd/MM/yyyy HH:mm');
+	const createdAt = format( new Date( loan.application_time ), 'dd/MM/yyyy' );
+	const application_time = format( new Date( loan.application_time ), 'HH:mm:ss:mm' )
 	const statusColor = statusMap[loan.loan_status] as SeverityPillColor;
-	const totalAmount = numeral(loan.amount_payable).format(`$0,0.00`);
+	const totalAmount = numeral( loan.amount_payable ).format( `0,0.00` );
 
-	const customer = getCustomers(1)[0];
+	const customer = getCustomers( 1 )[0];
 
 	return (
 		<Stack spacing={6}>
@@ -93,29 +94,83 @@ export const LoanDetails: FC<LoanDetailsProps> = (props) => {
 						>
 							{loan.borrowed_by}
 						</Typography>
+					</PropertyListItem>
+					<PropertyListItem
+						align={align}
+						disableGutters
+						divider
+						label="Reviewed by"
+					>
 						<Typography
 							color="text.secondary"
 							variant="body2"
 						>
-							{customer.username}
+							{loan.reviewed_by}
 						</Typography>
+					</PropertyListItem>
+					<PropertyListItem
+						align={align}
+						disableGutters
+						divider
+						label="Percent Interest"
+					>
 						<Typography
 							color="text.secondary"
 							variant="body2"
 						>
-							{customer.address}
+							{loan.percent_interest}
 						</Typography>
+					</PropertyListItem>
+					<PropertyListItem
+						align={align}
+						disableGutters
+						divider
+						label="Comments"
+					>
 						<Typography
 							color="text.secondary"
 							variant="body2"
 						>
-							{customer.first_name}
+							{loan.comments}
 						</Typography>
+					</PropertyListItem>
+					<PropertyListItem
+						align={align}
+						disableGutters
+						divider
+						label="Payment interval"
+					>
 						<Typography
 							color="text.secondary"
 							variant="body2"
 						>
-							{customer.surname}
+							{loan.payment_intervals}
+						</Typography>
+					</PropertyListItem>
+					<PropertyListItem
+						align={align}
+						disableGutters
+						divider
+						label="Cumulative payments"
+					>
+						<Typography
+							color="text.secondary"
+							variant="body2"
+						>
+							{loan.cumulative_payments}
+						</Typography>
+					</PropertyListItem>
+					<PropertyListItem
+						align={align}
+						disableGutters
+						divider
+						label="Application time"
+					>
+						<Typography
+							color="text.secondary"
+							variant="body2"
+						>
+							{application_time}
 						</Typography>
 					</PropertyListItem>
 					<PropertyListItem
@@ -137,7 +192,7 @@ export const LoanDetails: FC<LoanDetailsProps> = (props) => {
 						disableGutters
 						divider
 						label="Total Amount"
-						value={loan.amount_payable}
+						value={totalAmount}
 					/>
 					<PropertyListItem
 						align={align}
@@ -202,10 +257,10 @@ export const LoanDetails: FC<LoanDetailsProps> = (props) => {
 						</TableHead>
 						<TableBody>
 							<TableRow>
-								<TableCell>{loan.disbursed_by}</TableCell>
+								<TableCell>{loan.disbursed_by.slice( 0, 6 ) + ". . ."}</TableCell>
 								<TableCell>{loan.percent_interest}</TableCell>
 								<TableCell>{loan.payment_intervals}</TableCell>
-								<TableCell>{loan.amount_payable}</TableCell>
+								<TableCell>{totalAmount}</TableCell>
 							</TableRow>
 						</TableBody>
 					</Table>
