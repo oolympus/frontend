@@ -2,8 +2,6 @@ import type { User } from 'src/types/user';
 import { JWT_EXPIRES_IN, JWT_SECRET, sign } from 'src/utils/jwt';
 import { wait } from 'src/utils/wait';
 
-import { users } from './data';
-
 const STORAGE_KEY = 'users';
 
 // NOTE: We use sessionStorage since memory storage is lost after page reload.
@@ -55,12 +53,6 @@ export type SignUpRequest = {
 type SignUpResponse = Promise<{
 	accessToken: string;
 }>;
-
-type MeRequest = {
-	accessToken: string;
-};
-
-type MeResponse = Promise<User>;
 
 class AuthApi {
 	async signIn( request: SignInRequest ): SignInResponse {
