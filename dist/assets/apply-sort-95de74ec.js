@@ -1,0 +1,1 @@
+function c(t,r,n){return r[n]<t[n]?-1:r[n]>t[n]?1:0}function p(t,r){return t==="desc"?(n,o)=>c(n,o,r):(n,o)=>-c(n,o,r)}function f(t,r,n){const o=p(n,r),i=t.map((e,a)=>[e,a]);return i.sort((e,a)=>{const u=o(e[0],a[0]);return u!==0?u:e[1]-a[1]}),i.map(e=>e[0])}export{f as a};

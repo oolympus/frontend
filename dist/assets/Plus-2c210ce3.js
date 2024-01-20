@@ -1,0 +1,1 @@
+import{j as r,_ as s}from"./index-345a54fd.js";var n=function(t){return r.jsx("svg",s({xmlns:"http://www.w3.org/2000/svg",width:24,height:24,fill:"none"},t,{children:r.jsx("path",{stroke:"currentColor",strokeLinecap:"round",strokeLinejoin:"round",strokeWidth:2,d:"M12 5v14m-7-7h14"})}))};export{n as P};

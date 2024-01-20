@@ -1,0 +1,1 @@
+import{j as t,_ as e}from"./index-345a54fd.js";var s=function(r){return t.jsxs("svg",e({xmlns:"http://www.w3.org/2000/svg",width:24,height:24,fill:"none"},r,{children:[t.jsx("path",{fill:"#fff",fillOpacity:.01,d:"m15 18-6-6 6-6"}),t.jsx("path",{stroke:"currentColor",strokeLinecap:"round",strokeLinejoin:"round",strokeWidth:2,d:"m15 18-6-6 6-6"})]}))};export{s as C};
