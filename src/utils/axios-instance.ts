@@ -3,7 +3,7 @@ import axios from 'axios'
 export default function api( token?: string ) {
 	if ( token ) {
 		return axios.create( ( {
-			baseURL: "http://172.105.41.169/api/v1",
+			baseURL: "http://127.0.0.1/api/v1",
 			headers: {
 				Authorization: `Bearer ${token}`
 			}
@@ -11,6 +11,6 @@ export default function api( token?: string ) {
 	}
 
 	return axios.create( ( {
-		baseURL: "http://172.105.41.169/api/v1",
+		baseURL: "http://127.0.0.1/api/v1",
 	} ) )
 }
