@@ -153,7 +153,7 @@ const Page = () => {
 							onClick={() => requestOTP()}
 							variant="text"
 						>
-							Resend OTP
+							Resend Code
 						</Button>
 
 						{codeSent ? (
