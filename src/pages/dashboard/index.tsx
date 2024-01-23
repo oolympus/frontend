@@ -11,34 +11,34 @@ import { OverviewCompletedLoans } from 'src/sections/dashboard/overview/overview
 import { OverviewPendingLoans } from 'src/sections/dashboard/overview/overview-pending-loans';
 import { OverviewActiveLoans } from 'src/sections/dashboard/overview/overview-active-loans';
 import { OverviewCancelledLoans } from 'src/sections/dashboard/overview/overview-cancelled-loans';
-import api from 'src/utils/axios-instance';
+import useRequest from 'src/hooks/use-request';
 import { useCallback, useRef } from 'react';
 
 const now = new Date();
 
 interface Stats {
-	pending_loans: number
-	active_loans: number
-	completed_loans: number
-	cancelled_loans: number
+	pending_loans: number;
+	active_loans: number;
+	completed_loans: number;
+	cancelled_loans: number;
 }
 
 const Page = () => {
 	const settings = useSettings();
-	const overviewRef = useRef<Stats>( {
+	const overviewRef = useRef<Stats>({
 		pending_loans: 0,
 		active_loans: 0,
 		completed_loans: 0,
 		cancelled_loans: 0,
-	} )
-	const axios = api()
+	});
+	const axios = useRequest();
 
-	const handleGetDashboardStats = useCallback( async () => {
-		const response = await axios.get( "/dashboard" )
-		overviewRef.current = response.data?.data[0]
-	}, [axios] )
+	const handleGetDashboardStats = useCallback(async () => {
+		const response = await axios.get('/dashboard');
+		overviewRef.current = response.data?.data[0];
+	}, [axios]);
 
-	handleGetDashboardStats()
+	handleGetDashboardStats();
 
 	usePageView();
 

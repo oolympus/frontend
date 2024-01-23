@@ -56,6 +56,15 @@ export const useSections = () => {
 				subheader: t(tokens.nav.concepts),
 				items: [
 					{
+						title: t(tokens.nav.loanList),
+						icon: (
+							<SvgIcon fontSize="small">
+								<ShoppingCart01Icon />
+							</SvgIcon>
+						),
+						path: paths.dashboard.loans.index,
+					},
+					{
 						title: t(tokens.nav.customers),
 						path: paths.dashboard.customers.index,
 						icon: (
@@ -72,15 +81,6 @@ export const useSections = () => {
 								<ShoppingBag03Icon />
 							</SvgIcon>
 						),
-					},
-					{
-						title: t(tokens.nav.loanList),
-						icon: (
-							<SvgIcon fontSize="small">
-								<ShoppingCart01Icon />
-							</SvgIcon>
-						),
-						path: paths.dashboard.loans.index,
 					},
 				],
 			},

@@ -1,18 +1,18 @@
 import type { FC, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 
-import { withAuthGuard } from 'src/hocs/with-auth-guard';
 import { useSettings } from 'src/hooks/use-settings';
 
 import { useSections } from './config';
 import { HorizontalLayout } from './horizontal-layout';
 import { VerticalLayout } from './vertical-layout';
+import { withAuth } from 'src/guards/withAuth';
 
 interface LayoutProps {
 	children?: ReactNode;
 }
 
-export const Layout: FC<LayoutProps> = withAuthGuard((props) => {
+export const Layout: FC<LayoutProps> = withAuth((props) => {
 	const settings = useSettings();
 	const sections = useSections();
 

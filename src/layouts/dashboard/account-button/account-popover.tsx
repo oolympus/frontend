@@ -2,7 +2,6 @@ import type { FC } from 'react';
 import { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import toast from 'react-hot-toast';
-import CreditCard01Icon from '@untitled-ui/icons-react/build/esm/CreditCard01';
 import Settings04Icon from '@untitled-ui/icons-react/build/esm/Settings04';
 import User03Icon from '@untitled-ui/icons-react/build/esm/User03';
 import Box from '@mui/material/Box';
@@ -16,7 +15,6 @@ import SvgIcon from '@mui/material/SvgIcon';
 import Typography from '@mui/material/Typography';
 
 import { RouterLink } from 'src/components/router-link';
-import { useAuth } from 'src/hooks/use-auth';
 import { useMockedUser } from 'src/hooks/use-mocked-user';
 import { useRouter } from 'src/hooks/use-router';
 import { paths } from 'src/paths';
@@ -27,24 +25,23 @@ interface AccountPopoverProps {
 	open?: boolean;
 }
 
-export const AccountPopover: FC<AccountPopoverProps> = ( props ) => {
+export const AccountPopover: FC<AccountPopoverProps> = (props) => {
 	const { anchorEl, onClose, open, ...other } = props;
 	const router = useRouter();
-	const auth = useAuth();
+
 	const user = useMockedUser();
 
-	const handleLogout = useCallback( async (): Promise<void> => {
+	const handleLogout = useCallback(async (): Promise<void> => {
 		try {
 			onClose?.();
+			window.localStorage.removeItem('accessToken');
 
-			await auth.signOut();
-
-			router.push( paths.auth.login );
-		} catch ( err ) {
-			console.error( err );
-			toast.error( 'Something went wrong!' );
+			router.push(paths.auth.login);
+		} catch (err) {
+			console.error(err);
+			toast.error('Something went wrong!');
 		}
-	}, [auth, router, onClose] );
+	}, [router, onClose]);
 
 	return (
 		<Popover

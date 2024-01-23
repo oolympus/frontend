@@ -84,7 +84,7 @@ export const paths = {
 		colors: '/components/colors',
 		inputs: '/components/inputs',
 	},
-	docs: 'https://material-kit-pro-react-docs.olympus.com',
+	docs: '/contact-us',
 	notAuthorized: '/401',
 	notFound: '/404',
 	serverError: '/500',

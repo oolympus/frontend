@@ -12,11 +12,9 @@ import 'src/global.css';
 import 'src/locales/i18n';
 
 import { RTL } from 'src/components/rtl';
-import { SplashScreen } from 'src/components/splash-screen';
 import { SettingsButton } from 'src/components/settings/settings-button';
 import { SettingsDrawer } from 'src/components/settings/settings-drawer';
 import { Toaster } from 'src/components/toaster';
-import { AuthConsumer, AuthProvider } from 'src/contexts/auth';
 import { SettingsConsumer, SettingsProvider } from 'src/contexts/settings';
 import { gtmConfig } from 'src/config';
 import { useNprogress } from 'src/hooks/use-nprogress';
@@ -34,77 +32,62 @@ export const App: FC = () => {
 	return (
 		<ReduxProvider store={store}>
 			<LocalizationProvider dateAdapter={AdapterDateFns}>
-				<AuthProvider>
-					<AuthConsumer>
-						{(auth) => (
-							<SettingsProvider>
-								<SettingsConsumer>
-									{(settings) => {
-										// Prevent theme flicker when restoring custom settings from browser storage
-										if (!settings.isInitialized) {
-											// return null;
-										}
+				<SettingsProvider>
+					<SettingsConsumer>
+						{(settings) => {
+							// Prevent theme flicker when restoring custom settings from browser storage
+							if (!settings.isInitialized) {
+								// return null;
+							}
 
-										const theme = createTheme({
-											colorPreset: settings.colorPreset,
-											contrast: settings.contrast,
-											direction: settings.direction,
-											paletteMode: settings.paletteMode,
-											responsiveFontSizes: settings.responsiveFontSizes,
-										});
+							const theme = createTheme({
+								colorPreset: settings.colorPreset,
+								contrast: settings.contrast,
+								direction: settings.direction,
+								paletteMode: settings.paletteMode,
+								responsiveFontSizes: settings.responsiveFontSizes,
+							});
 
-										// Prevent guards from redirecting
-										const showSlashScreen = !auth.isInitialized;
-
-										return (
-											<ThemeProvider theme={theme}>
-												<Helmet>
-													<meta
-														name="color-scheme"
-														content={settings.paletteMode}
-													/>
-													<meta
-														name="theme-color"
-														content={theme.palette.neutral[900]}
-													/>
-												</Helmet>
-												<RTL direction={settings.direction}>
-													<CssBaseline />
-													{showSlashScreen ? (
-														<SplashScreen />
-													) : (
-														<>
-															{element}
-															<SettingsButton onClick={settings.handleDrawerOpen} />
-															<SettingsDrawer
-																canReset={settings.isCustom}
-																onClose={settings.handleDrawerClose}
-																onReset={settings.handleReset}
-																onUpdate={settings.handleUpdate}
-																open={settings.openDrawer}
-																values={{
-																	colorPreset: settings.colorPreset,
-																	contrast: settings.contrast,
-																	direction: settings.direction,
-																	paletteMode: settings.paletteMode,
-																	responsiveFontSizes: settings.responsiveFontSizes,
-																	stretch: settings.stretch,
-																	layout: settings.layout,
-																	navColor: settings.navColor,
-																}}
-															/>
-														</>
-													)}
-													<Toaster />
-												</RTL>
-											</ThemeProvider>
-										);
-									}}
-								</SettingsConsumer>
-							</SettingsProvider>
-						)}
-					</AuthConsumer>
-				</AuthProvider>
+							return (
+								<ThemeProvider theme={theme}>
+									<Helmet>
+										<meta
+											name="color-scheme"
+											content={settings.paletteMode}
+										/>
+										<meta
+											name="theme-color"
+											content={theme.palette.neutral[900]}
+										/>
+									</Helmet>
+									<RTL direction={settings.direction}>
+										<CssBaseline />
+										{element}
+										<SettingsButton onClick={settings.handleDrawerOpen} />
+										<SettingsDrawer
+											canReset={settings.isCustom}
+											onClose={settings.handleDrawerClose}
+											onReset={settings.handleReset}
+											onUpdate={settings.handleUpdate}
+											open={settings.openDrawer}
+											values={{
+												colorPreset: settings.colorPreset,
+												contrast: settings.contrast,
+												direction: settings.direction,
+												paletteMode: settings.paletteMode,
+												responsiveFontSizes: settings.responsiveFontSizes,
+												stretch: settings.stretch,
+												layout: settings.layout,
+												navColor: settings.navColor,
+											}}
+										/>
+										<Toaster />
+									</RTL>
+								</ThemeProvider>
+							);
+						}}
+					</SettingsConsumer>
+				</SettingsProvider>
 			</LocalizationProvider>
 		</ReduxProvider>
 	);

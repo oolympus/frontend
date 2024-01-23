@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker';
 import { Loan } from 'src/types/loan';
-import api from 'src/utils/axios-instance';
+import useRequest from 'src/hooks/use-request';
 
-const axios = api()
+const axios = useRequest()
 
 export const getAllLoans = async (): Promise<Loan[]> => {
 	const loans = await axios.get( "/loans" )

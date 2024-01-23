@@ -162,7 +162,6 @@ const Page = () => {
 	const handleLoanOpen = useCallback(
 		(loanId: string): void => {
 			// Close drawer if is the same loan
-
 			if (dialog.open && dialog.data === loanId) {
 				dialog.handleClose();
 				return;

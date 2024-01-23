@@ -2,11 +2,11 @@ import { faker } from '@faker-js/faker';
 import { subDays, subHours, subMinutes, subSeconds } from 'date-fns';
 
 import type { Customer, CustomerEmail, CustomerInvoice, CustomerLog } from 'src/types/customer';
-import api from 'src/utils/axios-instance';
+import useRequest from 'src/hooks/use-request';
 
 const now = new Date();
 
-const axios = api()
+const axios = useRequest()
 
 export const getAllCustomers = async (): Promise<Customer[]> => {
 	const customers = await axios.get( "/users" )
@@ -31,7 +31,7 @@ export const getCustomers = ( count: number ): Customer[] => {
 			username: faker.internet.userName(),
 			telephone: '2567' + faker.string.numeric( 8 ),
 			address: faker.location.city(),
-			gender: faker.helpers.arrayElement( ['M', 'F'] ),
+			gender: faker.helpers.arrayElement( ['male', 'female'] ),
 			date_of_birth: faker.date.past(),
 			roles: faker.helpers.arrayElements( ['user', 'customer', 'admin'], 1 )[0],
 			financial_information: faker.finance.accountName(),
@@ -70,7 +70,7 @@ export const customer: Customer = {
 	username: faker.internet.userName(),
 	telephone: '2567' + faker.string.numeric( 8 ),
 	address: faker.location.city(),
-	gender: faker.helpers.arrayElement( ['M', 'F'] ),
+	gender: faker.helpers.arrayElement( ['male', 'female'] ),
 	date_of_birth: faker.date.past().toLocaleDateString(),
 	roles: faker.helpers.arrayElements( ['user', 'customer', 'admin'], 1 )[0],
 	financial_information: faker.finance.accountName(),

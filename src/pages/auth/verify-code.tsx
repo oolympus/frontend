@@ -16,6 +16,8 @@ import { RouterLink } from 'src/components/router-link';
 import { Seo } from 'src/components/seo';
 import { paths } from 'src/paths';
 import { usePageView } from 'src/hooks/use-page-view';
+import useRequest from 'src/hooks/use-request';
+import toast from 'react-hot-toast';
 
 interface Values {
 	code: string;
@@ -30,10 +32,25 @@ const validationSchema = Yup.object({
 });
 
 const Page = () => {
+	const request = useRequest();
+
 	const formik = useFormik({
 		initialValues,
 		validationSchema,
-		onSubmit: (): void => {},
+		onSubmit: async (values, helpers): Promise<void> => {
+			const response = await request.post('/verifyCode', { ...values });
+
+			if (!response.data?.token) {
+				return;
+			}
+			if (response.data?.status !== 200) {
+				toast.error(response.data?.message);
+			} else {
+				toast.success(response.data?.message);
+			}
+
+			window.localStorage.setItem('accessToken', response.data.token);
+		},
 	});
 
 	usePageView();

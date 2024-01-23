@@ -12,29 +12,32 @@ import Typography from '@mui/material/Typography';
 
 import { RouterLink } from 'src/components/router-link';
 import { Seo } from 'src/components/seo';
-import type { AuthContextType } from 'src/contexts/auth';
-import { useAuth } from 'src/hooks/use-auth';
 import { useMounted } from 'src/hooks/use-mounted';
 import { usePageView } from 'src/hooks/use-page-view';
 import { useRouter } from 'src/hooks/use-router';
-import { useSearchParams } from 'src/hooks/use-search-params';
 import { paths } from 'src/paths';
 import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from '@mui/material';
+import useRequest from 'src/hooks/use-request';
+import React from 'react';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router';
 
-interface Values {
+const STORAGE_KEY = 'accessToken';
+
+type Values = {
 	email: string;
 	first_name: string;
 	surname: string;
-	gender: 'M' | 'F';
+	gender: 'male' | 'female';
 	address: string;
 	telephone: string;
-}
+};
 
 const initialValues: Values = {
 	email: '',
 	first_name: '',
 	surname: '',
-	gender: 'M',
+	gender: 'male',
 	address: '',
 	telephone: '',
 };
@@ -47,37 +50,66 @@ const validationSchema = Yup.object({
 		.required('Phone is required'),
 	surname: Yup.string().max(255).required('Surname is required'),
 	address: Yup.string().min(2, 'Address is required'),
-	gender: Yup.string().oneOf(['M', 'F']).required('Gender is required'),
+	gender: Yup.string().oneOf(['male', 'female']).required('Gender is required'),
 });
 
 const Page = () => {
 	const isMounted = useMounted();
 	const router = useRouter();
-	const searchParams = useSearchParams();
-	const returnTo = searchParams.get('returnTo');
-	const { signUp } = useAuth<AuthContextType>();
+	const request = useRequest();
+
 	const formik = useFormik({
 		initialValues,
 		validationSchema,
 		onSubmit: async (values, helpers): Promise<void> => {
-			console.log('mounted');
 			try {
-				await signUp({ ...values });
+				const response = await request.post('/register', { ...values });
+
+				console.log(values);
+
+				if (!response.data?.token) {
+					return;
+				}
+
+				window.sessionStorage.setItem(STORAGE_KEY, response.data.token);
 
 				if (isMounted()) {
-					router.push(returnTo || paths.dashboard.index);
+					router.push(paths.dashboard.index);
 				}
 			} catch (err) {
 				console.error(err);
 
 				if (isMounted()) {
 					helpers.setStatus({ success: false });
-					helpers.setErrors({ address: err.message });
 					helpers.setSubmitting(false);
 				}
 			}
 		},
 	});
+
+	const navigate = useNavigate();
+
+	const requestOTP = React.useCallback(async () => {
+		const response = await request.post('/request-otp', {
+			username: formik.values.email,
+		});
+
+		if (response.data.status !== 200) {
+			toast.error(response.data?.message);
+		} else {
+			toast.success(response.data?.message);
+
+			setTimeout(() => {
+				navigate(paths.auth.verifyCode);
+			}, 2000);
+		}
+	}, [formik.values.email, navigate, request]);
+
+	const handleSubmit = React.useCallback(async () => {
+		const response = await request.post('/signup', { ...formik.values });
+		toast.error(response.data?.message);
+		requestOTP();
+	}, [formik.values, request, requestOTP]);
 
 	usePageView();
 
@@ -107,10 +139,7 @@ const Page = () => {
 						title="Register"
 					/>
 					<CardContent>
-						<form
-							noValidate
-							onSubmit={formik.handleSubmit}
-						>
+						<form>
 							<Stack spacing={3}>
 								<TextField
 									error={!!(formik.touched.first_name && formik.errors.first_name)}
@@ -171,17 +200,17 @@ const Page = () => {
 										row
 										aria-labelledby="demo-row-radio-buttons-group-label"
 										name="gender"
-										defaultValue={'M'}
+										defaultValue={'male'}
 										value={formik.values.gender}
 										onChange={formik.handleChange}
 									>
 										<FormControlLabel
-											value="F"
+											value="male"
 											control={<Radio />}
 											label="Male"
 										/>
 										<FormControlLabel
-											value="M"
+											value="female"
 											control={<Radio />}
 											label="Female"
 										/>
@@ -200,12 +229,13 @@ const Page = () => {
 								</FormHelperText>
 							)}
 							<Button
-								disabled={formik.isSubmitting}
+								// disabled={formik.isSubmitting}
 								fullWidth
 								size="large"
 								sx={{ mt: 2 }}
-								type="submit"
+								// type="submit"
 								variant="contained"
+								onClick={() => handleSubmit()}
 							>
 								Register
 							</Button>

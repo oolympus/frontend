@@ -1,1 +1,0 @@
-function r(e){if(typeof e!="object"||e===null)return e;if(e instanceof Date)return new Date(e.getTime());if(e instanceof Array)return e.reduce((t,n,u)=>(t[u]=r(n),t),[]);if(e instanceof Object)return Object.keys(e).reduce((t,n)=>(t[n]=r(e[n]),t),{})}export{r as d};

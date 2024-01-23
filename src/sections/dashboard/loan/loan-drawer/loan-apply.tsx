@@ -18,26 +18,28 @@ import {
 } from '@mui/material';
 import { useFormik } from 'formik';
 import { useMounted } from 'src/hooks/use-mounted';
-import api from 'src/utils/axios-instance';
+import useRequest from 'src/hooks/use-request';
+import React from 'react';
+import toast from 'react-hot-toast';
 
 interface Values {
 	principal: number;
-	payment_interval: 'weekly' | 'monthly';
+	payment_intervals: 'weekly' | 'monthly';
 	submit: null;
 }
 
 const initialValues: Values = {
 	principal: 55000,
-	payment_interval: 'weekly',
+	payment_intervals: 'weekly',
 	submit: null,
 };
 
-const validationSchema = Yup.object( {
-	principal: Yup.string().max( 255 ).required( 'Principal is required' ),
-	payment_interval: Yup.string()
-		.oneOf( ['weekly', 'monthly'] )
-		.required( 'Payment interval is required' ),
-} );
+const validationSchema = Yup.object({
+	principal: Yup.string().max(255).required('principal is required'),
+	payment_intervals: Yup.string()
+		.oneOf(['weekly', 'monthly'])
+		.required('Payment interval is required'),
+});
 
 interface LoanApplicationProps {
 	onCancel: () => void;
@@ -45,30 +47,45 @@ interface LoanApplicationProps {
 	customer: Customer;
 }
 
-export const LoanApplication: FC<LoanApplicationProps> = ( props ) => {
+export const LoanApplication: FC<LoanApplicationProps> = (props) => {
 	const { onCancel, onApply, customer } = props;
 	const isMounted = useMounted();
 
-	const formik = useFormik( {
+	const request = useRequest();
+
+	const formik = useFormik({
 		initialValues,
 		validationSchema,
-		onSubmit: async ( values, helpers ): Promise<void> => {
+		onSubmit: async (values, helpers): Promise<void> => {
 			try {
-				const token = window.sessionStorage.getItem( 'accessToken' )
-				const axios = api( token! )
-				const response = await axios.post( "/loans/apply", { principal: values.principal, pay_intervals: values.payment_interval } );
-				console.log( response )
-			} catch ( err ) {
-				console.error( err );
+				const response = await request.post('/loans/apply', {
+					principal: values.principal,
+					payment_intervals: values.payment_intervals,
+				});
+				console.log(response);
+			} catch (err) {
+				console.error(err);
 
-				if ( isMounted() ) {
-					helpers.setStatus( { success: false } );
-					helpers.setErrors( { submit: err.message } );
-					helpers.setSubmitting( false );
+				if (isMounted()) {
+					helpers.setStatus({ success: false });
+					helpers.setErrors({ submit: err.message });
+					helpers.setSubmitting(false);
 				}
 			}
 		},
-	} );
+	});
+
+	const handleSubmit = React.useCallback(async () => {
+		const response = await request.post('/loans/apply', {
+			principal: formik.values.principal,
+			payment_intervals: formik.values.payment_intervals,
+		});
+		if (response.data?.status !== 200) {
+			toast.error(response.data?.message);
+		} else {
+			toast.success(response.data?.message);
+		}
+	}, [formik.values.payment_intervals, formik.values.principal, request]);
 
 	return (
 		<Stack
@@ -89,17 +106,14 @@ export const LoanApplication: FC<LoanApplicationProps> = ( props ) => {
 					title="Loan Application"
 				/>
 				<CardContent>
-					<form
-						noValidate
-						onSubmit={formik.handleSubmit}
-					>
+					<form>
 						<Stack spacing={2}>
 							<TextField
 								autoFocus
-								error={!!( formik.touched.principal && formik.errors.principal )}
+								error={!!(formik.touched.principal && formik.errors.principal)}
 								fullWidth
 								helperText={formik.touched.principal && formik.errors.principal}
-								label="Principal"
+								label="principal"
 								name="principal"
 								onBlur={formik.handleBlur}
 								onChange={formik.handleChange}
@@ -107,12 +121,12 @@ export const LoanApplication: FC<LoanApplicationProps> = ( props ) => {
 								value={formik.values.principal}
 							/>
 							<FormControl sx={{ m: 1, minWidth: 120 }}>
-								<InputLabel id="payment_interval">Payment Interval</InputLabel>
+								<InputLabel id="payment_intervals">Payment Interval</InputLabel>
 								<Select
-									labelId="payment_interval"
-									name="payment_interval"
-									id="payment_interval"
-									value={formik.values.payment_interval}
+									labelId="payment_intervals"
+									name="payment_intervals"
+									id="payment_intervals"
+									value={formik.values.payment_intervals}
 									label="Payment Interval"
 									onChange={formik.handleChange}
 								>
@@ -138,11 +152,10 @@ export const LoanApplication: FC<LoanApplicationProps> = ( props ) => {
 						>
 							<Button
 								color="primary"
-								onClick={onApply}
 								size="small"
 								fullWidth
 								variant="contained"
-								type="submit"
+								onClick={() => handleSubmit()}
 							>
 								Apply
 							</Button>

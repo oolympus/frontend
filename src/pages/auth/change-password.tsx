@@ -54,9 +54,8 @@ const Page = () => {
 	const request = useRequest();
 	const navigate = useNavigate();
 
-	const handlePasswordReset = React.useCallback(async () => {
-		const response = await request.post('/password-reset', {
-			username: formik.values.username,
+	const handlePasswordChange = React.useCallback(async () => {
+		const response = await request.post('/password-change', {
 			otp: parseInt(formik.values.otp),
 			password: formik.values.password,
 			password_confirm: formik.values.password_confirm,
@@ -72,7 +71,6 @@ const Page = () => {
 		formik.values.otp,
 		formik.values.password,
 		formik.values.password_confirm,
-		formik.values.username,
 		navigate,
 		request,
 	]);
@@ -92,7 +90,7 @@ const Page = () => {
 
 	return (
 		<>
-			<Seo title="Reset Password" />
+			<Seo title="Change Password" />
 			<div>
 				<Box sx={{ mb: 4 }}>
 					<Link
@@ -115,7 +113,7 @@ const Page = () => {
 					sx={{ mb: 4 }}
 					spacing={1}
 				>
-					<Typography variant="h5">Reset password</Typography>
+					<Typography variant="h5">Change password</Typography>
 				</Stack>
 				<form
 					noValidate
@@ -123,6 +121,14 @@ const Page = () => {
 				>
 					<Stack spacing={3}>
 						<FormControl error={!!(formik.touched.otp && formik.errors.otp)}>
+							{/* <FormLabel
+								sx={{
+									display: 'block',
+									mb: 2,
+								}}
+							>
+								OTP
+							</FormLabel> */}
 							<MuiOtpInput
 								length={6}
 								onBlur={() => formik.handleBlur('otp')}
@@ -189,10 +195,10 @@ const Page = () => {
 									fullWidth
 									size="large"
 									sx={{ mt: 3 }}
-									onClick={() => handlePasswordReset()}
+									onClick={() => handlePasswordChange()}
 									variant="contained"
 								>
-									Reset
+									Change
 								</Button>
 							</>
 						) : null}
