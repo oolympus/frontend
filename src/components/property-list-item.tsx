@@ -49,7 +49,7 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
 								color="text.secondary"
 								variant="body2"
 							>
-								{value}
+								{value?.toLocaleUpperCase()}
 							</Typography>
 						)}
 					</Box>

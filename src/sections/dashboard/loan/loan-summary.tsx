@@ -1,5 +1,5 @@
 import type { ChangeEvent, FC } from 'react';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import Button from '@mui/material/Button';
@@ -15,7 +15,8 @@ import type { Theme } from '@mui/material/styles/createTheme';
 import type { Loan } from 'src/types/loan';
 import { PropertyList } from 'src/components/property-list';
 import { PropertyListItem } from 'src/components/property-list-item';
-import { getCustomers } from 'src/api/customers/data';
+import { customersApi } from 'src/api/customers';
+import { Customer } from 'src/types/customer';
 
 const statusOptions: string[] = ['Canceled', 'Complete', 'Rejected'];
 
@@ -32,11 +33,21 @@ export const LoanSummary: FC<LoanSummaryProps> = (props) => {
 		setStatus(event.target.value);
 	}, []);
 
-	const customer = getCustomers(1)[0];
+	const [customer, setCustomer] = useState<Customer | undefined>(undefined);
+
+	const handleCustomerGet = useCallback(async (customerId: string) => {
+		const response = await customersApi.getCustomer(customerId);
+		setCustomer(response);
+	}, []);
+
+	useEffect(() => {
+		loan && handleCustomerGet(loan?.borrowed_by);
+	}, [loan, loan?.borrowed_by, handleCustomerGet]);
 
 	const align = mdUp ? 'horizontal' : 'vertical';
 	const createdAt = format(new Date(loan.application_time), 'dd/MM/yyyy HH:mm');
-	const fullname = `${customer.first_name} ${customer.surname}`;
+	const fullname = customer ? `${customer.first_name} ${customer.surname}` : 'N/A';
+
 	return (
 		<Card {...other}>
 			<CardHeader title="Basic info" />
@@ -51,19 +62,19 @@ export const LoanSummary: FC<LoanSummaryProps> = (props) => {
 						variant="body1"
 						color="text.secondary"
 					>
-						{customer.email}
+						{customer ? customer.email : 'N/A'}
 					</Typography>
 					<Typography
 						variant="body1"
 						color="text.secondary"
 					>
-						{customer.telephone}
+						{customer ? customer.telephone : 'N/A'}
 					</Typography>
 					<Typography
 						color="text.secondary"
 						variant="body2"
 					>
-						{customer.address}
+						{customer ? customer.address : 'N/A'}
 					</Typography>
 				</PropertyListItem>
 				<Divider />

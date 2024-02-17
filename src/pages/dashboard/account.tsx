@@ -1,5 +1,5 @@
 import type { ChangeEvent } from 'react';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { subDays, subHours, subMinutes } from 'date-fns';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -13,9 +13,10 @@ import { Seo } from 'src/components/seo';
 import { usePageView } from 'src/hooks/use-page-view';
 import { AccountGeneralSettings } from 'src/sections/dashboard/account/account-general-settings';
 import { AccountSecuritySettings } from 'src/sections/dashboard/account/account-security-settings';
-import { getCustomers } from 'src/api/customers/data';
 import { loansApi } from 'src/api/loans';
 import { Loan } from 'src/types/loan';
+import { Customer } from 'src/types/customer';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 
 const now = new Date();
 
@@ -25,24 +26,44 @@ const tabs = [
 ];
 
 const Page = () => {
-	const user = getCustomers( 1 )[0];
-	const [currentTab, setCurrentTab] = useState<string>( 'general' );
-	const loansRef = useRef<Loan[]>( [] );
+	const [currentTab, setCurrentTab] = useState<string>('general');
+	const [loans, setLoans] = useState<Loan[]>([]);
+	const [decodedToken, setDecodedToken] = useState<string | JwtPayload | null>(null);
 
-	const handleGetLoans = useCallback( async () => {
+	const handleGetLoans = useCallback(async () => {
 		const response = await loansApi.getLoans();
-		loansRef.current = response.data;
-	}, [] );
+		setLoans(response.data);
+	}, []);
 
-	useEffect( () => {
+	const [customer, setCustomer] = useState<Customer | undefined>(undefined);
+
+	console.log('decoded: ', decodedToken);
+
+	const handleCustomerGet = useCallback(async () => {
+		const token = localStorage.getItem('accessToken') || '';
+
+		try {
+			const decoded = jwt.decode(token);
+			setDecodedToken(decoded);
+		} catch (error) {
+			console.error('Error decoding JWT:', error.message);
+			setDecodedToken(null);
+		}
+	}, []);
+
+	useEffect(() => {
+		handleCustomerGet();
+	}, [handleCustomerGet]);
+
+	useEffect(() => {
 		handleGetLoans();
-	}, [handleGetLoans] );
+	}, [handleGetLoans]);
 
 	usePageView();
 
-	const handleTabsChange = useCallback( ( event: ChangeEvent<any>, value: string ): void => {
-		setCurrentTab( value );
-	}, [] );
+	const handleTabsChange = useCallback((event: ChangeEvent<any>, value: string): void => {
+		setCurrentTab(value);
+	}, []);
 
 	return (
 		<>
@@ -69,13 +90,13 @@ const Page = () => {
 								value={currentTab}
 								variant="scrollable"
 							>
-								{tabs.map( ( tab ) => (
+								{tabs.map((tab) => (
 									<Tab
 										key={tab.value}
 										label={tab.label}
 										value={tab.value}
 									/>
-								) )}
+								))}
 							</Tabs>
 							<Divider />
 						</div>
@@ -83,8 +104,8 @@ const Page = () => {
 					{currentTab === 'general' && (
 						<>
 							<AccountGeneralSettings
-								user={user}
-								loans={loansRef.current}
+								user={customer!}
+								loans={loans}
 							/>
 						</>
 					)}
@@ -93,14 +114,14 @@ const Page = () => {
 							loginEvents={[
 								{
 									id: '1bd6d44321cb78fd915462fa',
-									createdAt: subDays( subHours( subMinutes( now, 5 ), 7 ), 1 ).getTime(),
+									createdAt: subDays(subHours(subMinutes(now, 5), 7), 1).getTime(),
 									ip: '95.130.17.84',
 									type: 'Credential login',
 									userAgent: 'Chrome, Mac OS 10.15.7',
 								},
 								{
 									id: 'bde169c2fe9adea5d4598ea9',
-									createdAt: subDays( subHours( subMinutes( now, 25 ), 9 ), 1 ).getTime(),
+									createdAt: subDays(subHours(subMinutes(now, 25), 9), 1).getTime(),
 									ip: '95.130.17.84',
 									type: 'Credential login',
 									userAgent: 'Chrome, Mac OS 10.15.7',

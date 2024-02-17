@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Drawer from '@mui/material/Drawer';
 import Stack from '@mui/material/Stack';
@@ -9,7 +9,8 @@ import type { Theme } from '@mui/material/styles/createTheme';
 import type { Loan } from 'src/types/loan';
 
 import { LoanApplication } from 'src/sections/dashboard/loan/loan-drawer/loan-apply';
-import { getCustomers } from 'src/api/customers/data';
+import { customersApi } from 'src/api/customers';
+import { Customer } from 'src/types/customer';
 
 interface LoanApplyDrawerProps {
 	container?: HTMLDivElement | null;
@@ -23,7 +24,16 @@ export const LoanApplyDrawer: FC<LoanApplyDrawerProps> = (props) => {
 	const [isApplying, setIsApplying] = useState<boolean>(false);
 	const lgUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
 
-	const customer = getCustomers(1)[0];
+	const [customer, setCustomer] = useState<Customer | undefined>(undefined);
+
+	const handleCustomerGet = useCallback(async (customerId: string) => {
+		const response = await customersApi.getCustomer(customerId);
+		setCustomer(response);
+	}, []);
+
+	useEffect(() => {
+		handleCustomerGet(props.loan ? props.loan.borrowed_by : '');
+	}, [handleCustomerGet, props.loan]);
 
 	const onApply = useCallback(() => {
 		setIsApplying(true);
@@ -47,11 +57,13 @@ export const LoanApplyDrawer: FC<LoanApplyDrawerProps> = (props) => {
 						py: 2,
 					}}
 				>
-					<LoanApplication
-						customer={customer}
-						onCancel={onCancel}
-						onApply={onApply}
-					/>
+					{customer ? (
+						<LoanApplication
+							customer={customer}
+							onCancel={onCancel}
+							onApply={onApply}
+						/>
+					) : null}
 				</Stack>
 			</div>
 		);

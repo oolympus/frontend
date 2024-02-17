@@ -13,15 +13,15 @@ export interface Customer {
 	roles: string;
 	financial_information?: any;
 	guarantors?: any;
-	password_reset: boolean;
+	password_reset: string;
 	password_reset_time?: any;
 	wrong_password_entry_count: number;
 	added_by?: any;
 	date_joined: string;
 	is_active: boolean;
-	is_deleted: boolean;
+	is_deleted: string;
 	edited_at: string;
-	is_previously_logged_in: boolean;
+	is_previously_logged_in: string;
 	credit_score: number;
 }
 

@@ -5,7 +5,7 @@ export const tokens = {
 	nav: {
 		account: 'nav.account',
 		auth: 'nav.auth',
-		concepts: 'nav.concepts',
+		features: 'nav.features',
 		create: 'nav.create',
 		crypto: 'nav.crypto',
 		customers: 'nav.customers',

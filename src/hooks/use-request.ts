@@ -4,8 +4,12 @@ export default function useRequest() {
 
 	const token = window.localStorage.getItem( 'accessToken' );
 
-	return axios.create( ( {
-		baseURL: "http://172.105.41.169/api/v1",
+	const location = window.location.pathname
+
+	return location.includes( "auth" ) ? axios.create( ( {
+		baseURL: import.meta.env.VITE_APP_BASE_URL,
+	} ) ) : axios.create( ( {
+		baseURL: import.meta.env.VITE_APP_BASE_URL,
 		headers: {
 			Authorization: `Bearer ${token}`
 		}

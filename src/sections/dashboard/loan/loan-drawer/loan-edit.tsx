@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import { useState, type FC, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import Button from '@mui/material/Button';
@@ -7,8 +7,9 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 import type { Loan } from 'src/types/loan';
-import { getCustomers } from 'src/api/customers/data';
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { Customer } from 'src/types/customer';
+import { customersApi } from 'src/api/customers';
 
 const statusOptions = [
 	{
@@ -37,11 +38,20 @@ interface LoanEditProps {
 
 export const LoanEdit: FC<LoanEditProps> = (props) => {
 	const { onCancel, onSave, loan } = props;
+	const [customer, setCustomer] = useState<Customer | undefined>(undefined);
 
 	const createdAt = format(new Date(loan.application_time), 'dd/MM/yyyy HH:mm');
-	const customer = getCustomers(1)[0];
 
-	const fullname = `${customer.first_name} ${customer.surname}`;
+	const handleCustomerGet = useCallback(async (customerId: string) => {
+		const response = await customersApi.getCustomer(customerId);
+		setCustomer(response);
+	}, []);
+
+	useEffect(() => {
+		handleCustomerGet(loan.borrowed_by);
+	}, [handleCustomerGet, loan.borrowed_by]);
+
+	const fullname = `${customer ? customer?.first_name : ''} ${customer ? customer.surname : ''}`;
 
 	return (
 		<Stack spacing={6}>
@@ -80,7 +90,7 @@ export const LoanEdit: FC<LoanEditProps> = (props) => {
 						fullWidth
 						label="Address"
 						name="address"
-						value={customer.address}
+						value={customer ? customer.address : ''}
 					/>
 					<TextField
 						fullWidth

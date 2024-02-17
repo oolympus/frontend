@@ -89,27 +89,10 @@ const Page = () => {
 
 	const navigate = useNavigate();
 
-	const requestOTP = React.useCallback(async () => {
-		const response = await request.post('/request-otp', {
-			username: formik.values.email,
-		});
-
-		if (response.data.status !== 200) {
-			toast.error(response.data?.message);
-		} else {
-			toast.success(response.data?.message);
-
-			setTimeout(() => {
-				navigate(paths.auth.verifyCode);
-			}, 2000);
-		}
-	}, [formik.values.email, navigate, request]);
-
 	const handleSubmit = React.useCallback(async () => {
 		const response = await request.post('/signup', { ...formik.values });
 		toast.error(response.data?.message);
-		requestOTP();
-	}, [formik.values, request, requestOTP]);
+	}, [formik.values, request]);
 
 	usePageView();
 

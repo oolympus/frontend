@@ -9,7 +9,6 @@ import Stack from '@mui/material/Stack';
 import SvgIcon from '@mui/material/SvgIcon';
 import Typography from '@mui/material/Typography';
 
-import { customersApi } from 'src/api/customers';
 import { RouterLink } from 'src/components/router-link';
 import { Seo } from 'src/components/seo';
 import { useMounted } from 'src/hooks/use-mounted';
@@ -18,22 +17,26 @@ import { paths } from 'src/paths';
 import { CustomerEditForm } from 'src/sections/dashboard/customer/customer-edit-form';
 import type { Customer } from 'src/types/customer';
 import { getInitials } from 'src/utils/get-initials';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 const useCustomer = (): Customer | null => {
 	const isMounted = useMounted();
 	const [customer, setCustomer] = useState<Customer | null>(null);
 
+	const params = useParams();
+
 	const handleCustomerGet = useCallback(async () => {
 		try {
-			const response = await customersApi.getCustomer();
-
-			if (isMounted()) {
-				setCustomer(response);
-			}
+			axios.get(import.meta.env.VITE_APP_BASE_URL + '/users/' + params.customerId!).then((res) => {
+				if (isMounted()) {
+					setCustomer(res.data?.data);
+				}
+			});
 		} catch (err) {
 			console.error(err);
 		}
-	}, [isMounted]);
+	}, [isMounted, params.customerId]);
 
 	useEffect(
 		() => {

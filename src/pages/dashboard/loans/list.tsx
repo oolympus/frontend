@@ -20,7 +20,7 @@ import { loansApi } from 'src/api/loans';
 import { Loan } from 'src/types/loan';
 import { Modal } from '@mui/material';
 import { LoanApplication } from 'src/sections/dashboard/loan/loan-drawer/loan-apply';
-import { getCustomers } from 'src/api/customers/data';
+import { useCustomer } from 'src/dashboard/customers/detail';
 
 interface Filters {
 	query?: string;
@@ -150,9 +150,10 @@ const Page = () => {
 	const [loanPaybackModalOpened, setLoanPaybackModalOpened] = React.useState(false);
 	const handleOpen = () => setLoanApplyModalOpened(true);
 
-	const customer = getCustomers(1)[0];
-
 	usePageView();
+
+	// eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+	const customer = useCustomer(currentLoan?.borrowed_by!);
 
 	const onApply = useCallback((): void => {}, []);
 	const onCancel = useCallback(() => setLoanApplyModalOpened(false), []);
@@ -182,7 +183,7 @@ const Page = () => {
 			<LoanApplication
 				onCancel={onCancel}
 				onApply={onApply}
-				customer={customer}
+				customer={customer!}
 			/>
 		</Modal>
 	) : null;

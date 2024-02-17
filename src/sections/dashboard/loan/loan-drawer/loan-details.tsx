@@ -21,7 +21,6 @@ import type { SeverityPillColor } from 'src/components/severity-pill';
 import { SeverityPill } from 'src/components/severity-pill';
 import { Scrollbar } from 'src/components/scrollbar';
 import type { Loan, LoanStatus } from 'src/types/loan';
-import { getCustomers } from 'src/api/customers/data';
 
 const statusMap: Record<LoanStatus, string> = {
 	cancelled: 'warning',
@@ -39,17 +38,15 @@ interface LoanDetailsProps {
 	loan: Loan;
 }
 
-export const LoanDetails: FC<LoanDetailsProps> = ( props ) => {
+export const LoanDetails: FC<LoanDetailsProps> = (props) => {
 	const { onApprove, onEdit, onReject, onPayback, onReview, loan } = props;
-	const lgUp = useMediaQuery( ( theme: Theme ) => theme.breakpoints.up( 'lg' ) );
+	const lgUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
 
 	const align = lgUp ? 'horizontal' : 'vertical';
-	const createdAt = format( new Date( loan.application_time ), 'dd/MM/yyyy' );
-	const application_time = format( new Date( loan.application_time ), 'HH:mm:ss:mm' )
+	const createdAt = format(new Date(loan.application_time), 'dd/MM/yyyy');
+	const application_time = format(new Date(loan.application_time), 'HH:mm:ss:mm');
 	const statusColor = statusMap[loan.loan_status] as SeverityPillColor;
-	const totalAmount = numeral( loan.amount_payable ).format( `0,0.00` );
-
-	const customer = getCustomers( 1 )[0];
+	const totalAmount = numeral(loan.amount_payable).format(`0,0.00`);
 
 	return (
 		<Stack spacing={6}>
@@ -257,7 +254,7 @@ export const LoanDetails: FC<LoanDetailsProps> = ( props ) => {
 						</TableHead>
 						<TableBody>
 							<TableRow>
-								<TableCell>{loan.disbursed_by.slice( 0, 6 ) + ". . ."}</TableCell>
+								<TableCell>{loan.disbursed_by.slice(0, 6) + '. . .'}</TableCell>
 								<TableCell>{loan.percent_interest}</TableCell>
 								<TableCell>{loan.payment_intervals}</TableCell>
 								<TableCell>{totalAmount}</TableCell>

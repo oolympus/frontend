@@ -19,26 +19,27 @@ import { RouterLink } from 'src/components/router-link';
 import { Scrollbar } from 'src/components/scrollbar';
 import { paths } from 'src/paths';
 import type { Customer } from 'src/types/customer';
+import { Chip } from '@mui/material';
 
 interface CustomerListTableProps {
 	count?: number;
 	items?: Customer[];
 	onDeselectAll?: () => void;
-	onDeselectOne?: ( customerId: string ) => void;
-	onPageChange?: ( event: MouseEvent<HTMLButtonElement> | null, newPage: number ) => void;
-	onRowsPerPageChange?: ( event: ChangeEvent<HTMLInputElement> ) => void;
+	onDeselectOne?: (customerId: string) => void;
+	onPageChange?: (event: MouseEvent<HTMLButtonElement> | null, newPage: number) => void;
+	onRowsPerPageChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 	onSelectAll?: () => void;
-	onSelectOne?: ( customerId: string ) => void;
+	onSelectOne?: (customerId: string) => void;
 	page?: number;
 	rowsPerPage?: number;
 	selected?: string[];
 }
 
-export const CustomerListTable: FC<CustomerListTableProps> = ( props ) => {
+export const CustomerListTable: FC<CustomerListTableProps> = (props) => {
 	const {
 		count = 0,
 		items = [],
-		onPageChange = () => { },
+		onPageChange = () => {},
 		onRowsPerPageChange,
 		page = 0,
 		rowsPerPage = 0,
@@ -58,6 +59,7 @@ export const CustomerListTable: FC<CustomerListTableProps> = ( props ) => {
 							<TableCell>first_name</TableCell>
 							<TableCell>surname</TableCell>
 							<TableCell>address</TableCell>
+							<TableCell>Status</TableCell>
 							<TableCell>telephone</TableCell>
 							<TableCell>gender</TableCell>
 							<TableCell>guarantors</TableCell>
@@ -65,15 +67,15 @@ export const CustomerListTable: FC<CustomerListTableProps> = ( props ) => {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{items.map( ( customer ) => {
-							const isSelected = selected.includes( customer.id );
+						{items.map((customer) => {
+							const isSelected = selected.includes(customer.id);
 							return (
 								<TableRow
 									hover
 									key={customer.id}
 									selected={isSelected}
 								>
-									<TableCell padding="checkbox">{customer.id}</TableCell>
+									<TableCell padding="checkbox">{customer.id.slice(0, 8) + '...'}</TableCell>
 									<TableCell>
 										<Stack
 											alignItems="center"
@@ -100,6 +102,21 @@ export const CustomerListTable: FC<CustomerListTableProps> = ( props ) => {
 									</TableCell>
 									<TableCell>{customer.surname}</TableCell>
 									<TableCell>{customer.address}</TableCell>
+									<TableCell>
+										{customer.is_active ? (
+											<Chip
+												label="Active"
+												color="primary"
+												size="small"
+											/>
+										) : (
+											<Chip
+												label="In active"
+												color="error"
+												size="small"
+											/>
+										)}
+									</TableCell>
 									<TableCell>{customer.telephone}</TableCell>
 									<TableCell>{customer.gender}</TableCell>
 									<TableCell>
@@ -115,13 +132,13 @@ export const CustomerListTable: FC<CustomerListTableProps> = ( props ) => {
 													href={paths.dashboard.customers.details}
 													variant="subtitle2"
 												>
-													{customer.guarantors ? customer.guarantors[0] : "NONE"}
+													{customer.guarantors ? customer.guarantors[0] : 'NONE'}
 												</Link>
 												<Typography
 													color="text.secondary"
 													variant="body2"
 												>
-													{customer.guarantors ? customer.guarantors[1] : "NONE"}
+													{customer.guarantors ? customer.guarantors[1] : 'NONE'}
 												</Typography>
 											</div>
 										</Stack>
@@ -129,7 +146,7 @@ export const CustomerListTable: FC<CustomerListTableProps> = ( props ) => {
 									<TableCell align="right">
 										<IconButton
 											component={RouterLink}
-											href={paths.dashboard.customers.edit}
+											href={`/customers/${customer.id}/edit`}
 										>
 											<SvgIcon>
 												<Edit02Icon />
@@ -137,7 +154,7 @@ export const CustomerListTable: FC<CustomerListTableProps> = ( props ) => {
 										</IconButton>
 										<IconButton
 											component={RouterLink}
-											href={paths.dashboard.customers.details}
+											href={`/customers/${customer.id}`}
 										>
 											<SvgIcon>
 												<ArrowRightIcon />
@@ -146,7 +163,7 @@ export const CustomerListTable: FC<CustomerListTableProps> = ( props ) => {
 									</TableCell>
 								</TableRow>
 							);
-						} )}
+						})}
 					</TableBody>
 				</Table>
 			</Scrollbar>

@@ -20,6 +20,7 @@ import useRequest from 'src/hooks/use-request';
 import toast from 'react-hot-toast';
 
 const STORAGE_KEY = 'accessToken';
+const USER_STORAGE_KEY = 'user';
 
 interface Values {
 	username: string;
@@ -28,8 +29,8 @@ interface Values {
 }
 
 const initialValues: Values = {
-	username: 'demo@olympus.com',
-	password: 'Password123!',
+	username: '',
+	password: '',
 	submit: null,
 };
 
@@ -65,6 +66,7 @@ const Page = () => {
 				}
 
 				window.localStorage.setItem(STORAGE_KEY, response.data.token);
+				window.localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(response.data.data));
 
 				if (isMounted()) {
 					router.push(returnTo || paths.dashboard.index);

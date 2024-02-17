@@ -1,9 +1,8 @@
-import type { Customer, CustomerEmail, CustomerInvoice, CustomerLog } from 'src/types/customer';
+import type { Customer } from 'src/types/customer';
 import { applyPagination } from 'src/utils/apply-pagination';
 import { applySort } from 'src/utils/apply-sort';
-import { deepCopy } from 'src/utils/deep-copy';
 
-import { customer, emails, getAllCustomers, invoices, logs } from './data';
+import { getAllCustomers, getSingleCustomer } from './data';
 
 type GetCustomersRequest = {
 	filters?: {
@@ -26,25 +25,10 @@ type GetCustomerRequest = object;
 
 type GetCustomerResponse = Promise<Customer>;
 
-type GetCustomerEmailsRequest = object;
-
-type GetCustomerEmailsResponse = Promise<CustomerEmail[]>;
-
-type GetCustomerInvoicesRequest = object;
-
-type GetCustomerInvoicesResponse = Promise<CustomerInvoice[]>;
-
-type GetCustomerLogsRequest = object;
-
-type GetCustomerLogsResponse = Promise<CustomerLog[]>;
-
 class CustomersApi {
 	async getCustomers( request: GetCustomersRequest = {} ): GetCustomersResponse {
 		const { filters, page, rowsPerPage, sortBy, sortDir } = request;
 
-		// let data = deepCopy( customers ) as Customer[];
-
-		// let data = getCustomers(20) as Customer[];
 		let data = await getAllCustomers();
 		let count = data.length;
 
@@ -71,12 +55,6 @@ class CustomersApi {
 					}
 				}
 
-				if ( typeof filters.is_previously_logged_in !== 'undefined' ) {
-					if ( customer.is_previously_logged_in !== filters.is_previously_logged_in ) {
-						return false;
-					}
-				}
-
 				return true;
 			} );
 			count = data.length;
@@ -96,20 +74,13 @@ class CustomersApi {
 		} );
 	}
 
-	getCustomer( request?: GetCustomerRequest ): GetCustomerResponse {
-		return Promise.resolve( deepCopy( customer ) );
-	}
+	async getCustomer( customerId: string ): GetCustomerResponse {
 
-	getEmails( request?: GetCustomerEmailsRequest ): GetCustomerEmailsResponse {
-		return Promise.resolve( deepCopy( emails ) );
-	}
+		const data = await getSingleCustomer( customerId )
 
-	getInvoices( request?: GetCustomerInvoicesRequest ): GetCustomerInvoicesResponse {
-		return Promise.resolve( deepCopy( invoices ) );
-	}
-
-	getLogs( request?: GetCustomerLogsRequest ): GetCustomerLogsResponse {
-		return Promise.resolve( deepCopy( logs ) );
+		return Promise.resolve( {
+			...data
+		} )
 	}
 }
 

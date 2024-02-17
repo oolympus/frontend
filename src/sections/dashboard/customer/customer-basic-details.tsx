@@ -7,9 +7,9 @@ import { PropertyList } from 'src/components/property-list';
 import { PropertyListItem } from 'src/components/property-list-item';
 import { Customer } from 'src/types/customer';
 
-type CustomerBasicDetailsProps = Customer;
+export type CustomerDetailsProps = Customer;
 
-export const CustomerBasicDetails: FC<CustomerBasicDetailsProps> = (props) => {
+export const CustomerBasicDetails: FC<CustomerDetailsProps> = (props) => {
 	const { address, first_name, surname, email, telephone, added_by, is_active, ...other } = props;
 
 	return (
@@ -60,16 +60,6 @@ export const CustomerBasicDetails: FC<CustomerBasicDetailsProps> = (props) => {
 					divider
 					label="Gender"
 					value={other.gender}
-				/>
-				<PropertyListItem
-					divider
-					label="Guarantor primary"
-					value={other.guarantors[0]}
-				/>
-				<PropertyListItem
-					divider
-					label="Guarantor secondary"
-					value={other.guarantors[1]}
 				/>
 			</PropertyList>
 		</Card>

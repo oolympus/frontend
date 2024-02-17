@@ -4,7 +4,7 @@ export const de = {
 	[tokens.common.languageChanged]: 'Sprache geändert',
 	[tokens.nav.account]: 'Konto',
 	[tokens.nav.auth]: 'Authentifizierung',
-	[tokens.nav.concepts]: 'Konzepte',
+	[tokens.nav.features]: 'Feachar',
 	[tokens.nav.create]: 'Schaffen',
 	[tokens.nav.crypto]: 'Crypto',
 	[tokens.nav.customers]: 'Kunden',

@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import PropTypes from 'prop-types';
 import toast from 'react-hot-toast';
 import * as Yup from 'yup';
@@ -15,6 +14,10 @@ import { RouterLink } from 'src/components/router-link';
 import { paths } from 'src/paths';
 import type { Customer } from 'src/types/customer';
 import { wait } from 'src/utils/wait';
+import { useParams } from 'react-router-dom';
+import useRequest from 'src/hooks/use-request';
+import { FC, useCallback, useEffect } from 'react';
+import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from '@mui/material';
 
 interface CustomerEditFormProps {
 	customer: Customer;
@@ -22,6 +25,21 @@ interface CustomerEditFormProps {
 
 export const CustomerEditForm: FC<CustomerEditFormProps> = (props) => {
 	const { customer, ...other } = props;
+	const params = useParams();
+
+	const request = useRequest();
+
+	const handleGetCustomer = useCallback(async () => {
+		const response = await request.get(`/users/${params?.customerId}`);
+		// console.log('::::::::', response.data);
+	}, [params?.customerId, request]);
+
+	useEffect(() => {
+		handleGetCustomer();
+	}, [handleGetCustomer]);
+
+	console.log('params:: ', params);
+
 	const formik = useFormik({
 		initialValues: {
 			address: customer.address || '',
@@ -30,14 +48,16 @@ export const CustomerEditForm: FC<CustomerEditFormProps> = (props) => {
 			firstName: customer.first_name || '',
 			surname: customer.surname || '',
 			telephone: customer.telephone || '',
+			gender: customer.gender || '',
 			submit: null,
 		},
 		validationSchema: Yup.object({
-			address: Yup.string().max(255),
 			email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-			firstName: Yup.string().max(255).required('firstName is required'),
 			surname: Yup.string().max(255).required('surname is required'),
 			telephone: Yup.string().max(15),
+			first_name: Yup.string().max(255).required('First Name is required'),
+			address: Yup.string().min(2, 'Address is required'),
+			gender: Yup.string().oneOf(['male', 'female']).required('Gender is required'),
 		}),
 		onSubmit: async (values, helpers): Promise<void> => {
 			try {
@@ -129,6 +149,30 @@ export const CustomerEditForm: FC<CustomerEditFormProps> = (props) => {
 								onChange={formik.handleChange}
 								value={formik.values.telephone}
 							/>
+						</Grid>
+						<Grid>
+							<FormControl>
+								<FormLabel id="demo-row-radio-buttons-group-label">Select Gender</FormLabel>
+								<RadioGroup
+									row
+									aria-labelledby="demo-row-radio-buttons-group-label"
+									name="gender"
+									defaultValue={'male'}
+									value={formik.values.gender}
+									onChange={formik.handleChange}
+								>
+									<FormControlLabel
+										value="male"
+										control={<Radio />}
+										label="Male"
+									/>
+									<FormControlLabel
+										value="female"
+										control={<Radio />}
+										label="Female"
+									/>
+								</RadioGroup>
+							</FormControl>
 						</Grid>
 					</Grid>
 				</CardContent>

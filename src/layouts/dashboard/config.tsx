@@ -53,7 +53,7 @@ export const useSections = () => {
 				],
 			},
 			{
-				subheader: t(tokens.nav.concepts),
+				subheader: t(tokens.nav.features),
 				items: [
 					{
 						title: t(tokens.nav.loanList),

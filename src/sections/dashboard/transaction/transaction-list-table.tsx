@@ -1,39 +1,48 @@
 import type { ChangeEvent, FC, MouseEvent } from 'react';
-import { Fragment } from 'react';
-import numeral from 'numeral';
+import { Fragment, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import Box from '@mui/material/Box';
-import LinearProgress from '@mui/material/LinearProgress';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import Typography from '@mui/material/Typography';
 
 import { Scrollbar } from 'src/components/scrollbar';
-import { SeverityPill } from 'src/components/severity-pill';
 import type { Transaction } from 'src/types/transaction';
+import useRequest from 'src/hooks/use-request';
 
 interface TransactionListTableProps {
 	count?: number;
 	items?: Transaction[];
-	onPageChange?: ( event: MouseEvent<HTMLButtonElement> | null, newPage: number ) => void;
-	onRowsPerPageChange?: ( event: ChangeEvent<HTMLInputElement> ) => void;
+	onPageChange?: (event: MouseEvent<HTMLButtonElement> | null, newPage: number) => void;
+	onRowsPerPageChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 	page?: number;
 	rowsPerPage?: number;
 }
 
-export const TransactionListTable: FC<TransactionListTableProps> = ( props ) => {
+export const TransactionListTable: FC<TransactionListTableProps> = (props) => {
 	const {
 		count = 0,
 		items = [],
-		onPageChange = () => { },
+		onPageChange = () => {},
 		onRowsPerPageChange,
 		page = 0,
 		rowsPerPage = 0,
 	} = props;
+
+	const request = useRequest();
+
+	const [initiated_by, setInitiated_by] = useState('');
+
+	const handleGetInitiatedBy = useCallback(
+		(id: string) => {
+			request.get(`/users/${id}`).then((res) => {
+				setInitiated_by(res.data.username);
+			});
+		},
+		[request]
+	);
 
 	return (
 		<div>
@@ -41,63 +50,42 @@ export const TransactionListTable: FC<TransactionListTableProps> = ( props ) => 
 				<Table sx={{ minWidth: 1200 }}>
 					<TableHead>
 						<TableRow>
-							<TableCell width="25%">Name</TableCell>
-							<TableCell width="25%">Stock</TableCell>
-							<TableCell>Price</TableCell>
-							<TableCell>sku</TableCell>
-							<TableCell>Status</TableCell>
+							<TableCell>ID</TableCell>
+							<TableCell>Amount</TableCell>
+							<TableCell>Platform</TableCell>
+							<TableCell>Channel</TableCell>
+							<TableCell>Initiated By</TableCell>
+							<TableCell>Comments</TableCell>
+							<TableCell>Closing Loan Balance</TableCell>
+							<TableCell>Recorded by</TableCell>
+							<TableCell>Loan</TableCell>
+							<TableCell>Created At</TableCell>
+							<TableCell>Updated At</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{items.map( ( transaction ) => {
-							const price = numeral( transaction.price ).format( `${transaction.currency}0,0.00` );
-							const quantityColor = transaction.quantity >= 10 ? 'success' : 'error';
-							const statusColor = transaction.status === 'approved' ? 'success' : 'info';
-							const hasManyVariants = transaction.variants > 1;
-
+						{items.map((transaction) => {
 							return (
 								<Fragment key={transaction.id}>
 									<TableRow
 										hover
 										key={transaction.id}
 									>
-										<TableCell width="25%">
-											<Box
-												sx={{
-													cursor: 'pointer',
-													ml: 2,
-												}}
-											>
-												<Typography variant="subtitle2">{transaction.name}</Typography>
-											</Box>
-										</TableCell>
-										<TableCell width="25%">
-											<LinearProgress
-												value={transaction.quantity}
-												variant="determinate"
-												color={quantityColor}
-												sx={{
-													height: 8,
-													width: 36,
-												}}
-											/>
-											<Typography
-												color="text.secondary"
-												variant="body2"
-											>
-												{transaction.quantity} in stock
-												{hasManyVariants && ` in ${transaction.variants} variants`}
-											</Typography>
-										</TableCell>
-										<TableCell>{price}</TableCell>
-										<TableCell>{transaction.sku}</TableCell>
-										<TableCell>
-											<SeverityPill color={statusColor}>{transaction.status}</SeverityPill>
-										</TableCell>
+										<TableCell>{transaction.id.slice(0, 8) + '...'}</TableCell>
+										<TableCell>{transaction.amount}</TableCell>
+										<TableCell>{transaction.platform}</TableCell>
+										<TableCell>{transaction.channel}</TableCell>
+										<TableCell>{transaction.initiated_by}</TableCell>
+										<TableCell>{transaction.comments}</TableCell>
+										<TableCell>{transaction.closing_loan_balance}</TableCell>
+										<TableCell>{transaction.recorded_by.slice(0, 8) + '...'}</TableCell>
+										<TableCell>{transaction.loan.slice(0, 8) + '...'}</TableCell>
+										<TableCell>{new Date(transaction?.created_at).toLocaleDateString()}</TableCell>
+										<TableCell>{new Date(transaction?.updated_at).toLocaleDateString()}</TableCell>
 									</TableRow>
 								</Fragment>
 							);
-						} )}
+						})}
 					</TableBody>
 				</Table>
 			</Scrollbar>

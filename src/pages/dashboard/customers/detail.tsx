@@ -12,33 +12,33 @@ import Stack from '@mui/material/Stack';
 import SvgIcon from '@mui/material/SvgIcon';
 import Typography from '@mui/material/Typography';
 
-import { customersApi } from 'src/api/customers';
 import { RouterLink } from 'src/components/router-link';
 import { Seo } from 'src/components/seo';
 import { useMounted } from 'src/hooks/use-mounted';
 import { usePageView } from 'src/hooks/use-page-view';
 import { paths } from 'src/paths';
-import { CustomerBasicDetails } from 'src/sections/dashboard/customer/customer-basic-details';
+import { CustomerBasicDetails } from 'src/sections/dashboard/customer/CustomerBasicDetails';
 import { CustomerDataManagement } from 'src/sections/dashboard/customer/customer-data-management';
 import { CustomerPayment } from 'src/sections/dashboard/customer/customer-payment';
 import type { Customer } from 'src/types/customer';
-import { CustomerInvoice, CustomerLog } from 'src/types/customer';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
-const useCustomer = (): Customer | null => {
+const useCustomer = (customerId: string): Customer | null => {
 	const isMounted = useMounted();
 	const [customer, setCustomer] = useState<Customer | null>(null);
 
 	const handleCustomerGet = useCallback(async () => {
 		try {
-			const response = await customersApi.getCustomer();
-
-			if (isMounted()) {
-				setCustomer(response);
-			}
+			axios.get(import.meta.env.VITE_APP_BASE_URL + '/users/' + customerId).then((res) => {
+				if (isMounted()) {
+					setCustomer(res.data?.data);
+				}
+			});
 		} catch (err) {
 			console.error(err);
 		}
-	}, [isMounted]);
+	}, [customerId, isMounted]);
 
 	useEffect(
 		() => {
@@ -51,63 +51,13 @@ const useCustomer = (): Customer | null => {
 	return customer;
 };
 
-const useInvoices = (): CustomerInvoice[] => {
-	const isMounted = useMounted();
-	const [invoices, setInvoices] = useState<CustomerInvoice[]>([]);
-
-	const handleInvoicesGet = useCallback(async () => {
-		try {
-			const response = await customersApi.getInvoices();
-
-			if (isMounted()) {
-				setInvoices(response);
-			}
-		} catch (err) {
-			console.error(err);
-		}
-	}, [isMounted]);
-
-	useEffect(
-		() => {
-			handleInvoicesGet();
-		},
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[]
-	);
-
-	return invoices;
-};
-
-const useLogs = (): CustomerLog[] => {
-	const isMounted = useMounted();
-	const [logs, setLogs] = useState<CustomerLog[]>([]);
-
-	const handleLogsGet = useCallback(async () => {
-		try {
-			const response = await customersApi.getLogs();
-
-			if (isMounted()) {
-				setLogs(response);
-			}
-		} catch (err) {
-			console.error(err);
-		}
-	}, [isMounted]);
-
-	useEffect(
-		() => {
-			handleLogsGet();
-		},
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[]
-	);
-
-	return logs;
-};
-
 const Page = () => {
 	const [currentTab, setCurrentTab] = useState<string>('details');
-	const customer = useCustomer();
+	const params = useParams();
+
+	const customerId = params.customerId;
+
+	const customer = useCustomer(customerId!);
 
 	usePageView();
 
@@ -187,7 +137,7 @@ const Page = () => {
 												<Edit02Icon />
 											</SvgIcon>
 										}
-										href={paths.dashboard.customers.edit}
+										href={`/customers/${customerId}/edit`}
 									>
 										Edit
 									</Button>
@@ -195,30 +145,28 @@ const Page = () => {
 							</Stack>
 							<Divider />
 						</Stack>
-						{currentTab === 'details' && (
-							<div>
+						<div>
+							<Grid
+								container
+								spacing={4}
+							>
 								<Grid
-									container
-									spacing={4}
+									xs={12}
+									lg={4}
 								>
-									<Grid
-										xs={12}
-										lg={4}
-									>
-										<CustomerBasicDetails {...customer} />
-									</Grid>
-									<Grid
-										xs={12}
-										lg={8}
-									>
-										<Stack spacing={4}>
-											<CustomerPayment />
-											<CustomerDataManagement />
-										</Stack>
-									</Grid>
+									<CustomerBasicDetails {...customer} />
 								</Grid>
-							</div>
-						)}
+								<Grid
+									xs={12}
+									lg={8}
+								>
+									<Stack spacing={4}>
+										<CustomerPayment {...customer} />
+										<CustomerDataManagement {...customer} />
+									</Stack>
+								</Grid>
+							</Grid>
+						</div>
 					</Stack>
 				</Container>
 			</Box>

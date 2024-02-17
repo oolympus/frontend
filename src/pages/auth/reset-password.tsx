@@ -90,6 +90,8 @@ const Page = () => {
 		}
 	}, [formik.values.username, request]);
 
+	requestOTP();
+
 	return (
 		<>
 			<Seo title="Reset Password" />
