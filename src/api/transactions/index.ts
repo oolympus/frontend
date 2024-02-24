@@ -18,7 +18,7 @@ type GetTransactionsResponse = Promise<{
 }>;
 
 class TransactionsApi {
-	async getTransactions( request: GetTransactionsRequest = {} ): GetTransactionsResponse {
+	async getTransactions( _request: GetTransactionsRequest = {} ): GetTransactionsResponse {
 
 		const response = await axios.get( import.meta.env.VITE_APP_BASE_URL + '/transactions' );
 
