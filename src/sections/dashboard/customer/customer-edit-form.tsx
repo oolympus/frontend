@@ -31,7 +31,7 @@ export const CustomerEditForm: FC<CustomerEditFormProps> = (props) => {
       address: customer.address || '',
       email: customer.email || '',
       isActive: customer.is_active || false,
-      firstName: customer.first_name || '',
+      first_name: customer.first_name || '',
       surname: customer.surname || '',
       telephone: customer.telephone || '',
       gender: customer.gender || '',
@@ -85,15 +85,15 @@ export const CustomerEditForm: FC<CustomerEditFormProps> = (props) => {
               md={6}
             >
               <TextField
-                error={!!(formik.touched.firstName && formik.errors.firstName)}
+                error={!!(formik.touched.first_name && formik.errors.first_name)}
                 fullWidth
-                helperText={formik.touched.firstName && formik.errors.firstName}
-                label="Full name"
-                name="name"
+                helperText={formik.touched.first_name && formik.errors.first_name}
+                label="First name"
+                name="first_name"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
                 required
-                value={formik.values.firstName}
+                value={formik.values.first_name}
               />
             </Grid>
             <Grid

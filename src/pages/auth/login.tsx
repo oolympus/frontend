@@ -56,11 +56,9 @@ const Page = () => {
       try {
         const response = await request.post('/login', { ...values });
 
-        if (!response.data?.token) {
-          return;
-        }
         if (response.data?.status !== 200) {
           toast.error(response.data?.message);
+          return;
         } else {
           toast.success(response.data?.message);
         }
@@ -151,7 +149,7 @@ const Page = () => {
               <Stack sx={{ mt: 2 }}>
                 <Link
                   component={RouterLink}
-                  href={paths.auth.forgotPassword}
+                  href={paths.auth.resetPassword}
                   underline="hover"
                   variant="subtitle2"
                 >

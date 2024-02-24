@@ -17,9 +17,6 @@ import { PropertyList } from 'src/components/property-list';
 import { PropertyListItem } from 'src/components/property-list-item';
 
 import { Customer } from 'src/types/customer';
-import { paths } from 'src/paths';
-import { Button } from '@mui/material';
-import { Link } from 'react-router-dom';
 import { Loan } from 'src/types/loan';
 
 interface AccountDetailsSettingsProps {
@@ -118,7 +115,7 @@ export const AccountDetailsSettings: FC<AccountDetailsSettingsProps> = (props) =
       <Card>
         <CardHeader
           title="Loan history"
-          subheader="You can view and download all your previous loans here. If you’ve just made a payment, it may take a few hours for it to appear in the table below."
+          subheader="You can view all your previous loans here. If you’ve just made a payment, it may take a few hours for it to appear in the table below."
         />
         <Table>
           <TableHead>
@@ -128,7 +125,6 @@ export const AccountDetailsSettings: FC<AccountDetailsSettingsProps> = (props) =
               <TableCell>Billing cyle</TableCell>
               <TableCell>Interest</TableCell>
               <TableCell>Status</TableCell>
-              <TableCell />
             </TableRow>
           </TableHead>
           <TableBody>
@@ -144,14 +140,6 @@ export const AccountDetailsSettings: FC<AccountDetailsSettingsProps> = (props) =
                   <TableCell>{loan.amount_payable}</TableCell>
                   <TableCell>{loan.interest}</TableCell>
                   <TableCell>{loan.loan_status}</TableCell>
-                  <TableCell align="right">
-                    <Button
-                      component={Link}
-                      to={paths.dashboard.loans.details}
-                    >
-                      View Loan
-                    </Button>
-                  </TableCell>
                 </TableRow>
               );
             })}

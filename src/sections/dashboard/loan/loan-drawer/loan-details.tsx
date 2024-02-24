@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import { useState, type FC } from 'react';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import numeral from 'numeral';
@@ -6,11 +6,6 @@ import Edit02Icon from '@untitled-ui/icons-react/build/esm/Edit02';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import SvgIcon from '@mui/material/SvgIcon';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import type { Theme } from '@mui/material/styles/createTheme';
@@ -19,8 +14,10 @@ import { PropertyList } from 'src/components/property-list';
 import { PropertyListItem } from 'src/components/property-list-item';
 import type { SeverityPillColor } from 'src/components/severity-pill';
 import { SeverityPill } from 'src/components/severity-pill';
-import { Scrollbar } from 'src/components/scrollbar';
 import type { Loan, LoanStatus } from 'src/types/loan';
+import { Modal } from '@mui/material';
+import { LoanPayback } from 'src/sections/dashboard/loan/loan-drawer/loan-payback';
+import { LoanReview } from 'src/sections/dashboard/loan/loan-drawer/loan-review';
 
 const statusMap: Record<LoanStatus, string> = {
   cancelled: 'warning',
@@ -30,7 +27,6 @@ const statusMap: Record<LoanStatus, string> = {
 };
 
 interface LoanDetailsProps {
-  onApprove?: () => void;
   onReview?: () => void;
   onPayback?: () => void;
   onEdit?: () => void;
@@ -39,7 +35,7 @@ interface LoanDetailsProps {
 }
 
 export const LoanDetails: FC<LoanDetailsProps> = (props) => {
-  const { onApprove, onEdit, onReject, onPayback, onReview, loan } = props;
+  const { onEdit, onReject, loan } = props;
   const lgUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
 
   const align = lgUp ? 'horizontal' : 'vertical';
@@ -48,8 +44,41 @@ export const LoanDetails: FC<LoanDetailsProps> = (props) => {
   const statusColor = statusMap[loan.loan_status] as SeverityPillColor;
   const totalAmount = numeral(loan.amount_payable).format(`0,0.00`);
 
+  const [payback_modal_opened, setPayback_modal_opened] = useState(false);
+  const [review_modal_opened, setReview_modal_opened] = useState(false);
+
+  const payback_modal = payback_modal_opened ? (
+    <Modal
+      open={payback_modal_opened}
+      onClose={() => setPayback_modal_opened(false)}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <LoanPayback
+        onCancel={() => setPayback_modal_opened(false)}
+        loan={loan!}
+      />
+    </Modal>
+  ) : null;
+
+  const review_modal = review_modal_opened ? (
+    <Modal
+      open={review_modal_opened}
+      onClose={() => setReview_modal_opened(false)}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <LoanReview
+        onCancel={() => setReview_modal_opened(false)}
+        loan={loan!}
+      />
+    </Modal>
+  ) : null;
+
   return (
     <Stack spacing={6}>
+      {payback_modal}
+      {review_modal}
       <Stack spacing={3}>
         <Stack
           alignItems="center"
@@ -83,7 +112,7 @@ export const LoanDetails: FC<LoanDetailsProps> = (props) => {
             align={align}
             disableGutters
             divider
-            label="Customer"
+            label="Customer Email"
           >
             <Typography
               color="text.secondary"
@@ -96,7 +125,7 @@ export const LoanDetails: FC<LoanDetailsProps> = (props) => {
             align={align}
             disableGutters
             divider
-            label="Reviewed by"
+            label="Reviewer Email"
           >
             <Typography
               color="text.secondary"
@@ -122,13 +151,39 @@ export const LoanDetails: FC<LoanDetailsProps> = (props) => {
             align={align}
             disableGutters
             divider
-            label="Comments"
+            label="Disbursed Amount"
           >
             <Typography
               color="text.secondary"
               variant="body2"
             >
-              {loan.comments ? loan.comments : 'NONE'}
+              {loan.disbursed_amount ? loan.disbursed_amount : 'NONE'}
+            </Typography>
+          </PropertyListItem>
+          <PropertyListItem
+            align={align}
+            disableGutters
+            divider
+            label="Fines Accumulated"
+          >
+            <Typography
+              color="text.secondary"
+              variant="body2"
+            >
+              {loan.fines_accumulated ? loan.fines_accumulated : 'NONE'}
+            </Typography>
+          </PropertyListItem>
+          <PropertyListItem
+            align={align}
+            disableGutters
+            divider
+            label="Amount payable"
+          >
+            <Typography
+              color="text.secondary"
+              variant="body2"
+            >
+              {loan.amount_payable ? loan.amount_payable : 'NONE'}
             </Typography>
           </PropertyListItem>
           <PropertyListItem
@@ -161,28 +216,15 @@ export const LoanDetails: FC<LoanDetailsProps> = (props) => {
             align={align}
             disableGutters
             divider
-            label="Application time"
-          >
-            <Typography
-              color="text.secondary"
-              variant="body2"
-            >
-              {application_time}
-            </Typography>
-          </PropertyListItem>
-          <PropertyListItem
-            align={align}
-            disableGutters
-            divider
-            label="Date"
-            value={createdAt}
+            label="Principal"
+            value={loan.principal ? loan.principal : 'NONE'}
           />
           <PropertyListItem
             align={align}
             disableGutters
             divider
-            label="Principal"
-            value={loan.principal ? loan.principal : 'NONE'}
+            label="Balance Payable"
+            value={loan.balance_payable ? loan.balance_payable : 'N/A'}
           />
           <PropertyListItem
             align={align}
@@ -201,78 +243,95 @@ export const LoanDetails: FC<LoanDetailsProps> = (props) => {
               {loan.loan_status ? loan.loan_status : 'NONE'}
             </SeverityPill>
           </PropertyListItem>
+          <PropertyListItem
+            align={align}
+            disableGutters
+            divider
+            label="Disbursed Date"
+          >
+            <Typography
+              color="text.secondary"
+              variant="body2"
+            >
+              {loan.disbursed_date
+                ? new Date(loan.disbursed_date).toDateString() +
+                  ' ' +
+                  new Date(loan.disbursed_date).toLocaleTimeString()
+                : 'N/A'}
+            </Typography>
+          </PropertyListItem>
+          <PropertyListItem
+            align={align}
+            disableGutters
+            divider
+            label="Comments"
+          >
+            <Typography
+              color="text.secondary"
+              variant="body2"
+            >
+              {loan.comments ? loan.comments : 'NONE'}
+            </Typography>
+          </PropertyListItem>
+          <PropertyListItem
+            align={align}
+            disableGutters
+            divider
+            label="Review notes"
+          >
+            <Typography
+              color="text.secondary"
+              variant="body2"
+            >
+              {loan.review_notes ? loan.review_notes : 'NONE'}
+            </Typography>
+          </PropertyListItem>
+          <PropertyListItem
+            align={align}
+            disableGutters
+            divider
+            label="Due date"
+          >
+            <Typography
+              color="text.secondary"
+              variant="body2"
+            >
+              {loan.due_date ? new Date(loan.due_date).toLocaleDateString() : 'NONE'}
+            </Typography>
+          </PropertyListItem>
         </PropertyList>
         <Stack
           alignItems="center"
           direction="row"
-          flexWrap="wrap"
           justifyContent="space-between"
           spacing={2}
         >
           <Button
-            onClick={onApprove}
+            fullWidth
+            color="warning"
+            onClick={() => setReview_modal_opened(true)}
             size="small"
-            variant="contained"
+            variant="outlined"
           >
             Review
           </Button>
           <Button
+            fullWidth
             color="success"
-            onClick={onPayback}
+            onClick={() => setPayback_modal_opened(true)}
             size="small"
             variant="outlined"
           >
             Payback
           </Button>
-          <Button
-            color="info"
-            onClick={onApprove}
-            size="small"
-            variant="contained"
-          >
-            Approve
-          </Button>
-          <Button
-            color="error"
-            onClick={onReject}
-            size="small"
-            variant="outlined"
-          >
-            Reject
-          </Button>
         </Stack>
-      </Stack>
-      <Stack spacing={3}>
-        <Typography variant="h6">Loan items</Typography>
-        <Scrollbar>
-          <Table sx={{ minWidth: 400 }}>
-            <TableHead>
-              <TableRow>
-                <TableCell>Disbursed by</TableCell>
-                <TableCell>Percent Interest</TableCell>
-                <TableCell>Intervals</TableCell>
-                <TableCell>Amount</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <TableRow>
-                <TableCell>
-                  {loan?.disbursed_by ? loan?.disbursed_by.slice(0, 6) + '. . .' : 'NONE'}
-                </TableCell>
-                <TableCell>{loan?.percent_interest}</TableCell>
-                <TableCell>{loan?.payment_intervals}</TableCell>
-                <TableCell>{totalAmount}</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </Scrollbar>
       </Stack>
     </Stack>
   );
 };
 
 LoanDetails.propTypes = {
-  onApprove: PropTypes.func,
+  onReview: PropTypes.func,
   onEdit: PropTypes.func,
   onReject: PropTypes.func,
   // @ts-ignore

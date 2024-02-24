@@ -148,7 +148,6 @@ const Page = () => {
   const currentLoan = useCurrentLoan(loansStore.loans, dialog.data);
   const [loanApplyModalOpened, setLoanApplyModalOpened] = React.useState(false);
   const [loanPaybackModalOpened, setLoanPaybackModalOpened] = React.useState(false);
-  const handleOpen = () => setLoanApplyModalOpened(true);
 
   usePageView();
 
@@ -158,7 +157,9 @@ const Page = () => {
   const onApply = useCallback((): void => {}, []);
   const onCancel = useCallback(() => setLoanApplyModalOpened(false), []);
 
-  const onPayback = useCallback(() => console.log('Paying back...'), []);
+  const onPayback = useCallback(() => {
+    setLoanPaybackModalOpened((value) => !value);
+  }, []);
 
   const handleLoanOpen = useCallback(
     (loanId: string): void => {
@@ -184,20 +185,25 @@ const Page = () => {
         onCancel={onCancel}
         onApply={onApply}
         customer={customer!}
+        loan={currentLoan!}
       />
     </Modal>
   ) : null;
 
-  const loanPaybackModal = loanPaybackModalOpened ? (
-    <Modal
-      open={loanPaybackModalOpened}
-      onClose={onCancel}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-    >
-      <></>
-    </Modal>
-  ) : null;
+  // const loanPaybackModal = loanPaybackModalOpened ? (
+  //   <Modal
+  //     open={loanPaybackModalOpened}
+  //     onClose={onCancel}
+  //     aria-labelledby="modal-modal-title"
+  //     aria-describedby="modal-modal-description"
+  //   >
+  //     <LoanPayback
+  //       onPayback={onPayback}
+  //       customer={customer!}
+  //       loan={currentLoan!}
+  //     />
+  //   </Modal>
+  // ) : null;
 
   return (
     <>
@@ -242,7 +248,7 @@ const Page = () => {
                         <PlusIcon />
                       </SvgIcon>
                     }
-                    onClick={handleOpen}
+                    onClick={() => setLoanApplyModalOpened(true)}
                     variant="contained"
                   >
                     Apply for Loan
@@ -276,7 +282,6 @@ const Page = () => {
             loan={currentLoan}
           />
           {loanAppyModal}
-          {loanPaybackModal}
         </Box>
       </Box>
     </>

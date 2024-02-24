@@ -15,115 +15,115 @@ import SvgIcon from '@mui/material/SvgIcon';
 import Typography from '@mui/material/Typography';
 
 import { RouterLink } from 'src/components/router-link';
-import { useMockedUser } from 'src/hooks/use-mocked-user';
 import { useRouter } from 'src/hooks/use-router';
 import { paths } from 'src/paths';
+import { useAuthToken } from 'src/hooks/use-auth-token';
 
 interface AccountPopoverProps {
-	anchorEl: null | Element;
-	onClose?: () => void;
-	open?: boolean;
+  anchorEl: null | Element;
+  onClose?: () => void;
+  open?: boolean;
 }
 
 export const AccountPopover: FC<AccountPopoverProps> = (props) => {
-	const { anchorEl, onClose, open, ...other } = props;
-	const router = useRouter();
+  const { anchorEl, onClose, open, ...other } = props;
+  const router = useRouter();
 
-	const user = useMockedUser();
+  const { user } = useAuthToken();
 
-	const handleLogout = useCallback(async (): Promise<void> => {
-		try {
-			onClose?.();
-			window.localStorage.removeItem('accessToken');
+  const handleLogout = useCallback(async (): Promise<void> => {
+    try {
+      onClose?.();
+      window.localStorage.removeItem('accessToken');
 
-			router.push(paths.auth.login);
-		} catch (err) {
-			console.error(err);
-			toast.error('Something went wrong!');
-		}
-	}, [router, onClose]);
+      router.push(paths.auth.login);
+    } catch (err) {
+      console.error(err);
+      toast.error('Something went wrong!');
+    }
+  }, [router, onClose]);
 
-	return (
-		<Popover
-			anchorEl={anchorEl}
-			anchorOrigin={{
-				horizontal: 'center',
-				vertical: 'bottom',
-			}}
-			disableScrollLock
-			onClose={onClose}
-			open={!!open}
-			PaperProps={{ sx: { width: 200 } }}
-			{...other}
-		>
-			<Box sx={{ p: 2 }}>
-				<Typography variant="body1">{user.username}</Typography>
-				<Typography
-					color="text.secondary"
-					variant="body2"
-				>
-					demo@olympus.com
-				</Typography>
-			</Box>
-			<Divider />
-			<Box sx={{ p: 1 }}>
-				<ListItemButton
-					component={RouterLink}
-					href={paths.dashboard.social.profile}
-					onClick={onClose}
-					sx={{
-						borderRadius: 1,
-						px: 1,
-						py: 0.5,
-					}}
-				>
-					<ListItemIcon>
-						<SvgIcon fontSize="small">
-							<User03Icon />
-						</SvgIcon>
-					</ListItemIcon>
-					<ListItemText primary={<Typography variant="body1">Profile</Typography>} />
-				</ListItemButton>
-				<ListItemButton
-					component={RouterLink}
-					href={paths.dashboard.account}
-					onClick={onClose}
-					sx={{
-						borderRadius: 1,
-						px: 1,
-						py: 0.5,
-					}}
-				>
-					<ListItemIcon>
-						<SvgIcon fontSize="small">
-							<Settings04Icon />
-						</SvgIcon>
-					</ListItemIcon>
-					<ListItemText primary={<Typography variant="body1">Settings</Typography>} />
-				</ListItemButton>
-			</Box>
-			<Divider sx={{ my: '0 !important' }} />
-			<Box
-				sx={{
-					display: 'flex',
-					p: 1,
-					justifyContent: 'center',
-				}}
-			>
-				<Button
-					color="inherit"
-					onClick={handleLogout}
-					size="small"
-				>
-					Logout
-				</Button>
-			</Box>
-		</Popover>
-	);
+  return (
+    <Popover
+      anchorEl={anchorEl}
+      anchorOrigin={{
+        horizontal: 'center',
+        vertical: 'bottom',
+      }}
+      disableScrollLock
+      onClose={onClose}
+      open={!!open}
+      PaperProps={{ sx: { width: 200 } }}
+      {...other}
+    >
+      <Box sx={{ p: 2 }}>
+        <Typography variant="body1">{`${user?.first_name} ${user?.surname}`}</Typography>
+        <Typography
+          color="text.secondary"
+          variant="body2"
+        >
+          {user?.email}
+        </Typography>
+      </Box>
+      <Divider />
+      <Box sx={{ p: 1 }}>
+        <ListItemButton
+          component={RouterLink}
+          href={paths.dashboard.social.profile}
+          onClick={onClose}
+          sx={{
+            borderRadius: 1,
+            px: 1,
+            py: 0.5,
+          }}
+        >
+          <ListItemIcon>
+            <SvgIcon fontSize="small">
+              <User03Icon />
+            </SvgIcon>
+          </ListItemIcon>
+          <ListItemText primary={<Typography variant="body1">Profile</Typography>} />
+        </ListItemButton>
+        <ListItemButton
+          component={RouterLink}
+          href={paths.dashboard.account}
+          onClick={onClose}
+          sx={{
+            borderRadius: 1,
+            px: 1,
+            py: 0.5,
+          }}
+        >
+          <ListItemIcon>
+            <SvgIcon fontSize="small">
+              <Settings04Icon />
+            </SvgIcon>
+          </ListItemIcon>
+          <ListItemText primary={<Typography variant="body1">Settings</Typography>} />
+        </ListItemButton>
+      </Box>
+      <Divider sx={{ my: '0 !important' }} />
+      <Box
+        sx={{
+          display: 'flex',
+          p: 1,
+          justifyContent: 'center',
+        }}
+      >
+        <Button
+          color="inherit"
+          onClick={handleLogout}
+          size="small"
+        >
+          Logout
+        </Button>
+      </Box>
+    </Popover>
+  );
 };
 
 AccountPopover.propTypes = {
-	anchorEl: PropTypes.any,
-	onClose: PropTypes.func,
-	open: PropTypes.bool,
+  anchorEl: PropTypes.any,
+  onClose: PropTypes.func,
+  open: PropTypes.bool,
 };

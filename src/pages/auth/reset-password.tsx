@@ -18,6 +18,7 @@ import React from 'react';
 import useRequest from 'src/hooks/use-request';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router';
+import { useAuthToken } from 'src/hooks/use-auth-token';
 
 interface Values {
   username: string;
@@ -53,10 +54,11 @@ const Page = () => {
 
   const request = useRequest();
   const navigate = useNavigate();
+  const { user } = useAuthToken();
 
   const handlePasswordReset = React.useCallback(async () => {
     const response = await request.post('/password-reset', {
-      username: formik.values.username,
+      username: user?.email,
       otp: parseInt(formik.values.otp),
       password: formik.values.password,
       password_confirm: formik.values.password_confirm,
@@ -72,14 +74,14 @@ const Page = () => {
     formik.values.otp,
     formik.values.password,
     formik.values.password_confirm,
-    formik.values.username,
+    user?.email,
     navigate,
     request,
   ]);
 
   const requestOTP = React.useCallback(async () => {
     const response = await request.post('/request-otp', {
-      username: formik.values.username,
+      username: user?.email,
     });
 
     if (response.data.status !== 200) {
@@ -88,7 +90,7 @@ const Page = () => {
       toast.success(response.data?.message);
       setCodeSent(true);
     }
-  }, [formik.values.username, request]);
+  }, [request, user?.email]);
 
   return (
     <>
@@ -152,17 +154,6 @@ const Page = () => {
 
             {codeSent ? (
               <>
-                <TextField
-                  error={!!(formik.touched.username && formik.errors.username)}
-                  fullWidth
-                  helperText={formik.touched.username && formik.errors.username}
-                  label="Email"
-                  name="username"
-                  onBlur={formik.handleBlur}
-                  onChange={formik.handleChange}
-                  type="username"
-                  value={formik.values.username}
-                />
                 <TextField
                   error={!!(formik.touched.password && formik.errors.password)}
                   fullWidth

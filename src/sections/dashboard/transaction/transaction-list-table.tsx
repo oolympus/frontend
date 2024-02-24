@@ -47,7 +47,7 @@ export const TransactionListTable: FC<TransactionListTableProps> = (props) => {
   return (
     <div>
       <Scrollbar>
-        <Table sx={{ minWidth: 1200 }}>
+        <Table sx={{ minWidth: 1200, maxHeight: 1000 }}>
           <TableHead>
             <TableRow>
               <TableCell>ID</TableCell>
