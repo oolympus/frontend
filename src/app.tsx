@@ -24,71 +24,72 @@ import { store } from 'src/store';
 import { createTheme } from 'src/theme';
 
 export const App: FC = () => {
-	useAnalytics(gtmConfig);
-	useNprogress();
+  useAnalytics(gtmConfig);
+  useNprogress();
 
-	const element = useRoutes(routes);
+  // @ts-ignore
+  const element = useRoutes(routes);
 
-	return (
-		<ReduxProvider store={store}>
-			<LocalizationProvider dateAdapter={AdapterDateFns}>
-				<SettingsProvider>
-					<SettingsConsumer>
-						{(settings) => {
-							// Prevent theme flicker when restoring custom settings from browser storage
-							if (!settings.isInitialized) {
-								// return null;
-							}
+  return (
+    <ReduxProvider store={store}>
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <SettingsProvider>
+          <SettingsConsumer>
+            {(settings) => {
+              // Prevent theme flicker when restoring custom settings from browser storage
+              if (!settings.isInitialized) {
+                // return null;
+              }
 
-							const theme = createTheme({
-								colorPreset: settings.colorPreset,
-								contrast: settings.contrast,
-								direction: settings.direction,
-								paletteMode: settings.paletteMode,
-								responsiveFontSizes: settings.responsiveFontSizes,
-							});
+              const theme = createTheme({
+                colorPreset: settings.colorPreset,
+                contrast: settings.contrast,
+                direction: settings.direction,
+                paletteMode: settings.paletteMode,
+                responsiveFontSizes: settings.responsiveFontSizes,
+              });
 
-							return (
-								<ThemeProvider theme={theme}>
-									<Helmet>
-										<meta
-											name="color-scheme"
-											content={settings.paletteMode}
-										/>
-										<meta
-											name="theme-color"
-											content={theme.palette.neutral[900]}
-										/>
-									</Helmet>
-									<RTL direction={settings.direction}>
-										<CssBaseline />
-										{element}
-										<SettingsButton onClick={settings.handleDrawerOpen} />
-										<SettingsDrawer
-											canReset={settings.isCustom}
-											onClose={settings.handleDrawerClose}
-											onReset={settings.handleReset}
-											onUpdate={settings.handleUpdate}
-											open={settings.openDrawer}
-											values={{
-												colorPreset: settings.colorPreset,
-												contrast: settings.contrast,
-												direction: settings.direction,
-												paletteMode: settings.paletteMode,
-												responsiveFontSizes: settings.responsiveFontSizes,
-												stretch: settings.stretch,
-												layout: settings.layout,
-												navColor: settings.navColor,
-											}}
-										/>
-										<Toaster />
-									</RTL>
-								</ThemeProvider>
-							);
-						}}
-					</SettingsConsumer>
-				</SettingsProvider>
-			</LocalizationProvider>
-		</ReduxProvider>
-	);
+              return (
+                <ThemeProvider theme={theme}>
+                  <Helmet>
+                    <meta
+                      name="color-scheme"
+                      content={settings.paletteMode}
+                    />
+                    <meta
+                      name="theme-color"
+                      content={theme.palette.neutral[900]}
+                    />
+                  </Helmet>
+                  <RTL direction={settings.direction}>
+                    <CssBaseline />
+                    {element}
+                    <SettingsButton onClick={settings.handleDrawerOpen} />
+                    <SettingsDrawer
+                      canReset={settings.isCustom}
+                      onClose={settings.handleDrawerClose}
+                      onReset={settings.handleReset}
+                      onUpdate={settings.handleUpdate}
+                      open={settings.openDrawer}
+                      values={{
+                        colorPreset: settings.colorPreset,
+                        contrast: settings.contrast,
+                        direction: settings.direction,
+                        paletteMode: settings.paletteMode,
+                        responsiveFontSizes: settings.responsiveFontSizes,
+                        stretch: settings.stretch,
+                        layout: settings.layout,
+                        navColor: settings.navColor,
+                      }}
+                    />
+                    <Toaster />
+                  </RTL>
+                </ThemeProvider>
+              );
+            }}
+          </SettingsConsumer>
+        </SettingsProvider>
+      </LocalizationProvider>
+    </ReduxProvider>
+  );
 };

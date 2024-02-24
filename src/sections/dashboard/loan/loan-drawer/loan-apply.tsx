@@ -21,7 +21,6 @@ import { useMounted } from 'src/hooks/use-mounted';
 import useRequest from 'src/hooks/use-request';
 import React from 'react';
 import toast from 'react-hot-toast';
-import { Loan } from 'src/types/loan';
 
 interface Values {
   principal: number;
@@ -46,11 +45,10 @@ interface LoanApplicationProps {
   onCancel: () => void;
   onApply: () => void;
   customer: Customer;
-  loan: Loan;
 }
 
 export const LoanApplication: FC<LoanApplicationProps> = (props) => {
-  const { onCancel, onApply, customer, loan } = props;
+  const { onCancel } = props;
   const isMounted = useMounted();
 
   const request = useRequest();

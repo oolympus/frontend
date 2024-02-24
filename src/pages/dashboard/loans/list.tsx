@@ -185,25 +185,9 @@ const Page = () => {
         onCancel={onCancel}
         onApply={onApply}
         customer={customer!}
-        loan={currentLoan!}
       />
     </Modal>
   ) : null;
-
-  // const loanPaybackModal = loanPaybackModalOpened ? (
-  //   <Modal
-  //     open={loanPaybackModalOpened}
-  //     onClose={onCancel}
-  //     aria-labelledby="modal-modal-title"
-  //     aria-describedby="modal-modal-description"
-  //   >
-  //     <LoanPayback
-  //       onPayback={onPayback}
-  //       customer={customer!}
-  //       loan={currentLoan!}
-  //     />
-  //   </Modal>
-  // ) : null;
 
   return (
     <>

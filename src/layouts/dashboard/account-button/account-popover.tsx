@@ -29,19 +29,20 @@ export const AccountPopover: FC<AccountPopoverProps> = (props) => {
   const { anchorEl, onClose, open, ...other } = props;
   const router = useRouter();
 
-  const { user } = useAuthToken();
+  const { user, setUser, setToken } = useAuthToken();
 
   const handleLogout = useCallback(async (): Promise<void> => {
     try {
       onClose?.();
-      window.localStorage.removeItem('accessToken');
+      setUser(null);
+      setToken(null);
 
       router.push(paths.auth.login);
     } catch (err) {
       console.error(err);
       toast.error('Something went wrong!');
     }
-  }, [router, onClose]);
+  }, [onClose, setUser, setToken, router]);
 
   return (
     <Popover
