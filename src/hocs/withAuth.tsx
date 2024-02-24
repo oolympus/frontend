@@ -1,23 +1,26 @@
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import React from 'react';
 import { paths } from 'src/paths';
+import { useAuthToken } from 'src/hooks/use-auth-token';
 
 export const withAuth = <P extends object>(ProtectedComponent: React.FC<P>) => {
-	const ComponentWithAuth: React.FC<P> = (props) => {
-		const isAuthenticated = window.localStorage.getItem('accessToken') !== null;
-		const location = useLocation();
+  const ComponentWithAuth: React.FC<P> = (props) => {
+    const { token, user } = useAuthToken();
 
-		if (isAuthenticated) {
-			return <ProtectedComponent {...props} />;
-		} else {
-			return (
-				<Navigate
-					to={paths.auth.login}
-					state={{ from: location }}
-					replace
-				/>
-			);
-		}
-	};
-	return ComponentWithAuth;
+    console.log(token, user);
+
+    const isAuthenticated = token !== null && user !== null;
+
+    if (isAuthenticated) {
+      return <ProtectedComponent {...props} />;
+    } else {
+      return (
+        <Navigate
+          to={paths.auth.login}
+          replace
+        />
+      );
+    }
+  };
+  return ComponentWithAuth;
 };

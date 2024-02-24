@@ -22,174 +22,174 @@ import type { Customer } from 'src/types/customer';
 import { Chip } from '@mui/material';
 
 interface CustomerListTableProps {
-	count?: number;
-	items?: Customer[];
-	onDeselectAll?: () => void;
-	onDeselectOne?: (customerId: string) => void;
-	onPageChange?: (event: MouseEvent<HTMLButtonElement> | null, newPage: number) => void;
-	onRowsPerPageChange?: (event: ChangeEvent<HTMLInputElement>) => void;
-	onSelectAll?: () => void;
-	onSelectOne?: (customerId: string) => void;
-	page?: number;
-	rowsPerPage?: number;
-	selected?: string[];
+  count?: number;
+  items?: Customer[];
+  onDeselectAll?: () => void;
+  onDeselectOne?: (customerId: string) => void;
+  onPageChange?: (event: MouseEvent<HTMLButtonElement> | null, newPage: number) => void;
+  onRowsPerPageChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  onSelectAll?: () => void;
+  onSelectOne?: (customerId: string) => void;
+  page?: number;
+  rowsPerPage?: number;
+  selected?: string[];
 }
 
 export const CustomerListTable: FC<CustomerListTableProps> = (props) => {
-	const {
-		count = 0,
-		items = [],
-		onPageChange = () => {},
-		onRowsPerPageChange,
-		page = 0,
-		rowsPerPage = 0,
-		selected = [],
-	} = props;
+  const {
+    count = 0,
+    items = [],
+    onPageChange = () => {},
+    onRowsPerPageChange,
+    page = 0,
+    rowsPerPage = 0,
+    selected = [],
+  } = props;
 
-	return (
-		<Box
-			sx={{ position: 'relative' }}
-			p={2}
-		>
-			<Scrollbar>
-				<Table sx={{ minWidth: 700 }}>
-					<TableHead>
-						<TableRow>
-							<TableCell>id</TableCell>
-							<TableCell>first_name</TableCell>
-							<TableCell>surname</TableCell>
-							<TableCell>address</TableCell>
-							<TableCell>Status</TableCell>
-							<TableCell>telephone</TableCell>
-							<TableCell>gender</TableCell>
-							<TableCell>guarantors</TableCell>
-							<TableCell align="right">Actions</TableCell>
-						</TableRow>
-					</TableHead>
-					<TableBody>
-						{items.map((customer) => {
-							const isSelected = selected.includes(customer.id);
-							return (
-								<TableRow
-									hover
-									key={customer.id}
-									selected={isSelected}
-								>
-									<TableCell padding="checkbox">{customer.id.slice(0, 8) + '...'}</TableCell>
-									<TableCell>
-										<Stack
-											alignItems="center"
-											direction="row"
-											spacing={1}
-										>
-											<div>
-												<Link
-													color="inherit"
-													component={RouterLink}
-													href={paths.dashboard.customers.details}
-													variant="subtitle2"
-												>
-													{customer.first_name}
-												</Link>
-												<Typography
-													color="text.secondary"
-													variant="body2"
-												>
-													{customer.email}
-												</Typography>
-											</div>
-										</Stack>
-									</TableCell>
-									<TableCell>{customer.surname}</TableCell>
-									<TableCell>{customer.address}</TableCell>
-									<TableCell>
-										{customer.is_active ? (
-											<Chip
-												label="Active"
-												color="primary"
-												size="small"
-											/>
-										) : (
-											<Chip
-												label="In active"
-												color="error"
-												size="small"
-											/>
-										)}
-									</TableCell>
-									<TableCell>{customer.telephone}</TableCell>
-									<TableCell>{customer.gender}</TableCell>
-									<TableCell>
-										<Stack
-											alignItems="center"
-											direction="column"
-											spacing={1}
-										>
-											<div>
-												<Link
-													color="inherit"
-													component={RouterLink}
-													href={paths.dashboard.customers.details}
-													variant="subtitle2"
-												>
-													{customer.guarantors ? customer.guarantors[0] : 'NONE'}
-												</Link>
-												<Typography
-													color="text.secondary"
-													variant="body2"
-												>
-													{customer.guarantors ? customer.guarantors[1] : 'NONE'}
-												</Typography>
-											</div>
-										</Stack>
-									</TableCell>
-									<TableCell align="right">
-										<IconButton
-											component={RouterLink}
-											href={`/customers/${customer.id}/edit`}
-										>
-											<SvgIcon>
-												<Edit02Icon />
-											</SvgIcon>
-										</IconButton>
-										<IconButton
-											component={RouterLink}
-											href={`/customers/${customer.id}`}
-										>
-											<SvgIcon>
-												<ArrowRightIcon />
-											</SvgIcon>
-										</IconButton>
-									</TableCell>
-								</TableRow>
-							);
-						})}
-					</TableBody>
-				</Table>
-			</Scrollbar>
-			<TablePagination
-				component="div"
-				count={count}
-				onPageChange={onPageChange}
-				onRowsPerPageChange={onRowsPerPageChange}
-				page={page}
-				rowsPerPage={rowsPerPage}
-				rowsPerPageOptions={[5, 10, 25]}
-			/>
-		</Box>
-	);
+  return (
+    <Box
+      sx={{ position: 'relative' }}
+      p={2}
+    >
+      <Scrollbar>
+        <Table sx={{ minWidth: 700 }}>
+          <TableHead>
+            <TableRow>
+              <TableCell>id</TableCell>
+              <TableCell>first_name</TableCell>
+              <TableCell>surname</TableCell>
+              <TableCell>address</TableCell>
+              <TableCell>Status</TableCell>
+              <TableCell>telephone</TableCell>
+              <TableCell>gender</TableCell>
+              <TableCell>guarantors</TableCell>
+              <TableCell align="right">Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {items.map((customer) => {
+              const isSelected = selected.includes(customer.id);
+              return (
+                <TableRow
+                  hover
+                  key={customer.id}
+                  selected={isSelected}
+                >
+                  <TableCell padding="checkbox">{customer.id.slice(0, 8) + '...'}</TableCell>
+                  <TableCell>
+                    <Stack
+                      alignItems="center"
+                      direction="row"
+                      spacing={1}
+                    >
+                      <div>
+                        <Link
+                          color="inherit"
+                          component={RouterLink}
+                          href={paths.dashboard.customers.details}
+                          variant="subtitle2"
+                        >
+                          {customer.first_name}
+                        </Link>
+                        <Typography
+                          color="text.secondary"
+                          variant="body2"
+                        >
+                          {customer.email}
+                        </Typography>
+                      </div>
+                    </Stack>
+                  </TableCell>
+                  <TableCell>{customer.surname}</TableCell>
+                  <TableCell>{customer.address}</TableCell>
+                  <TableCell>
+                    {customer.is_active ? (
+                      <Chip
+                        label="Active"
+                        color="primary"
+                        size="small"
+                      />
+                    ) : (
+                      <Chip
+                        label="In active"
+                        color="error"
+                        size="small"
+                      />
+                    )}
+                  </TableCell>
+                  <TableCell>{customer.telephone}</TableCell>
+                  <TableCell>{customer.gender}</TableCell>
+                  <TableCell>
+                    <Stack
+                      alignItems="center"
+                      direction="column"
+                      spacing={1}
+                    >
+                      <div>
+                        <Link
+                          color="inherit"
+                          component={RouterLink}
+                          href={paths.dashboard.customers.details}
+                          variant="subtitle2"
+                        >
+                          {customer.guarantors ? customer.guarantors[0] : 'NONE'}
+                        </Link>
+                        <Typography
+                          color="text.secondary"
+                          variant="body2"
+                        >
+                          {customer.guarantors ? customer.guarantors[1] : 'NONE'}
+                        </Typography>
+                      </div>
+                    </Stack>
+                  </TableCell>
+                  <TableCell align="right">
+                    <IconButton
+                      component={RouterLink}
+                      href={`/customers/${customer.id}/edit`}
+                    >
+                      <SvgIcon>
+                        <Edit02Icon />
+                      </SvgIcon>
+                    </IconButton>
+                    <IconButton
+                      component={RouterLink}
+                      href={`/customers/${customer.id}`}
+                    >
+                      <SvgIcon>
+                        <ArrowRightIcon />
+                      </SvgIcon>
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </Scrollbar>
+      <TablePagination
+        component="div"
+        count={count}
+        onPageChange={onPageChange}
+        onRowsPerPageChange={onRowsPerPageChange}
+        page={page}
+        rowsPerPage={rowsPerPage}
+        rowsPerPageOptions={[5, 10, 25]}
+      />
+    </Box>
+  );
 };
 
 CustomerListTable.propTypes = {
-	count: PropTypes.number,
-	items: PropTypes.array,
-	onDeselectAll: PropTypes.func,
-	onDeselectOne: PropTypes.func,
-	onPageChange: PropTypes.func,
-	onRowsPerPageChange: PropTypes.func,
-	onSelectAll: PropTypes.func,
-	onSelectOne: PropTypes.func,
-	page: PropTypes.number,
-	rowsPerPage: PropTypes.number,
-	selected: PropTypes.array,
+  count: PropTypes.number,
+  items: PropTypes.array,
+  onDeselectAll: PropTypes.func,
+  onDeselectOne: PropTypes.func,
+  onPageChange: PropTypes.func,
+  onRowsPerPageChange: PropTypes.func,
+  onSelectAll: PropTypes.func,
+  onSelectOne: PropTypes.func,
+  page: PropTypes.number,
+  rowsPerPage: PropTypes.number,
+  selected: PropTypes.array,
 };
