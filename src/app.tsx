@@ -27,8 +27,7 @@ export const App: FC = () => {
   useAnalytics(gtmConfig);
   useNprogress();
 
-  // @ts-ignore
-  const element = useRoutes(routes);
+  const element = useRoutes(routes as any);
 
   return (
     <ReduxProvider store={store}>

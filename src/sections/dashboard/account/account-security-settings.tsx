@@ -21,9 +21,7 @@ import { MuiOtpInput } from 'mui-one-time-password-input';
 import { useFormik } from 'formik';
 import React from 'react';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router';
 import useRequest from 'src/hooks/use-request';
-import { paths } from 'src/paths';
 import { useAuthToken } from 'src/hooks/use-auth-token';
 
 interface LoginEvent {
@@ -75,7 +73,7 @@ export const AccountSecuritySettings: FC<AccountSecuritySettingsProps> = (props)
   const { user } = useAuthToken();
 
   const request = useRequest();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handlePasswordChange = React.useCallback(async () => {
     const response = await request.post('/password-change', {
@@ -88,15 +86,9 @@ export const AccountSecuritySettings: FC<AccountSecuritySettingsProps> = (props)
       toast.error(response.data?.message);
     } else {
       toast.success(response.data?.message);
-      navigate(paths.dashboard.index);
+      // navigate(paths.dashboard.index);
     }
-  }, [
-    formik.values.otp,
-    formik.values.password,
-    formik.values.password_confirm,
-    navigate,
-    request,
-  ]);
+  }, [formik.values.otp, formik.values.password, formik.values.password_confirm, request]);
 
   const requestOTP = React.useCallback(async () => {
     const response = await request.post('/request-otp', {

@@ -8,11 +8,11 @@ import { App } from 'src/app';
 const root = createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
-	<HelmetProvider>
-		<BrowserRouter>
-			<Suspense>
-				<App />
-			</Suspense>
-		</BrowserRouter>
-	</HelmetProvider>
+  <BrowserRouter>
+    <HelmetProvider>
+      <Suspense>
+        <App />
+      </Suspense>
+    </HelmetProvider>
+  </BrowserRouter>
 );
